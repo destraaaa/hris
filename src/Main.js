@@ -1,0 +1,46 @@
+import React, { Component } from "react";
+import {
+    Route,
+    Link,
+
+} from 'react-router-dom';
+import './assets/css/index.css';
+// import Page1 from './RegistPage/Page1';
+// import Page2 from './RegistPage/Page2';
+// import Page3 from './RegistPage/Page3';
+// import Page4 from './RegistPage/Page4';
+import Welcome from './RegistPage/Welcome';
+class Main extends Component {
+
+
+
+
+    render() {
+        const styles = {
+            image: {
+                padding: 10,
+                width: 600,
+                height: 200
+            }
+        }
+        return (
+                <div>
+                    
+                    <div id="logo1">
+                        <img src={require('./assets/img/logo1.png')} alt="logo" style={styles.image} />
+                    </div>
+                    <div className="container">
+                        <Route path="/register" component={Welcome} />
+                        {/* <Route path="/page1" component={Page1} /> */}
+                        {/* <Route path="/page2" component={Page2} />
+                        <Route path="/page3" component={Page3} />
+                        <Route path="/page4" component={Page4} />
+                        <p>asdad</p> */}
+                    </div>
+                </div>
+          
+        )
+    }
+}
+
+export default Main;
