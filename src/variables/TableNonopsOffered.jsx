@@ -30,8 +30,8 @@ export default class Table extends Component {
     // }
     render() {
         return (
-            <div style={{paddingLeft:15}}>
-                <table class="display" width="100%" ref={el => this.el = el}></table>
+            <div style={{width:1000, paddingLeft:50}}>
+                <table className="display" width="100%" ref={el => this.el = el}></table>
             </div>
         )
     }

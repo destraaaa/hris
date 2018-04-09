@@ -4,7 +4,7 @@ import { Grid } from 'react-bootstrap';
 class Footer extends Component {
 	render() {
 		return (
-            <footer className="footer">
+            <footer className="footer" style={{paddingLeft:20 }}>
                 <Grid>
                     <nav className="pull-left">
                         <ul>
@@ -28,11 +28,14 @@ class Footer extends Component {
                                    Blog
                                 </a>
                             </li>
+                            
                         </ul>
+                        
                     </nav>
                     <p className="copyright pull-right">
-                        &copy; {(new Date()).getFullYear()} <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                        &copy; {(new Date()).getFullYear()} <a  style={{color:"#7ed321"}} href="http://www.tokopedia.com">PT.Tokopedia</a>, made with love for a better web
                     </p>
+                   
                 </Grid>
             </footer>
 		);

@@ -17,13 +17,13 @@ class Page3 extends Component{
     }
 
 
-    change = e => {
+    change (e){
         this.setState({
             [e.target.name]: e.target.value
         });
     };
 
-    validate = () => {
+    validate() {
         let isError = false;
         const errors = {
             referralNameErr:""
@@ -39,7 +39,7 @@ class Page3 extends Component{
         return isError;
     };
 
-    onSubmit = e => {
+    onSubmit (e)  {
         
         e.preventDefault();
         const err = this.validate();

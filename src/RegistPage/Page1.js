@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Page3 from './Page3';
+// import Page3 from './Page3';
 
 
 
@@ -45,14 +45,14 @@ export default class Page1 extends Component{
     // } 
 
 
-    change = e => {
+    change(e) {
         this.setState({
             [e.target.name]: e.target.value
         });
     };
 
 
-    validate = () => {
+    validate() {
         let isError = false;
         const errors = {
                 fullNameErr:"",
@@ -123,7 +123,7 @@ export default class Page1 extends Component{
         return isError;
     };
 
-    onSubmit = e => {
+    onSubmit(e) {
         e.preventDefault();
         // this.props.onSubmit(this.state);
         const err = this.validate();
@@ -142,7 +142,7 @@ export default class Page1 extends Component{
           });
           
          
-          this.state.acquaintances ==="yes"? window.location.href= 'page2':window.location.href= 'page3'
+          this.state.acquaintances ==="yes"? window.location.href= '/register/page2':window.location.href= '/register/page3'
 
 
         }
@@ -159,15 +159,15 @@ export default class Page1 extends Component{
                     <h4>Non Operational Registration Form  PT.Tokopedia</h4>
                     <h5>*required</h5>
                     
-                    <p id="validate" >{this.state.fullNameErr}</p>
+                    <p className="pRegist"  id="validate" >{this.state.fullNameErr}</p>
                     <div className="input-group input-group-icon">
-                        <input
+                        <input 
                          placeholder="Full Name*"
                          type="text" 
                          name="fullName" 
                          value={this.state.fullName} 
                          onChange={e => this.change(e)}/>
-                        <p>Based on you National Identity Card (KTP)</p>
+                        <p className="pRegist" >Based on you National Identity Card (KTP)</p>
                         <div className="input-icon"><i className="fa fa-user" /></div>
                     </div>
 
@@ -179,11 +179,11 @@ export default class Page1 extends Component{
                         value={this.state.nickName}
                         onChange={e => this.change(e)}
                         />
-                        <p>What should we call you?</p>
+                        <p className="pRegist" >What should we call you?</p>
                         <div className="input-icon"><i className="fa fa-user-o" /></div>
                     </div>
 
-                    <p id="validate" >{this.state.phoneNumberErr}</p>
+                    <p className="pRegist"  id="validate" >{this.state.phoneNumberErr}</p>
                     <div className="input-group input-group-icon">
                         <input 
                         placeholder="phone Number*" 
@@ -192,11 +192,11 @@ export default class Page1 extends Component{
                         value={this.state.phoneNumber}
                         onChange={e => this.change(e)}
                         />
-                        <p>How can we contact you?</p>
+                        <p className="pRegist" >How can we contact you?</p>
                         <div className="input-icon"><i className="fa fa-phone-square" /></div>
                     </div>
 
-                    <p id="validate" >{this.state.emailErr}</p>
+                    <p className="pRegist"  id="validate" >{this.state.emailErr}</p>
                     <div className="input-group input-group-icon">
                         <input 
                         placeholder="Email Adress*" 
@@ -205,7 +205,7 @@ export default class Page1 extends Component{
                         value={this.state.email}
                         onChange={e => this.change(e)}
                         />
-                        <p>Please input a valid email address.</p>
+                        <p className="pRegist" >Input a valid email address.</p>
                         <div className="input-icon"><i className="fa fa-envelope" /></div>
                     </div>
 
@@ -216,7 +216,7 @@ export default class Page1 extends Component{
                         value={this.state.school}
                         onChange={e => this.change(e)}
                         />
-                        <div className="input-icon"><i className="fa fa-user-o" /></div>
+                        <div className="input-icon"><i className="fa fa-building" /></div>
                     </div>
 
                     <div className="input-group input-group-icon">
@@ -227,7 +227,7 @@ export default class Page1 extends Component{
                         value={this.state.major}
                         onChange={e => this.change(e)}
                         />
-                        <div className="input-icon"><i className="fa fa-user-o" /></div>
+                        <div className="input-icon"><i className="fa fa-cogs" /></div>
                     </div>
 
                     <div className="input-group input-group-icon">
@@ -238,11 +238,11 @@ export default class Page1 extends Component{
                         value={this.state.GPA}
                         onChange={e => this.change(e)}
                         />
-                        <div className="input-icon"><i className="fa fa-phone-square" /></div>
+                        <div className="input-icon"><i className="fa fa-industry" /></div>
                     </div>
                     
-                    <p id="validate">{this.state.meetErr} {this.state.purposeErr}</p>
-                    <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
+                    <p className="pRegist"  id="validate">{this.state.meetErr} {this.state.purposeErr}</p>
+                    <div className="input-group input-group-icon" style={{ paddingTop: 20,paddingLeft: 25, width:520}}>
                         <select name="purpose" value={this.state.purpose} onChange={e => this.change(e)}>
                             <option hidden>Purpose Here*</option>
                             <option value="Interview with HR" >Interview with HR</option>
@@ -262,7 +262,7 @@ export default class Page1 extends Component{
                             <option value="Mr. Yoga" >Mr. Yoga</option>
                         </select>
                     </div>
-                    <p id="validate" >{this.state.positionErr}</p>
+                    <p className="pRegist"  id="validate" >{this.state.positionErr}</p>
                     <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
                         <select name="position" value={this.state.position} onChange={e => this.change(e)}>
                             <option hidden>Position Apply*</option>
@@ -390,10 +390,10 @@ export default class Page1 extends Component{
                 </div>
 
                 
-                <div className="row">
-                <p id="validate" >{this.state.acquaintancesErr}</p>
-                    <p style={{ textAlign: 'center' }}>have any acquaintances in PT. Tokopedia?*</p>
-                    <div className="input-group">
+                <div className="row" >
+                <p className="pRegist"  id="validate" >{this.state.acquaintancesErr}</p>
+                    <p className="pRegist"  style={{ textAlign: 'center' }}>have any acquaintances in PT. Tokopedia?*</p>
+                    <div className="input-group"  style={{paddingLeft: 265}}>
                         <input 
                         name="acquaintances" 
                         value="yes" 
@@ -414,8 +414,8 @@ export default class Page1 extends Component{
                 </div>
 
                 <div className="row">
-                    <p id="validate" >{this.state.timeErr}</p>
-                    <p style={{ textAlign: 'center' }}>Scheduled time*</p>
+                    <p className="pRegist"  id="validate" >{this.state.timeErr}</p>
+                    <p className="pRegist"  style={{ textAlign: 'center' }}>Scheduled time*</p>
                     <div className="input-group" style= {{display:"flex", justifyContent:"center", marginLeft:75}}>
                         <div className="col-third" style={{width:70 }}>
                             <input 
@@ -450,7 +450,7 @@ export default class Page1 extends Component{
                         </div>
                     </div>
 
-                    <p id="page">page 1 of 4</p>
+                    <p className="pRegist"  id="page">page 1 of 4</p>
                    
                     <button type="button" className="btn" onClick={e => this.onSubmit(e)}>Next</button>
             

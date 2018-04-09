@@ -3,17 +3,11 @@
 *:after {
   box-sizing: border-box;
 }
-body {
-  padding: 1em;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  color: #b9b9b9;
 
+body {
   background-image: url("../img/Tokopedia-SEO.jpg");
   background-size: cover;
   background-position: center; 
-
-  
 }
 
 #logo1{
@@ -25,7 +19,7 @@ body {
 h5 {
   color: #ff0019;
 }
-p{
+pRegist{
   color: #000;
   padding-bottom: 8px;
 }
@@ -160,9 +154,13 @@ select option {
 }
 .input-group-icon {
   position: relative;
+ justify-content: center;
+ left: 50px;
 }
 .input-group-icon input {
   padding-left: 4.4em;
+  width: 547px;
+  
 }
 .input-group-icon .input-icon {
   position: absolute;
@@ -195,10 +193,11 @@ select option {
   transition: 0.35s ease-in-out;
   transition: all 0.35s ease-in-out;
 }
-.container {
-  max-width: 45em;
+.containerRegist {
+  max-width: 50em;
   padding: 2em 3em 2em 3em;
   margin: 0em auto;
+  margin-bottom:3em; 
   background-color: #fff;
   border-radius: 4.2px;
   box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
@@ -261,13 +260,15 @@ label{
 
 
 #page4lbl{
-  position: absolute;
+  position: relative;
    width: 460px;
    font-size: 16px;
+  
 }
 
 #validate{
   color: #ff0019;
+  text-align: center;
 }
 
 /* #checked{

@@ -278,7 +278,7 @@ input:focus {
     .sidebar .nav li.active > a {
       color: #FFFFFF;
       opacity: 1;
-      background: rgba(255, 255, 255, 0.23); }
+      background: rgba(58, 255, 0, 0.69); }
     .sidebar .nav p {
       margin: 0;
       line-height: 30px;
@@ -366,7 +366,7 @@ body > .navbar-collapse:after {
 .sidebar[data-image]:after, .sidebar.has-image:after,
 body > .navbar-collapse[data-image]:after,
 body > .navbar-collapse.has-image:after {
-  opacity: .77; }
+  opacity: .35; }
 
 .sidebar[data-color="blue"]:after,
 body > .navbar-collapse[data-color="blue"]:after {
@@ -435,7 +435,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   background-size: 150% 150%; }
 
 .main-panel {
-  background: rgba(203, 203, 210, 0.15);
+  background: url("../img/Tokopedia-SEO.jpg");
   position: relative;
   float: right;
   width: calc(100% - 260px); }
@@ -1600,8 +1600,8 @@ body > .navbar-collapse[data-color="purple"]:after {
       color: #777777; }
   .footer .copyright {
     color: #777777;
-    padding: 10px 15px;
-    margin: 10px 3px;
+    padding: 10px 30px;
+    margin: 10px auto;
     line-height: 20px;
     font-size: 14px; }
   .footer hr {

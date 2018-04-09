@@ -27,7 +27,7 @@ export default class Table extends Component {
     render() {
         return (
             <div style={{paddingLeft:15}}>
-                <table class="display" width="100%" ref={el => this.el = el}></table>
+                <table className="display" width="100%" ref={el => this.el = el}></table>
             </div>
         )
     }

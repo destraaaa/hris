@@ -13,17 +13,17 @@ class Page4 extends Component{
           isGoing: false,
           statErr:""
         };
-        this.next = this.next.bind(this)
+        this.next = this.next.bind(this);
+        // this.handleInputChange = this.next.bind(this);  
     }
 
-    handleInputChange = () =>{
-        // console.log(this.state.isGoing)
-        this.state ={
-            isGoing: !this.state.isGoing
-        }
+    handleInputChange (){
+        this.setState({
+            isGoing:!this.state.isGoing
+        })
     };
 
-    validate = () => {
+    validate (){
         let isError = false;
         const errors = {
            statErr:""
@@ -40,24 +40,22 @@ class Page4 extends Component{
         return isError;
     };
     
-    onSubmit = e => {
+    onSubmit (e){
         e.preventDefault();
         const err = this.validate();
         if (!err) {
           this.setState({
             statErr:""
           });
-        {this.next()}
+          {this.next()}   
         }   
-
+        
     };
     next(){
         this.setState({
             show:false,
             showNew:true
         })
-        
-
     }
    
     render(){
@@ -78,24 +76,23 @@ class Page4 extends Component{
                             type="checkbox"
                             name="isGoing"
                             // checked={this.state.isGoing}
-                            onClick={this.handleInputChange} 
+                            onClick={this.handleInputChange.bind(this)} 
                           />
                           <span className="checkmark"></span>
-                         
-                          I hereby declare that this information I have made in truth and can be justified as it should.</label>
+                          I hereby declare that this information I have made in truth and can be justified as it should</label>
                           </div>
                         </div>
                        
                         <p id="page">page 4 of 4</p>
                          <button type="button" className="btn" onClick={e=>this.onSubmit(e)}>Finish</button>
-                        <Link to="/page3"> <button type="button" className="btn" >Back</button></Link>
+                        <Link to="/register/page3"> <button type="button" className="btn" >Back</button></Link>
                       </div>
 
                       <div className="row1" style={{display:  this.state.showNew ? 'block' : 'none' }}>
                         <h1>Thank you for the Registration</h1>
                         <h2 style={{color:"red", textAlign:"center"}}>please press continue button to enter the form</h2>
                        
-                        <Link to="/"><button 
+                        <Link to="/register"><button 
                         type="button" 
                         className="btn"
                         style={{position:"relative", right:205}}
