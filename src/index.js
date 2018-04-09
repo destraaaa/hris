@@ -25,8 +25,8 @@ import Main from './Main'
 ReactDOM.render((
     <BrowserRouter>
         <Switch>
-            <Route path="/register" name="register" component={Main}/>
-            <Route path="/" name="Home" component={App}/>
+            <Route path="/register" name="register" component={Main} />
+            <Route path="/" name="Home" component={App} />
         </Switch>
     </BrowserRouter>
-),document.getElementById('root'));
+), document.getElementById('root'));

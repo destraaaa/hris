@@ -13,8 +13,10 @@ class Main extends Component {
 
 
 
-
+            
+ 
     render() {
+        document.title = "PT.Tokopedia - Registration Form"
         const styles = {
             image: {
                 padding: 10,
