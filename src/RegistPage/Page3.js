@@ -30,11 +30,11 @@ class Page3 extends Component{
         };
     
 
-        if (this.state.referralName === "") {
-          isError = true;
-          errors.referralNameErr= "the referral name column is empty.";
-          window.scrollTo(0, 0);
-        }
+        // if (this.state.referralName === "") {
+        //   isError = true;
+        //   errors.referralNameErr= "the referral name column is empty.";
+        //   window.scrollTo(0, 0);
+        // }
         this.setState(errors);
         return isError;
     };

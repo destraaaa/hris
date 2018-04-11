@@ -278,7 +278,7 @@ input:focus {
     .sidebar .nav li.active > a {
       color: #FFFFFF;
       opacity: 1;
-      background: rgba(58, 255, 0, 0.69); }
+      background: rgba(60, 240, 5, 0.637); }
     .sidebar .nav p {
       margin: 0;
       line-height: 30px;
@@ -347,7 +347,7 @@ body > .navbar-collapse:before {
 
 .sidebar:before,
 body > .navbar-collapse:before {
-  opacity: .33;
+  opacity: .05;
   background: #000000; }
 
 .sidebar:after,
@@ -366,7 +366,7 @@ body > .navbar-collapse:after {
 .sidebar[data-image]:after, .sidebar.has-image:after,
 body > .navbar-collapse[data-image]:after,
 body > .navbar-collapse.has-image:after {
-  opacity: .35; }
+  opacity: .77; }
 
 .sidebar[data-color="blue"]:after,
 body > .navbar-collapse[data-color="blue"]:after {
@@ -435,7 +435,9 @@ body > .navbar-collapse[data-color="purple"]:after {
   background-size: 150% 150%; }
 
 .main-panel {
-  background: url("../img/Tokopedia-SEO.jpg");
+  background-image: url("../img/Tokopedia-SEO.jpg");
+  background-size: cover;
+  background-position: center; 
   position: relative;
   float: right;
   width: calc(100% - 260px); }
@@ -1600,8 +1602,8 @@ body > .navbar-collapse[data-color="purple"]:after {
       color: #777777; }
   .footer .copyright {
     color: #777777;
-    padding: 10px 30px;
-    margin: 10px auto;
+    padding: 10px 15px;
+    margin: 10px 3px;
     line-height: 20px;
     font-size: 14px; }
   .footer hr {

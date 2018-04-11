@@ -117,8 +117,7 @@ class UserProfile extends Component {
                                             bsStyle="info"
                                             pullRight
                                             fill
-                                            type="submit"
-                                        >
+                                            type="submit">
                                             Update Profile
                                         </Button>
                                         <div className="clearfix"></div>
@@ -152,7 +151,7 @@ class UserProfile extends Component {
                         </Col>
 
                     </Row>
-                </Grid>>
+                </Grid>
             </div>
         );
     }
