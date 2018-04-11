@@ -8,8 +8,6 @@ export default class Page1 extends Component {
         super(props);
         this.change = this.change.bind(this);
 
-
-
         this.state = {
             fullName: "",
             fullNameErr: "",
@@ -33,7 +31,8 @@ export default class Page1 extends Component {
             timeHH: "",
             timeMA: "AM",
             timeErr: "",
-            infoJob: ""
+            infoJob: "",
+            GPAErr:""
         };
     }
 
@@ -54,6 +53,7 @@ export default class Page1 extends Component {
 
     validate() {
         let isError = false;
+        let check = /^\d?[0-9]\.\d\d$/;
         const errors = {
             fullNameErr: "",
             phoneNumberErr: "",
@@ -62,7 +62,8 @@ export default class Page1 extends Component {
             meetErr: "",
             positionErr: "",
             acquaintancesErr: "",
-            timeErr: ""
+            timeErr: "",
+            GPAErr:""
         };
 
 
@@ -102,6 +103,13 @@ export default class Page1 extends Component {
             isError = true;
             errors.acquaintancesErr = "the acquaintances column is empty.";
         }
+        if (this.state.GPA ==="") {
+            errors.GPAErr = "";
+        }
+        else if (!check.test(this.state.GPA )) {
+            isError = true;
+            errors.GPAErr = "GPA format wrong.";
+        }
         if (this.state.timeHH === "" || this.state.timeMM === "" || this.state.timeMA === "") {
             isError = true;
             errors.timeErr = "the time column is empty.";
@@ -114,12 +122,9 @@ export default class Page1 extends Component {
             isError = true;
             errors.timeErr = "the time is invalid";
         }
-        this.state.timeMM > 24
+       
         window.scrollTo(0, 0);
-
-
         this.setState(errors);
-
         return isError;
     };
 
@@ -138,6 +143,7 @@ export default class Page1 extends Component {
                 positionErr: "",
                 acquaintancesErr: "",
                 timeErr: "",
+                GPAErr:"",
                 infoJob: ""
             });
 
@@ -154,7 +160,7 @@ export default class Page1 extends Component {
     render() {
         return (
             <div>
-                <form>
+                <form onSubmit={e => this.onSubmit(e)}>
                     <div className="row">
                         <h4>Non Operational Registration Form  PT.Tokopedia</h4>
                         <h5>*required</h5>
@@ -192,6 +198,7 @@ export default class Page1 extends Component {
                                 value={this.state.phoneNumber}
                                 onChange={e => this.change(e)}
                             />
+                             <pre id="example">example: 08123456790 || 021987653</pre>
                             <p className="pRegist" >How can we contact you?</p>
                             <div className="input-icon"><i className="fa fa-phone-square" /></div>
                         </div>
@@ -205,6 +212,7 @@ export default class Page1 extends Component {
                                 value={this.state.email}
                                 onChange={e => this.change(e)}
                             />
+                            <pre id="example">example: example@tokopedia.com</pre>
                             <p className="pRegist" >Input a valid email address.</p>
                             <div className="input-icon"><i className="fa fa-envelope" /></div>
                         </div>
@@ -216,6 +224,7 @@ export default class Page1 extends Component {
                                 value={this.state.school}
                                 onChange={e => this.change(e)}
                             />
+                            <pre id="example">example: example University</pre>
                             <div className="input-icon"><i className="fa fa-building" /></div>
                         </div>
 
@@ -227,9 +236,11 @@ export default class Page1 extends Component {
                                 value={this.state.major}
                                 onChange={e => this.change(e)}
                             />
+                            <pre id="example">example: Computer Science || industrial Engineering</pre>
                             <div className="input-icon"><i className="fa fa-cogs" /></div>
                         </div>
 
+                        <p className="pRegist" id="validate" >{this.state.GPAErr}</p>
                         <div className="input-group input-group-icon">
                             <input
                                 placeholder="GPA"
@@ -238,17 +249,18 @@ export default class Page1 extends Component {
                                 value={this.state.GPA}
                                 onChange={e => this.change(e)}
                             />
+                            <pre id="example">example: 3.45 || 3.40 || 3.00 ||70.25 || 85.00</pre>                            
                             <div className="input-icon"><i className="fa fa-industry" /></div>
                         </div>
 
                         <p className="pRegist" id="validate">{this.state.meetErr} {this.state.purposeErr}</p>
                         <div className="input-group input-group-icon" style={{ paddingTop: 20, paddingLeft: 25, width: 520 }}>
-                            <select name="purpose" value={this.state.purpose} onChange={e => this.change(e)}>
+                            <select id="selectCur" name="purpose" value={this.state.purpose} onChange={e => this.change(e)}>
                                 <option hidden>Purpose Here*</option>
                                 <option value="Interview with HR" >Interview with HR</option>
                                 <option value="Interview with User" >Interview with User</option>
                             </select>
-                            <select name="meet" value={this.state.meet} onChange={e => this.change(e)}>
+                            <select id="selectCur" name="meet" value={this.state.meet} onChange={e => this.change(e)}>
                                 <option hidden>You would to see*</option>
                                 <option value="Ms. Amanda" >Ms. Amanda</option>
                                 <option value="Ms. Clarissa" >Ms. Clarissa</option>
@@ -264,7 +276,7 @@ export default class Page1 extends Component {
                         </div>
                         <p className="pRegist" id="validate" >{this.state.positionErr}</p>
                         <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
-                            <select name="position" value={this.state.position} onChange={e => this.change(e)}>
+                            <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)}>
                                 <option hidden>Position Apply*</option>
                                 <option value="Accounting" >Accounting</option>
                                 <option value="Android Developer" >Android Developer</option>
@@ -377,7 +389,7 @@ export default class Page1 extends Component {
                                 <option value="Video Producer" >Video Producer</option>
                                 <option value="Wordpress Engineer" >Wordpress Engineer</option>
                             </select>
-                            <select name="infoJob" value={this.state.infoJob} onChange={e => this.change(e)}>
+                            <select id="selectCur" name="infoJob" value={this.state.infoJob} onChange={e => this.change(e)}>
                                 <option hidden>Information about Job from</option>
                                 <option value="Website tokopedia" >Website Tokopedia</option>
                                 <option value="JobStreet" >JobStreet</option>
@@ -401,7 +413,7 @@ export default class Page1 extends Component {
                                 type="radio"
                                 onChange={e => this.change(e)}
                             />
-                            <label htmlFor="acquaintances-yes">YES</label>
+                            <label id="selectCur" htmlFor="acquaintances-yes">YES</label>
                             <input
                                 name="acquaintances"
                                 value="no"
@@ -409,7 +421,7 @@ export default class Page1 extends Component {
                                 type="radio"
                                 onChange={e => this.change(e)}
                             />
-                            <label htmlFor="acquaintances-no">NO</label>
+                            <label id="selectCur" htmlFor="acquaintances-no">NO</label>
                         </div>
                     </div>
 
@@ -449,10 +461,11 @@ export default class Page1 extends Component {
                                 </select>
                             </div>
                         </div>
+                        <pre id="example" style={{width:320, position:"relative", left:155}}>example: 7:30 AM || 12:30 PM</pre>
 
                         <p className="pRegist" id="page">page 1 of 4</p>
 
-                        <button type="button" className="btn" onClick={e => this.onSubmit(e)}>Next</button>
+                        <button type="submit" className="btn">Next</button>
 
 
 

@@ -63,7 +63,7 @@ class Page3 extends Component{
        
         return(
             <div>
-                     <form >
+                     <form onSubmit={ e=>this.onSubmit(e)}>
                       <div className="row">
                         <h4>Non Operational Registration Form  PT.Tokopedia</h4>
                         <p style={{textAlign:'center'}}>Your email address (value...) will be recorded when you submit this form</p>
@@ -82,7 +82,7 @@ class Page3 extends Component{
                         </div>
                        
                         <p id="page">page 3 of 4</p>
-                       <button type="submit" onClick={ e=>this.onSubmit(e)} className="btn" >Next</button>
+                       <button type="submit" className="btn" >Next</button>
                         <Link to={this.state.referralName==="yes" ? "page2":"page1"}> <button type="button" className="btn" >Back</button></Link>
                       </div>
                     

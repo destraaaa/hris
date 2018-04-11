@@ -68,24 +68,18 @@ class Page2 extends Component {
                 relationshipErr: ""
             }),
 
-                window.location.href = 'page3';
+                window.location.href = '/register/page3';
 
         }
 
     };
-
-    // onchange = e =>{
-    //     this.otherPop();
-    //     this.change(e);
-
-    // }
 
 
     render() {
 
         return (
             <div>
-                <form>
+                <form  onSubmit={e => this.onSubmit(e)}>
                     <div className="row">
                         <h4>Non Operational Registration Form  PT.Tokopedia</h4>
                         <p style={{ textAlign: 'center' }}>Your email address (value...) will be recorded when you submit this form</p>
@@ -132,7 +126,7 @@ class Page2 extends Component {
                         </div>
 
                         <p id="page">page 2 of 4</p>
-                        <Link to="/page3" > <button type="button" className="btn" onClick={e => this.onSubmit(e)}>Next</button></Link>
+                         <button type="submit" className="btn">Next</button>
                         <Link to="/page1"> <button type="button" className="btn" >Back</button></Link>
 
                     </div>

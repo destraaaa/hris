@@ -62,7 +62,7 @@ class Page4 extends Component{
         // console.log(this.state.isGoing)
         return(
             <div>
-                    <form >
+                    <form onSubmit={e=>this.onSubmit(e)}>
                       <div className="row" style={{display:  this.state.show ? 'block' : 'none' }}>
                         <h4>Non Operational Registration Form  PT.Tokopedia</h4>
                         <p style={{textAlign:'center'}}>Your email address (value...) will be recorded when you submit this form</p>
@@ -75,20 +75,21 @@ class Page4 extends Component{
                           <input id="checked"
                             type="checkbox"
                             name="isGoing"
-                            // checked={this.state.isGoing}
+                            
                             onClick={this.handleInputChange.bind(this)} 
                           />
-                          <span className="checkmark"></span>
+                          <span style={{cursor:"pointer"}} className="checkmark"></span>
                           I hereby declare that this information I have made in truth and can be justified as it should</label>
                           </div>
                         </div>
                        
                         <p id="page">page 4 of 4</p>
-                         <button type="button" className="btn" onClick={e=>this.onSubmit(e)}>Finish</button>
+                         <button type="submit" className="btn">Finish</button>
                         <Link to="/register/page3"> <button type="button" className="btn" >Back</button></Link>
                       </div>
+                    </form>
 
-                      <div className="row1" style={{display:  this.state.showNew ? 'block' : 'none' }}>
+                    <div className="row1" style={{display:  this.state.showNew ? 'block' : 'none' }}>
                         <h1>Thank you for the Registration</h1>
                         <h2 style={{color:"red", textAlign:"center"}}>please press continue button to enter the form</h2>
                        
@@ -99,8 +100,6 @@ class Page4 extends Component{
                         onClick={this.next}
                         >continue</button></Link>
                      </div>
-                    </form>
-                    
            </div>
         )
     }

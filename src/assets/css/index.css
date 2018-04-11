@@ -39,7 +39,6 @@ select {
   width: 100%;
   padding: 1em;
   line-height: 1.4;
-  cursor: pointer;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
@@ -352,10 +351,6 @@ input:checked {
     transform: rotate(45deg);
 }
 
-
-
-
-
 .row1 {
   zoom: 1;
 }
@@ -367,4 +362,14 @@ input:checked {
 }
 .row1:after {
   clear: both;
+}
+
+
+#example{
+  text-Align:center;
+   color:#0b7a0c;
+}
+
+#selectCur{
+  cursor: pointer;
 }
