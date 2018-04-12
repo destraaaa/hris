@@ -1,3 +1,20 @@
+/*!
+
+ =========================================================
+ * Light Bootstrap Dashboard React - v1.1.0
+ * Based on Light Bootstrap Dashboard - v1.3.0
+ =========================================================
+
+ * Product Page: http://www.creative-tim.com/product/light-bootstrap-dashboard-react
+ * Copyright 2017 Creative Tim (http://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
+/*      light colors         */
 @keyframes spin {
   from {
     transform: rotate(0deg); }
@@ -256,13 +273,12 @@ input:focus {
     .sidebar .nav li.open > a,
     .sidebar .nav li.open > a:focus,
     .sidebar .nav li.open > a:hover {
-      /* for active nav */
       background: rgba(255, 255, 255, 0.13);
       opacity: 1; }
     .sidebar .nav li.active > a {
-      color: rgb(255, 255, 255);
+      color: #FFFFFF;
       opacity: 1;
-      background: rgba(0, 255, 0, 0.651); }
+      background: rgba(255, 255, 255, 0.23); }
     .sidebar .nav p {
       margin: 0;
       line-height: 30px;
@@ -331,7 +347,7 @@ body > .navbar-collapse:before {
 
 .sidebar:before,
 body > .navbar-collapse:before {
-  opacity: .08;
+  opacity: .33;
   background: #000000; }
 
 .sidebar:after,
@@ -419,9 +435,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   background-size: 150% 150%; }
 
 .main-panel {
-  background-image: url("../img/Tokopedia-SEO.jpg");
-  background-size: cover;
-  background-position: center; 
+  background: rgba(203, 203, 210, 0.15);
   position: relative;
   float: right;
   width: calc(100% - 260px); }
@@ -1338,7 +1352,7 @@ body > .navbar-collapse[data-color="purple"]:after {
     padding: 8px 16px; }
   .navbar .navbar-nav > li > a.btn-round {
     margin: 16px 3px; }
-  .navbar .navbar-nav > li > a [class="fa"] {
+  .navbar .navbar-nav > li > a [class^="fa"] {
     font-size: 19px;
     position: relative;
     line-height: 16px;
