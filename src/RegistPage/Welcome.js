@@ -20,7 +20,7 @@ class Main extends Component {
                     <div className="row1">
                         <h1>WELCOME TO PT.TOKOPEDIA</h1>
                         <h2 style={{color:"red", textAlign:"center"}}>please press continue button to enter the form</h2>
-                        <Link to="/register/page1"><button 
+                        <Link to="/register/form"><button 
                         type="button" 
                         className="btn"
                         style={{position:"relative", right:205}}

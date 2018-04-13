@@ -9,6 +9,7 @@ import Page2 from './RegistPage/Page2';
 import Page3 from './RegistPage/Page3';
 import Page4 from './RegistPage/Page4';
 import Welcome from './RegistPage/Welcome';
+import Form from "./RegistPage/Regist";
 class Main extends Component {
 
     constructor() {
@@ -56,7 +57,7 @@ class Main extends Component {
                     <img src={require('./assets/img/logo1.png')} alt="logo" style={styles.image} />
                 </div>
                 <div className="containerRegist">
-                pass: {this.state.referralName}
+                {/* pass: {this.state.referralName}
                     <Route exact path="/register" render={state => (
                         <Welcome data={this.state} />
                     )} />
@@ -65,8 +66,9 @@ class Main extends Component {
                     <Route path="/register/page3" render={state => (
                         <Page3 handlerFromParant={this.handleData} />
                     )} />
-                    <Route path="/register/page4" component={Page4} />
-                     
+                    <Route path="/register/page4" component={Page4} /> */}
+                     <Route exact path="/register" component = {Welcome}/>
+                    <Route path="/register/form" component={Form} />
 
                 </div>
             </div>

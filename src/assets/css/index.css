@@ -261,7 +261,7 @@ label{
 
 #page4lbl{
   position: relative;
-   width: 460px;
+   width: 560px;
    font-size: 16px;
   
 }
@@ -289,7 +289,6 @@ input:checked {
 .checkB {
     display: block;
     position: relative;
-    padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 22px;
