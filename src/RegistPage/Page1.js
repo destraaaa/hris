@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 // import Page3 from './Page3';
+import {
+    Route
 
+} from 'react-router-dom';
 
 
 export default class Page1 extends Component {

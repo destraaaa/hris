@@ -126,7 +126,7 @@ class Page2 extends Component {
                         </div>
 
                         <p id="page">page 2 of 4</p>
-                         <button type="submit" className="btn">Next</button>
+                      <button type="submit" className="btn">Next</button>
                         <Link to="/page1"> <button type="button" className="btn" >Back</button></Link>
 
                     </div>

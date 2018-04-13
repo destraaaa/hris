@@ -3,7 +3,6 @@ import {
     Link
 } from 'react-router-dom';
 import Page1 from "./Page1"
-
 class Page4 extends Component{
     constructor(props) {
         super(props);

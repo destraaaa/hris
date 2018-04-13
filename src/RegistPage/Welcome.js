@@ -5,6 +5,7 @@ import {
 class Main extends Component {
 
     render() {
+
         const styles = {
             image: {
                 padding: 10,
@@ -12,6 +13,8 @@ class Main extends Component {
                 height: 200
             }
         }
+        
+
         return (
                 <div>
                     <div className="row1">

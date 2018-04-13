@@ -4,12 +4,11 @@ import {
 } from 'react-router-dom';
 import Page1 from './Page1';
 
-
 class Page3 extends Component{
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.change = this.change.bind(this)
-        
+        this.onSubmit = this.onSubmit.bind(this)
         this.state={
             referralName:"",
             referralNameErr:""
@@ -40,16 +39,15 @@ class Page3 extends Component{
     };
 
     onSubmit (e)  {
-        
+        // const {pass} = this.props
         e.preventDefault();
         const err = this.validate();
-
         if (!err) {    
+          this.props.handlerFromParant(this.state.referralName);
           this.setState({
             referralNameErr:""
           },
         //   console.log(this.state.referralName)
-        window.location.href= 'page4'
         );
              
         }
@@ -75,15 +73,17 @@ class Page3 extends Component{
                           type="text"
                           name="referralName"
                           value={this.state.referralName}
-                          onChange={e=>this.change(e)}
+                          onChange={this.change}
                           />
                           <p>Mention the name of your friend who refer you.</p>
                           <div className="input-icon"><i className="fa fa-user" /></div>
                         </div>
                        
                         <p id="page">page 3 of 4</p>
-                       <button type="submit" className="btn" >Next</button>
+                       <Link to="page4" ><button type="submit" className="btn" >Next</button></Link>
+                       {/* <button type="submit" className="btn" >Next</button> */}
                         <Link to={this.state.referralName==="yes" ? "page2":"page1"}> <button type="button" className="btn" >Back</button></Link>
+                      
                       </div>
                     
                     </form>
