@@ -80,8 +80,8 @@ class Page3 extends Component{
                         </div>
                        
                         <p id="page">page 3 of 4</p>
-                       <Link to="page4" ><button type="submit" className="btn" >Next</button></Link>
-                       {/* <button type="submit" className="btn" >Next</button> */}
+                       {/* <Link to="page4" ><button type="submit" className="btn" >Next</button></Link> */}
+                       <button type="submit" className="btn" >Next</button>
                         <Link to={this.state.referralName==="yes" ? "page2":"page1"}> <button type="button" className="btn" >Back</button></Link>
                       
                       </div>

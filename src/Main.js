@@ -12,33 +12,33 @@ import Welcome from './RegistPage/Welcome';
 import Form from "./RegistPage/Regist";
 class Main extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            fullName: "",
-            nickName: "",
-            phoneNumber: "",
-            email: "",
-            school: "",
-            major: "",
-            GPA: "",
-            purpose: "",
-            meet: "",
-            position: "",
-            acquaintances: "",
-            timeMM: "",
-            timeHH: "",
-            timeMA: "AM",
-            infoJob: "",
-            referralName: ""
-        };
-        this.handleData = this.handleData.bind(this);
-    }
-    handleData(data) {
-        this.setState({
-            referralName: data
-        });
-    }
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         fullName: "",
+    //         nickName: "",
+    //         phoneNumber: "",
+    //         email: "",
+    //         school: "",
+    //         major: "",
+    //         GPA: "",
+    //         purpose: "",
+    //         meet: "",
+    //         position: "",
+    //         acquaintances: "",
+    //         timeMM: "",
+    //         timeHH: "",
+    //         timeMA: "AM",
+    //         infoJob: "",
+    //         referralName: ""
+    //     };
+    //     this.handleData = this.handleData.bind(this);
+    // }
+    // handleData(data) {
+    //     this.setState({
+    //         referralName: data
+    //     });
+    // }
 
     render() {
         document.title = "PT.Tokopedia - Registration Form"
@@ -57,8 +57,9 @@ class Main extends Component {
                     <img src={require('./assets/img/logo1.png')} alt="logo" style={styles.image} />
                 </div>
                 <div className="containerRegist">
-                {/* pass: {this.state.referralName}
-                    <Route exact path="/register" render={state => (
+                {/* pass: {this.state.referralName} */}
+
+                    {/* <Route exact path="/register" render={state => (
                         <Welcome data={this.state} />
                     )} />
                     <Route path="/register/page1" component={Page1} />

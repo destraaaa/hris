@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     Link
 } from 'react-router-dom';
+import axios from 'axios';
 
 
 export default class Page1 extends Component {
@@ -30,6 +31,7 @@ export default class Page1 extends Component {
             positionErr: "",
             acquaintances: "",
             acquaintancesErr: "",
+            time:"",
             timeMM: "",
             timeHH: "",
             timeMA: "AM",
@@ -165,12 +167,61 @@ export default class Page1 extends Component {
         return isError;
     };
 
+
     onSubmit(e) {
         e.preventDefault();
         // this.props.onSubmit(this.state);
         const err = this.validate();
         if (!err) {
             this.state.relationship = this.state.temp;
+            const interviewee ={
+                fullName: this.state.fullName,
+                nickName: this.state.nickName,
+                phoneNumber: this.state.phoneNumber,
+                email: this.state.email,
+                school: this.state.school,
+                major: this.state.major,
+                GPA: this.state.GPA,
+                purpose: this.state.purpose,
+                meet: this.state.meet,
+                position: this.state.position,
+                time: this.state.timeHH + ":" + this.state.timeMM + " " + this.state.timeMA,
+                infoJob: this.state.infoJob,
+                acquaintance:this.state.acquaintances,
+                acquaintanceName: this.state.acquaintanceName,
+                relationship: this.state.relationship,
+                referralName: this.state.referralName
+            }
+            var authOptions = {
+                method: 'POST',
+                url: 'http://0.0.0.0:8080/interviewee/save',
+                data: JSON.stringify(interviewee),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                json: true
+              };
+              axios(authOptions)
+              .then(function(response){
+                console.log(response.data);
+                console.log(response.status);
+              })
+              .catch(function(error){
+                console.log(error);
+              });
+
+            // axios.post(`http://localhost:9000/interviewee/save`, { interviewee})
+            // .then(res => {
+            //   console.log(res);
+            //   console.log(res.data);
+            // })
+
+            // axios.post(`https://jsonplaceholder.typicode.com/users`, { interviewee})
+            // .then(res => {
+            //   console.log(res);
+            //   console.log(res.data);
+            // })
+
             // clear form
             this.setState({
                 fullNameErr: "",
@@ -186,8 +237,7 @@ export default class Page1 extends Component {
                 relationshipErr: "",
                 referralNameErr: ""
             });
-
-            window.location.href = '/register';
+            //window.location.href = '/register';
 
 
         }
