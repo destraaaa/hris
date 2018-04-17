@@ -18,8 +18,8 @@ export default class Table extends Component {
                     { title: "Salary" },
                     { title: "Start date" },
                     { title: "Salary" }
-        
-                    
+
+
                 ]
             }
         )
@@ -30,7 +30,7 @@ export default class Table extends Component {
     // }
     render() {
         return (
-            <div style={{width:1000, paddingLeft:50}}>
+            <div style={{ width: 1000, paddingLeft: 50 }}>
                 <table className="display" width="100%" ref={el => this.el = el}></table>
             </div>
         )

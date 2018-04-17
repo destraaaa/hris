@@ -1,9 +1,12 @@
+// import Axios from "axios";
 
 //
 // //
 // // // For notifications
 // //
 //
+
+
 var defaultWidth = window.screen.width > 768 ? window.screen.width*1/3: window.screen.width;
 
 var style = {
@@ -594,6 +597,38 @@ const dataSet = [
     [ "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675" ]
 ];
 
+
+// axios.get('http://0.0.0.0:8080/nonopsform/view')
+//   .then(function(response) {    
+//     console.log(response.data);
+//     console.log(response.status);
+//   });
+
+// var authOptions = {
+//     method: 'GET',
+//     url: 'http://0.0.0.0:8080/nonopsform/view',
+//     //data: JSON.stringify(interviewee),
+//     headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded'
+//     },
+//     json: true
+//   };
+//   axios(authOptions)
+//   .then(function(response){
+//     console.log(response.data);
+//     console.log(response.status);
+//   })
+//   .catch(function(error){
+//     console.log(error);
+//   });
+
+const dataSetNonopsForm = {
+    "ajax": {
+        "url": "http://0.0.0.0:8080/nonopsform/view",
+        "dataSrc": ""
+    }
+}
+
 const dataSetNonopsOffered = [
     [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800", "2011/04/25", "$320,800" ],
     [ "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750", "2011/04/25", "$320,800" ],
@@ -637,6 +672,7 @@ module.exports = {
     style, // For notifications (App container and Notifications view)
     // thArray, tdArray, // For tables (TableList view)
     dataSet,
+    dataSetNonopsForm,
     dataSetNonopsOffered,
     iconsArray, // For icons (Icons view)
     dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
