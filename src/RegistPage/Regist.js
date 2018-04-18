@@ -173,7 +173,11 @@ export default class Page1 extends Component {
         // this.props.onSubmit(this.state);
         const err = this.validate();
         if (!err) {
+           if(this.state.temp ==="")
+            this.state.relationship = this.state.relationship;
+            else
             this.state.relationship = this.state.temp;
+
             const interviewee ={
                 fullName: this.state.fullName,
                 nickName: this.state.nickName,
@@ -192,6 +196,7 @@ export default class Page1 extends Component {
                 relationship: this.state.relationship,
                 referralName: this.state.referralName
             }
+            
             var authOptions = {
                 method: 'POST',
                 url: 'http://0.0.0.0:8080/interviewee/save',

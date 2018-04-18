@@ -481,13 +481,39 @@ const iconsArray = [
 //
 // Data for Pie Chart
 var dataPie = {
-    labels: ['40%','20%','40%'],
-    series: [40, 20, 40]
+    labels: ['Open 40%',' Bounce 5%','Unsubscribe 5%','subscribe 5%','Open 5%','Unsubscribe 20%','subscribe 20%'],
+    series: [2, 5,5,5,5, 10,20],
+    names: ["Open","Bounce","Unsubscribe","subscribe","Open","Bounce","Unsubscribe","subscribe"],
+    types: ["success","danger","warning"]
 };
-var legendPie = {
-    names: ["Open","Bounce","Unsubscribe"],
-    types: ["info","danger","warning"]
-};
+// var legendPie = {
+//     names: ["Open","Bounce","Unsubscribe"],
+//     types: ["info","danger","warning"]
+// };
+
+var optionsPie = {
+    labelInterpolationFnc: function(value) {
+      return value[0]
+    }
+  };
+
+var responsiveOptionsPie = [
+['screen and (min-width: 640px)', {
+    chartPadding: 30,
+    labelOffset: 100,
+    labelDirection: 'explode',
+    labelInterpolationFnc: function(value) {
+    return value;
+    }
+}],
+['screen and (min-width: 1024px)', {
+    labelOffset: 40,
+    chartPadding: 20
+}]
+];
+
+
+
 
 // Data for Line Chart
 var dataSales = {
@@ -500,7 +526,7 @@ var dataSales = {
 };
 var optionsSales = {
   low: 0,
-  high: 800,
+  high: 900,
   showArea: false,
   height: "245px",
   axisX: {
@@ -675,5 +701,6 @@ module.exports = {
     dataSetNonopsForm,
     dataSetNonopsOffered,
     iconsArray, // For icons (Icons view)
-    dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
+    optionsPie,responsiveOptionsPie,
+    dataPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
 };

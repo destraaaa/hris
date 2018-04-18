@@ -8,12 +8,14 @@ import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 
 import {
     dataPie,
-    legendPie,
+    // legendPie,
     dataSales,
     optionsSales,
     responsiveSales,
     legendSales,
     dataBar,
+    responsiveOptionsPie,
+    optionsPie,
     optionsBar,
     responsiveBar,
     legendBar
@@ -101,24 +103,27 @@ class Dashboard extends Component {
                                 }
                             />
                         </Col>
+
+{/* ---------------PieChart for University Statistics------------------- */}
                         <Col md={4}>
                             <Card
                                 statsIcon="fa fa-clock-o"
-                                title="Email Statistics"
-                                category="Last Campaign Performance"
+                                title="University Statistics"
+                                category="percentage candidate University"
                                 stats="Campaign sent 2 days ago"
                                 content={
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        <ChartistGraph data={dataPie} type="Pie"/>
+                                        <ChartistGraph data={dataPie} options={optionsPie} responsiveOptions={responsiveOptionsPie} type="Pie"/>
                                     </div>
                                 }
                                 legend={
                                     <div className="legend">
-                                        {this.createLegend(legendPie)}
+                                        {this.createLegend(dataPie)}
                                     </div>
                                 }
                             />
                         </Col>
+{/* ---------------PieChart for University Statistics------------------- */}
                     </Row>
 
                     <Row>
