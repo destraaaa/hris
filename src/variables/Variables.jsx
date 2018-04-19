@@ -6,7 +6,7 @@
 // //
 //
 
-
+// var axios = require('axios');
 var defaultWidth = window.screen.width > 768 ? window.screen.width*1/3: window.screen.width;
 
 var style = {
@@ -481,10 +481,11 @@ const iconsArray = [
 //
 // Data for Pie Chart
 var dataPie = {
-    labels: ['Open 40%',' Bounce 5%','Unsubscribe 5%','subscribe 5%','Open 5%','Unsubscribe 20%','subscribe 20%'],
-    series: [2, 5,5,5,5, 10,20],
-    names: ["Open","Bounce","Unsubscribe","subscribe","Open","Bounce","Unsubscribe","subscribe"],
-    types: ["success","danger","warning"]
+    // labels: ['Open 40%',' Bounce 5%','Unsubscribe 5%','subscribe 5%','Open 5%','Unsubscribe 20%','subscribe 20%'],
+    // series: [2, 5,5,5,5, 10,20]
+
+    // names: ["Open","Bounce","Unsubscribe","subscribe","Open","Bounce","Unsubscribe","subscribe"],
+    // types: ["success","danger","warning"]
 };
 // var legendPie = {
 //     names: ["Open","Bounce","Unsubscribe"],
@@ -648,12 +649,12 @@ const dataSet = [
 //     console.log(error);
 //   });
 
-const dataSetNonopsForm = {
-    "ajax": {
-        "url": "http://0.0.0.0:8080/nonopsform/view",
-        "dataSrc": ""
-    }
-}
+// const dataSetNonopsForm = {
+//     "ajax": {
+//         "url": "http://0.0.0.0:8080/nonopsform/view",
+//         "dataSrc": ""
+//     }
+// }
 
 const dataSetNonopsOffered = [
     [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800", "2011/04/25", "$320,800" ],
@@ -698,7 +699,7 @@ module.exports = {
     style, // For notifications (App container and Notifications view)
     // thArray, tdArray, // For tables (TableList view)
     dataSet,
-    dataSetNonopsForm,
+    //dataSetNonopsForm,
     dataSetNonopsOffered,
     iconsArray, // For icons (Icons view)
     optionsPie,responsiveOptionsPie,

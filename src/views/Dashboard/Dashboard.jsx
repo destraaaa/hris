@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
-
-
 import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
-
+import axios from 'axios';
 import {
     dataPie,
-    // legendPie,
+    legendPie,
     dataSales,
     optionsSales,
     responsiveSales,
@@ -21,7 +19,33 @@ import {
     legendBar
 } from 'variables/Variables.jsx';
 
+
+var datapie = {
+    chartpie: {
+        labels: [],
+        series: []
+    }
+}
 class Dashboard extends Component {
+    componentDidMount(){
+        axios.get(`http://0.0.0.0:8080/nonopsform/view/chartpie`).then(res=>{
+        console.log(res);
+        var Labels = [];
+        var Series = []
+
+        res.data.forEach(function(item,index){
+            Labels.push(item.labels)
+            Series.push(item.series)
+        })
+
+        datapie.chartpie.labels = Labels
+        datapie.chartpie.series = Series
+            
+        })
+        .catch(function(error) {
+            console.log(error);
+    })
+    }
     createLegend(json){
         var legend = [];
         for(var i = 0; i < json["names"].length; i++){
@@ -36,6 +60,7 @@ class Dashboard extends Component {
         }
         return legend;
     }
+    
     render() {
         return (
             <div className="content">
@@ -79,7 +104,8 @@ class Dashboard extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={8}>
+                        <Col md={6}>
+
                             <Card
                                 statsIcon="fa fa-history"
                                 id="chartHours"
@@ -105,20 +131,21 @@ class Dashboard extends Component {
                         </Col>
 
 {/* ---------------PieChart for University Statistics------------------- */}
-                        <Col md={4}>
+                        <Col md={6}>
+                            
                             <Card
                                 statsIcon="fa fa-clock-o"
-                                title="University Statistics"
-                                category="percentage candidate University"
+                                title="School Statistics"
+                                category="percentage candidate School"
                                 stats="Campaign sent 2 days ago"
                                 content={
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        <ChartistGraph data={dataPie} options={optionsPie} responsiveOptions={responsiveOptionsPie} type="Pie"/>
+                                        <ChartistGraph data={datapie.chartpie} options={optionsPie} responsiveOptions={responsiveOptionsPie} type="Pie"/>
                                     </div>
                                 }
                                 legend={
                                     <div className="legend">
-                                        {this.createLegend(dataPie)}
+                                        {this.createLegend(legendSales)}
                                     </div>
                                 }
                             />
