@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
 import imagine from 'assets/img/sidebar-3.jpg';
-import logo from 'assets/img/logo.png';
+import logo from 'assets/img/logo1.png';
 
 import appRoutes from 'routes/app.jsx';
 
@@ -32,16 +32,16 @@ class Sidebar extends Component{
         return (
             <div id="sidebar" className="sidebar" data-color="black" data-image={imagine}>
                 <div className="sidebar-background" style={sidebarBackground}></div>
-                    <div className="logo" style={{backgroundColor:"rgba(100, 100, 100,0.5)"}}>
+                    <div className="logo" style={{paddingBottom:75,backgroundColor:"rgba(100, 100, 100,0.5)"}}>
                         <a href="https://www.tokopedia.com" target="_blank" className="simple-text logo-mini" >
                             <div className="logo-img"style={{position:"relative", bottom:15}} >
-                                <img src={logo} alt="logo_image"/>
+                                <img src={logo} alt="logo_image" style={{height:80, width:205}}/>
                             </div>
 
                         </a>
-                        <a href="https://www.tokopedia.com" target="_blank" className="simple-text logo-normal">
+                        {/* <a href="https://www.tokopedia.com" target="_blank" className="simple-text logo-normal">
                            PT. Tokopedia
-                        </a>
+                        </a> */}
                     </div>
                 <div className="sidebar-wrapper">
                     <ul className="nav">

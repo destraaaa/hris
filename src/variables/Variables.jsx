@@ -7,7 +7,7 @@
 //
 
 // var axios = require('axios');
-var defaultWidth = window.screen.width > 768 ? window.screen.width*1/3: window.screen.width;
+var defaultWidth = window.screen.width > 768 ? window.screen.width * 1 / 3 : window.screen.width;
 
 var style = {
     Wrapper: {},
@@ -493,75 +493,77 @@ var dataPie = {
 // };
 
 var optionsPie = {
-    labelInterpolationFnc: function(value) {
-      return value[0]
+    labelInterpolationFnc: function (value) {
+        return value[0]
     }
-  };
+};
 
 var responsiveOptionsPie = [
-['screen and (min-width: 640px)', {
-    chartPadding: 30,
-    labelOffset: 100,
-    labelDirection: 'explode',
-    labelInterpolationFnc: function(value) {
-    return value;
-    }
-}],
-['screen and (min-width: 1024px)', {
-    labelOffset: 40,
-    chartPadding: 20
-}]
+    ['screen and (min-width: 640px)', {
+        chartPadding: 30,
+        labelOffset: 100,
+        labelDirection: 'explode',
+        labelInterpolationFnc: function (value) {
+            return value;
+        }
+    }],
+    ['screen and (min-width: 1024px)', {
+        labelOffset: 40,
+        chartPadding: 20
+    }]
 ];
 
 
-
+// const colorPallet = {
+   
+// }
 
 // Data for Line Chart
 var dataSales = {
-  labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
-  series: [
-     [287, 385, 490, 492, 554, 586, 698, 695],
-    [67, 152, 143, 240, 287, 335, 435, 437],
-    [23, 113, 67, 108, 190, 239, 307, 308]
-  ]
+    labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
+    series: [
+        [287, 385, 490, 492, 554, 586, 698, 695],
+        [67, 152, 143, 240, 287, 335, 435, 437],
+        [23, 113, 67, 108, 190, 239, 307, 308]
+    ]
 };
 var optionsSales = {
-  low: 0,
-  high: 900,
-  showArea: false,
-  height: "245px",
-  axisX: {
-    showGrid: false,
-  },
-  lineSmooth: true,
-  showLine: true,
-  showPoint: true,
-  fullWidth: true,
-  chartPadding: {
-    right: 50
-  }
+    low: 0,
+    high: 900,
+    showArea: false,
+    height: "245px",
+    axisX: {
+        showGrid: false,
+    },
+    lineSmooth: true,
+    showLine: true,
+    showPoint: true,
+    fullWidth: true,
+    chartPadding: {
+        right: 50
+    }
 };
 var responsiveSales = [
-  ['screen and (max-width: 640px)', {
-    axisX: {
-      labelInterpolationFnc: function (value) {
-        return value[0];
-      }
-    }
-  }]
+    ['screen and (max-width: 640px)', {
+        axisX: {
+            labelInterpolationFnc: function (value) {
+                return value[0];
+            }
+        }
+    }]
 ];
 var legendSales = {
-    names: ["Open","Click","Click Second Time"],
-    types: ["info","danger","warning"]
+    names: ["Open", "Click", "Click Second Time"],
+    types: ["info", "danger", "warning"]
 };
 
 // Data for Bar Chart
 var dataBar = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  series: [
-    [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-    [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-  ]
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    series: [
+        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
+        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
+    ]
 };
 var optionsBar = {
     seriesBarDistance: 10,
@@ -571,128 +573,97 @@ var optionsBar = {
     height: "245px"
 };
 var responsiveBar = [
-  ['screen and (max-width: 640px)', {
-    seriesBarDistance: 5,
-    axisX: {
-      labelInterpolationFnc: function (value) {
-        return value[0];
-      }
-    }
-  }]
+    ['screen and (max-width: 640px)', {
+        seriesBarDistance: 5,
+        axisX: {
+            labelInterpolationFnc: function (value) {
+                return value[0];
+            }
+        }
+    }]
 ];
 var legendBar = {
-    names: ["Tesla Model S","BMW 5 Series"],
-    types: ["info","danger"]
+    names: ["Tesla Model S", "BMW 5 Series"],
+    types: ["info", "danger"]
 };
 
 const dataSet = [
-    [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ],
-    [ "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" ],
-    [ "Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000" ],
-    [ "Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060" ],
-    [ "Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700" ],
-    [ "Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000" ],
-    [ "Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500" ],
-    [ "Rhona Davidson", "Integration Specialist", "Tokyo", "6200", "2010/10/14", "$327,900" ],
-    [ "Colleen Hurst", "Javascript Developer", "San Francisco", "2360", "2009/09/15", "$205,500" ],
-    [ "Sonya Frost", "Software Engineer", "Edinburgh", "1667", "2008/12/13", "$103,600" ],
-    [ "Jena Gaines", "Office Manager", "London", "3814", "2008/12/19", "$90,560" ],
-    [ "Quinn Flynn", "Support Lead", "Edinburgh", "9497", "2013/03/03", "$342,000" ],
-    [ "Charde Marshall", "Regional Director", "San Francisco", "6741", "2008/10/16", "$470,600" ],
-    [ "Haley Kennedy", "Senior Marketing Designer", "London", "3597", "2012/12/18", "$313,500" ],
-    [ "Tatyana Fitzpatrick", "Regional Director", "London", "1965", "2010/03/17", "$385,750" ],
-    [ "Michael Silva", "Marketing Designer", "London", "1581", "2012/11/27", "$198,500" ],
-    [ "Paul Byrd", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", "$725,000" ],
-    [ "Gloria Little", "Systems Administrator", "New York", "1721", "2009/04/10", "$237,500" ],
-    [ "Bradley Greer", "Software Engineer", "London", "2558", "2012/10/13", "$132,000" ],
-    [ "Dai Rios", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", "$217,500" ],
-    [ "Jenette Caldwell", "Development Lead", "New York", "1937", "2011/09/03", "$345,000" ],
-    [ "Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", "$675,000" ],
-    [ "Caesar Vance", "Pre-Sales Support", "New York", "8330", "2011/12/12", "$106,450" ],
-    [ "Doris Wilder", "Sales Assistant", "Sidney", "3023", "2010/09/20", "$85,600" ],
-    [ "Angelica Ramos", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", "$1,200,000" ],
-    [ "Gavin Joyce", "Developer", "Edinburgh", "8822", "2010/12/22", "$92,575" ],
-    [ "Jennifer Chang", "Regional Director", "Singapore", "9239", "2010/11/14", "$357,650" ],
-    [ "Brenden Wagner", "Software Engineer", "San Francisco", "1314", "2011/06/07", "$206,850" ],
-    [ "Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", "$850,000" ],
-    [ "Shou Itou", "Regional Marketing", "Tokyo", "8899", "2011/08/14", "$163,000" ],
-    [ "Michelle House", "Integration Specialist", "Sidney", "2769", "2011/06/02", "$95,400" ],
-    [ "Suki Burks", "Developer", "London", "6832", "2009/10/22", "$114,500" ],
-    [ "Prescott Bartlett", "Technical Author", "London", "3606", "2011/05/07", "$145,000" ],
-    [ "Gavin Cortez", "Team Leader", "San Francisco", "2860", "2008/10/26", "$235,500" ],
-    [ "Martena Mccray", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", "$324,050" ],
-    [ "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675" ]
+    ["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800"],
+    ["Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750"],
+    ["Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000"],
+    ["Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060"],
+    ["Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700"],
+    ["Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000"],
+    ["Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500"],
+    ["Rhona Davidson", "Integration Specialist", "Tokyo", "6200", "2010/10/14", "$327,900"],
+    ["Colleen Hurst", "Javascript Developer", "San Francisco", "2360", "2009/09/15", "$205,500"],
+    ["Sonya Frost", "Software Engineer", "Edinburgh", "1667", "2008/12/13", "$103,600"],
+    ["Jena Gaines", "Office Manager", "London", "3814", "2008/12/19", "$90,560"],
+    ["Quinn Flynn", "Support Lead", "Edinburgh", "9497", "2013/03/03", "$342,000"],
+    ["Charde Marshall", "Regional Director", "San Francisco", "6741", "2008/10/16", "$470,600"],
+    ["Haley Kennedy", "Senior Marketing Designer", "London", "3597", "2012/12/18", "$313,500"],
+    ["Tatyana Fitzpatrick", "Regional Director", "London", "1965", "2010/03/17", "$385,750"],
+    ["Michael Silva", "Marketing Designer", "London", "1581", "2012/11/27", "$198,500"],
+    ["Paul Byrd", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", "$725,000"],
+    ["Gloria Little", "Systems Administrator", "New York", "1721", "2009/04/10", "$237,500"],
+    ["Bradley Greer", "Software Engineer", "London", "2558", "2012/10/13", "$132,000"],
+    ["Dai Rios", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", "$217,500"],
+    ["Jenette Caldwell", "Development Lead", "New York", "1937", "2011/09/03", "$345,000"],
+    ["Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", "$675,000"],
+    ["Caesar Vance", "Pre-Sales Support", "New York", "8330", "2011/12/12", "$106,450"],
+    ["Doris Wilder", "Sales Assistant", "Sidney", "3023", "2010/09/20", "$85,600"],
+    ["Angelica Ramos", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", "$1,200,000"],
+    ["Gavin Joyce", "Developer", "Edinburgh", "8822", "2010/12/22", "$92,575"],
+    ["Jennifer Chang", "Regional Director", "Singapore", "9239", "2010/11/14", "$357,650"],
+    ["Brenden Wagner", "Software Engineer", "San Francisco", "1314", "2011/06/07", "$206,850"],
+    ["Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", "$850,000"],
+    ["Shou Itou", "Regional Marketing", "Tokyo", "8899", "2011/08/14", "$163,000"],
+    ["Michelle House", "Integration Specialist", "Sidney", "2769", "2011/06/02", "$95,400"],
+    ["Suki Burks", "Developer", "London", "6832", "2009/10/22", "$114,500"],
+    ["Prescott Bartlett", "Technical Author", "London", "3606", "2011/05/07", "$145,000"],
+    ["Gavin Cortez", "Team Leader", "San Francisco", "2860", "2008/10/26", "$235,500"],
+    ["Martena Mccray", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", "$324,050"],
+    ["Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675"]
 ];
 
 
-// axios.get('http://0.0.0.0:8080/nonopsform/view')
-//   .then(function(response) {    
-//     console.log(response.data);
-//     console.log(response.status);
-//   });
-
-// var authOptions = {
-//     method: 'GET',
-//     url: 'http://0.0.0.0:8080/nonopsform/view',
-//     //data: JSON.stringify(interviewee),
-//     headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded'
-//     },
-//     json: true
-//   };
-//   axios(authOptions)
-//   .then(function(response){
-//     console.log(response.data);
-//     console.log(response.status);
-//   })
-//   .catch(function(error){
-//     console.log(error);
-//   });
-
-// const dataSetNonopsForm = {
-//     "ajax": {
-//         "url": "http://0.0.0.0:8080/nonopsform/view",
-//         "dataSrc": ""
-//     }
-// }
-
 const dataSetNonopsOffered = [
-    [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800", "2011/04/25", "$320,800" ],
-    [ "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750", "2011/04/25", "$320,800" ],
-    [ "Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000", "2011/04/25", "$320,800" ],
-    [ "Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060", "2011/04/25", "$320,800" ],
-    [ "Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700", "2011/04/25", "$320,800" ],
-    [ "Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000", "2011/04/25", "$320,800" ],
-    [ "Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500", "2011/04/25", "$320,800" ],
-    [ "Rhona Davidson", "Integration Specialist", "Tokyo", "6200", "2010/10/14", "$327,900", "2011/04/25", "$320,800" ],
-    [ "Colleen Hurst", "Javascript Developer", "San Francisco", "2360", "2009/09/15", "$205,500", "2011/04/25", "$320,800" ],
-    [ "Sonya Frost", "Software Engineer", "Edinburgh", "1667", "2008/12/13", "$103,600", "2011/04/25", "$320,800" ],
-    [ "Jena Gaines", "Office Manager", "London", "3814", "2008/12/19", "$90,560", "2011/04/25", "$320,800" ],
-    [ "Quinn Flynn", "Support Lead", "Edinburgh", "9497", "2013/03/03", "$342,000", "2011/04/25", "$320,800" ],
-    [ "Charde Marshall", "Regional Director", "San Francisco", "6741", "2008/10/16", "$470,600", "2011/04/25", "$320,800" ],
-    [ "Haley Kennedy", "Senior Marketing Designer", "London", "3597", "2012/12/18", "$313,500", "2011/04/25", "$320,800" ],
-    [ "Tatyana Fitzpatrick", "Regional Director", "London", "1965", "2010/03/17", "$385,750", "2011/04/25", "$320,800" ],
-    [ "Michael Silva", "Marketing Designer", "London", "1581", "2012/11/27", "$198,500", "2011/04/25", "$320,800" ],
-    [ "Paul Byrd", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", "$725,000", "2011/04/25", "$320,800" ],
-    [ "Gloria Little", "Systems Administrator", "New York", "1721", "2009/04/10", "$237,500", "2011/04/25", "$320,800" ],
-    [ "Bradley Greer", "Software Engineer", "London", "2558", "2012/10/13", "$132,000", "2011/04/25", "$320,800" ],
-    [ "Dai Rios", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", "$217,500", "2011/04/25", "$320,800" ],
-    [ "Jenette Caldwell", "Development Lead", "New York", "1937", "2011/09/03", "$345,000", "2011/04/25", "$320,800" ],
-    [ "Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", "$675,000", "2011/04/25", "$320,800" ],
-    [ "Caesar Vance", "Pre-Sales Support", "New York", "8330", "2011/12/12", "$106,450", "2011/04/25", "$320,800" ],
-    [ "Doris Wilder", "Sales Assistant", "Sidney", "3023", "2010/09/20", "$85,600", "2011/04/25", "$320,800" ],
-    [ "Angelica Ramos", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", "$1,200,000", "2011/04/25", "$320,800" ],
-    [ "Gavin Joyce", "Developer", "Edinburgh", "8822", "2010/12/22", "$92,575", "2011/04/25", "$320,800" ],
-    [ "Jennifer Chang", "Regional Director", "Singapore", "9239", "2010/11/14", "$357,650", "2011/04/25", "$320,800" ],
-    [ "Brenden Wagner", "Software Engineer", "San Francisco", "1314", "2011/06/07", "$206,850", "2011/04/25", "$320,800" ],
-    [ "Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", "$850,000", "2011/04/25", "$320,800" ],
-    [ "Shou Itou", "Regional Marketing", "Tokyo", "8899", "2011/08/14", "$163,000", "2011/04/25", "$320,800" ],
-    [ "Michelle House", "Integration Specialist", "Sidney", "2769", "2011/06/02", "$95,400", "2011/04/25", "$320,800" ],
-    [ "Suki Burks", "Developer", "London", "6832", "2009/10/22", "$114,500", "2011/04/25", "$320,800" ],
-    [ "Prescott Bartlett", "Technical Author", "London", "3606", "2011/05/07", "$145,000", "2011/04/25", "$320,800" ],
-    [ "Gavin Cortez", "Team Leader", "San Francisco", "2860", "2008/10/26", "$235,500", "2011/04/25", "$320,800" ],
-    [ "Martena Mccray", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", "$324,050" , "2011/04/25", "$320,800"],
-    [ "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675", "2011/04/25", "$320,800" ]
+    ["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800", "2011/04/25", "$320,800"],
+    ["Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750", "2011/04/25", "$320,800"],
+    ["Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000", "2011/04/25", "$320,800"],
+    ["Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060", "2011/04/25", "$320,800"],
+    ["Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700", "2011/04/25", "$320,800"],
+    ["Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000", "2011/04/25", "$320,800"],
+    ["Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500", "2011/04/25", "$320,800"],
+    ["Rhona Davidson", "Integration Specialist", "Tokyo", "6200", "2010/10/14", "$327,900", "2011/04/25", "$320,800"],
+    ["Colleen Hurst", "Javascript Developer", "San Francisco", "2360", "2009/09/15", "$205,500", "2011/04/25", "$320,800"],
+    ["Sonya Frost", "Software Engineer", "Edinburgh", "1667", "2008/12/13", "$103,600", "2011/04/25", "$320,800"],
+    ["Jena Gaines", "Office Manager", "London", "3814", "2008/12/19", "$90,560", "2011/04/25", "$320,800"],
+    ["Quinn Flynn", "Support Lead", "Edinburgh", "9497", "2013/03/03", "$342,000", "2011/04/25", "$320,800"],
+    ["Charde Marshall", "Regional Director", "San Francisco", "6741", "2008/10/16", "$470,600", "2011/04/25", "$320,800"],
+    ["Haley Kennedy", "Senior Marketing Designer", "London", "3597", "2012/12/18", "$313,500", "2011/04/25", "$320,800"],
+    ["Tatyana Fitzpatrick", "Regional Director", "London", "1965", "2010/03/17", "$385,750", "2011/04/25", "$320,800"],
+    ["Michael Silva", "Marketing Designer", "London", "1581", "2012/11/27", "$198,500", "2011/04/25", "$320,800"],
+    ["Paul Byrd", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", "$725,000", "2011/04/25", "$320,800"],
+    ["Gloria Little", "Systems Administrator", "New York", "1721", "2009/04/10", "$237,500", "2011/04/25", "$320,800"],
+    ["Bradley Greer", "Software Engineer", "London", "2558", "2012/10/13", "$132,000", "2011/04/25", "$320,800"],
+    ["Dai Rios", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", "$217,500", "2011/04/25", "$320,800"],
+    ["Jenette Caldwell", "Development Lead", "New York", "1937", "2011/09/03", "$345,000", "2011/04/25", "$320,800"],
+    ["Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", "$675,000", "2011/04/25", "$320,800"],
+    ["Caesar Vance", "Pre-Sales Support", "New York", "8330", "2011/12/12", "$106,450", "2011/04/25", "$320,800"],
+    ["Doris Wilder", "Sales Assistant", "Sidney", "3023", "2010/09/20", "$85,600", "2011/04/25", "$320,800"],
+    ["Angelica Ramos", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", "$1,200,000", "2011/04/25", "$320,800"],
+    ["Gavin Joyce", "Developer", "Edinburgh", "8822", "2010/12/22", "$92,575", "2011/04/25", "$320,800"],
+    ["Jennifer Chang", "Regional Director", "Singapore", "9239", "2010/11/14", "$357,650", "2011/04/25", "$320,800"],
+    ["Brenden Wagner", "Software Engineer", "San Francisco", "1314", "2011/06/07", "$206,850", "2011/04/25", "$320,800"],
+    ["Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", "$850,000", "2011/04/25", "$320,800"],
+    ["Shou Itou", "Regional Marketing", "Tokyo", "8899", "2011/08/14", "$163,000", "2011/04/25", "$320,800"],
+    ["Michelle House", "Integration Specialist", "Sidney", "2769", "2011/06/02", "$95,400", "2011/04/25", "$320,800"],
+    ["Suki Burks", "Developer", "London", "6832", "2009/10/22", "$114,500", "2011/04/25", "$320,800"],
+    ["Prescott Bartlett", "Technical Author", "London", "3606", "2011/05/07", "$145,000", "2011/04/25", "$320,800"],
+    ["Gavin Cortez", "Team Leader", "San Francisco", "2860", "2008/10/26", "$235,500", "2011/04/25", "$320,800"],
+    ["Martena Mccray", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", "$324,050", "2011/04/25", "$320,800"],
+    ["Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675", "2011/04/25", "$320,800"]
 ];
 
 module.exports = {
@@ -702,6 +673,6 @@ module.exports = {
     //dataSetNonopsForm,
     dataSetNonopsOffered,
     iconsArray, // For icons (Icons view)
-    optionsPie,responsiveOptionsPie,
+    optionsPie, responsiveOptionsPie,
     dataPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
 };
