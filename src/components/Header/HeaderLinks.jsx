@@ -1,37 +1,42 @@
 /* global gapi */
 import React, {Component} from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
-import GoogleSignIn from "react-google-signin";
-import {PostData} from"./PostData";   
+// import {PostData} from"./PostData";   
+import GoogleLogin from 'react-google-login';
+
+
+const responseGoogle = (response) => {
+    console.log(response);
+  }
 
 class HeaderLinks extends Component{
     constructor(){
         super();
-        this.onSignIn = this.onSignIn.bind(this)
+        // this.onSignIn = this.onSignIn.bind(this)
     }
-    componentDidMount () {
-        const script = document.createElement("script");
-        console.log("this script")
-        script.src = "https://apis.google.com/js/platform.js?onload=onLoadCallback";
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
+    // componentDidMount () {
+    //     const script = document.createElement("script");
+    //     console.log("this script")
+    //     script.src = "https://apis.google.com/js/platform.js?onload=onLoadCallback";
+    //     script.async = true;
+    //     script.defer = true;
+    //     document.body.appendChild(script);
 
-        window.onLoadCallback = function(){
-            console.log("this window callback")
+    //     window.onLoadCallback = function(){
+    //         console.log("this window callback")
                 
-                gapi.auth2.init({
-                    client_id: '667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com'
+    //             gapi.auth2.init({
+    //                 client_id: '667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com'
                  
-                });
-              }
-    }
+    //             });
+    //           }
+    // }
     
 
     // init() {
     //     gapi.load('auth2', function() { 
     //         client_id:'667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com'
-    //         // scope: 'email'
+    //       
     //   })
     // }
     // signOut() {
@@ -52,21 +57,21 @@ class HeaderLinks extends Component{
     //     });  
         
     //   }
-    onSignIn(googleUser) {
-        console.log("this onsignin")
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
+    // onSignIn(googleUser) {
+    //     console.log("this onsignin")
+    //     // Useful data for your client-side scripts:
+    //     var profile = googleUser.getBasicProfile();
+    //     console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    //     console.log('Full Name: ' + profile.getName());
+    //     console.log('Given Name: ' + profile.getGivenName());
+    //     console.log('Family Name: ' + profile.getFamilyName());
+    //     console.log("Image URL: " + profile.getImageUrl());
+    //     console.log("Email: " + profile.getEmail());
     
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-    };
+    //     // The ID token you need to pass to your backend:
+    //     var id_token = googleUser.getAuthResponse().id_token;
+    //     console.log("ID Token: " + id_token);
+    // };
         // window.onLoadCallback = function(){
         // gapi.auth2.init({
         //     client_id: '667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com'
@@ -113,16 +118,19 @@ class HeaderLinks extends Component{
 //         console.log(userProfile)
 //     }
     
-    signOut() {
-        // this.googleAuth.signOut();
-        console.log("asdasd")
-    }
+    // signOut() {
+    //     // this.googleAuth.signOut();
+    //     console.log("asdasd")
+    // }
 
 //     responseGoogle (googleUser) {
 //         var id_token = googleUser.getAuthResponse().id_token;
 //         console.log({accessToken: id_token});
 //         //anything else you want to do(save to localStorage)...
 //       }
+
+
+
     render(){
 
         // const responseGoogle = (response) => {
@@ -160,7 +168,7 @@ class HeaderLinks extends Component{
                 </Nav>
                 <Nav pullRight>
                     {/* <NavItem eventKey={1} href="http://0.0.0.0:8080/authLogin">Login</NavItem> */}
-                    <NavItem eventKey={1}> <div 
+                    {/* <NavItem eventKey={1}> <div 
                             className="g-signin2"
                             data-onsuccess={this.onSignIn}
                             data-theme="dark"
@@ -169,10 +177,18 @@ class HeaderLinks extends Component{
                             >
                             
                             </div>
-                    </NavItem>
+                    </NavItem> */}
                     <NavItem eventKey={1}>
-                    <div style={{position:"relative", bottom:5, width:170}}>
-                     {/* <GoogleSignIn 
+                    <GoogleLogin
+                        clientId="667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        className = "g-signin2"
+                        style={{position:"relative", bottom:8}}
+                    />
+                    </NavItem>
+                    {/* <div style={{position:"relative", bottom:5, width:170}}>
+                     <GoogleSignIn 
                           clientId="667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com"
                           width ="180"
                           height = "30"
@@ -181,9 +197,8 @@ class HeaderLinks extends Component{
                           onFailure={responseGoogle}
                         //   ref={g => this.googleAuth = g}
                         //   onSuccess={this.onSignIn.bind(this)}
-                     /> */}
-                     </div>
-                    </NavItem>
+                     />
+                     </div> */}
                     <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown-right">
                         <MenuItem eventKey={2.1}>Action</MenuItem>
                         <MenuItem eventKey={2.2}>Another action</MenuItem>
