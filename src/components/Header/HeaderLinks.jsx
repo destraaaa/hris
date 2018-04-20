@@ -1,8 +1,23 @@
 import React, {Component} from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
+function onSignIn(googleUser) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    console.log('Full Name: ' + profile.getName());
+    console.log('Given Name: ' + profile.getGivenName());
+    console.log('Family Name: ' + profile.getFamilyName());
+    console.log("Image URL: " + profile.getImageUrl());
+    console.log("Email: " + profile.getEmail());
+
+    // The ID token you need to pass to your backend:
+    var id_token = googleUser.getAuthResponse().id_token;
+    console.log("ID Token: " + id_token);
+};
 
 class HeaderLinks extends Component{
+    
     render(){
         const notification = (
             <div>
@@ -32,7 +47,16 @@ class HeaderLinks extends Component{
                     </NavItem>
                 </Nav>
                 <Nav pullRight>
-                    <NavItem eventKey={1} href="#">Account</NavItem>
+                    {/* <NavItem eventKey={1} href="http://0.0.0.0:8080/authLogin">Login</NavItem> */}
+                    <NavItem eventKey={1}> <div 
+                            className="g-signin2"
+                            data-onsuccess="onSignIn"
+                            data-theme="dark"
+                            style={{position:"relative", bottom:8}}
+                            >
+                            sign 
+                            </div>
+                    </NavItem>
                     <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown-right">
                         <MenuItem eventKey={2.1}>Action</MenuItem>
                         <MenuItem eventKey={2.2}>Another action</MenuItem>
