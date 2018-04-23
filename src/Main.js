@@ -10,6 +10,7 @@ import Page3 from './RegistPage/Page3';
 import Page4 from './RegistPage/Page4';
 import Welcome from './RegistPage/Welcome';
 import Form from "./RegistPage/Regist";
+import notUser from './RegistPage/notUser';
 class Main extends Component {
 
     // constructor() {
@@ -70,7 +71,7 @@ class Main extends Component {
                     <Route path="/register/page4" component={Page4} /> */}
                      <Route exact path="/register" component = {Welcome}/>
                     <Route path="/register/form" component={Form} />
-
+                    <Route path="/register/notUser" component={notUser} />
                 </div>
             </div>
 

@@ -100,3 +100,25 @@
     .navbar {
       height: 60px;
     }
+
+    button.g-signin2 {
+      position: relative;
+      bottom: 11px;
+      background-color: rgb(255, 255, 255);
+      border-color: rgb(255, 255, 255);
+      border-bottom-color:  rgba(255, 255, 255, 0);
+      border-right-color:  rgba(255, 255, 255, 0); 
+    }
+    .abcRioButtonContentWrapper{
+      background-color: rgb( 60, 186, 84);
+      color: white
+    }
+    .abcRioButtonIcon{
+      background-color: rgb(255, 255, 255)
+      
+    }
+
+    /* .abcRioButton.abcRioButtonLightBlue{
+      height: 29px;
+      width: 100px;
+    } */

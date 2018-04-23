@@ -2,18 +2,33 @@
 import React, {Component} from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 // import {PostData} from"./PostData";   
-import GoogleLogin from 'react-google-login';
+// import {GoogleLogout} from 'react-google-login';
 
 
-const responseGoogle = (response) => {
-    console.log(response);
-  }
+// const responseGoogle = (response) => {
+//     console.log(response);
+//   }
+
+// const logout = (response)=> {
+//     console.log(response)
+// }
 
 class HeaderLinks extends Component{
     constructor(){
         super();
         // this.onSignIn = this.onSignIn.bind(this)
+        this.state = {
+            name:""
+        }
     }
+
+    componentDidMount(){
+
+    }
+
+    // logOut(){
+    //     window.open('https://mail.google.com/mail/u/0/?logout&hl=en').then(window.open('localhost:3000/register'))
+    // }
     // componentDidMount () {
     //     const script = document.createElement("script");
     //     console.log("this script")
@@ -118,9 +133,9 @@ class HeaderLinks extends Component{
 //         console.log(userProfile)
 //     }
     
-    // signOut() {
+    // logout() {
     //     // this.googleAuth.signOut();
-    //     console.log("asdasd")
+    //     console.log("user has been sign out")
     // }
 
 //     responseGoogle (googleUser) {
@@ -167,7 +182,7 @@ class HeaderLinks extends Component{
                     </NavItem>
                 </Nav>
                 <Nav pullRight>
-                    {/* <NavItem eventKey={1} href="http://0.0.0.0:8080/authLogin">Login</NavItem> */}
+                    <NavItem eventKey={1}>{this.state.name}</NavItem>
                     {/* <NavItem eventKey={1}> <div 
                             className="g-signin2"
                             data-onsuccess={this.onSignIn}
@@ -178,15 +193,17 @@ class HeaderLinks extends Component{
                             
                             </div>
                     </NavItem> */}
-                    <NavItem eventKey={1}>
+                    {/* <NavItem eventKey={1}>
                     <GoogleLogin
                         clientId="667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
                         className = "g-signin2"
-                        style={{position:"relative", bottom:8}}
+                        buttonText = ""
+                        // type = "div"
+                        style={{position:"relative", bottom:11, backgroundColor:"#fff"}}
                     />
-                    </NavItem>
+                    </NavItem> */}
                     {/* <div style={{position:"relative", bottom:5, width:170}}>
                      <GoogleSignIn 
                           clientId="667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com"
@@ -208,7 +225,16 @@ class HeaderLinks extends Component{
                         <MenuItem divider />
                         <MenuItem eventKey={2.5}>Separated link</MenuItem>
                     </NavDropdown>
-                    <NavItem eventKey={3} href="#">Log out</NavItem>
+                    <NavItem eventKey={3} 
+                    href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register">Log out</NavItem>
+                    {/* <NavItem eventKey={3}>
+                        <GoogleLogout 
+                            buttonText="Log out"
+                            onLogoutSuccess={logout}>
+                        </GoogleLogout>
+                    </NavItem> */}
+                    {/* <NavItem eventKey={3}onClick = {this.logOut}>Log out</NavItem> */}
+                    
                 </Nav>
             </div>
         );
