@@ -6,8 +6,10 @@ import NonOps_Form_Response from 'views/NonOps_Form_Response/NonOps_Form_Respons
 import Ops_Form_Response from 'views/Ops_Form_Response/Ops_Form_Response';
 import Rejected_Candidates from 'views/Rejected_Candidates/Rejected_Candidates';
 import Notifications from 'views/Notifications/Notifications';
-
-
+// import Welcome from '../RegistPage/Welcome';
+// import Form from "../RegistPage/Regist";
+// import notUser from '../RegistPage/notUser';
+// import Main from '../Main'
 const appRoutes = [
     { path: "/dashboard", name: "Dashboard", icon: "pe-7s-graph", component: Dashboard },
     { path: "/user", name: "User Profile", icon: "pe-7s-user", component: UserProfile },
@@ -18,7 +20,11 @@ const appRoutes = [
     { path: "/Rejected_Candidates", name: "Rejected Candidates", icon: "pe-7s-delete-user", component: Rejected_Candidates },    
     // { path: "/table", name: "Table List", icon: "pe-7s-note2", component: TableList },
     { path: "/notifications", name: "Notifications", icon: "pe-7s-bell", component: Notifications },
-    { redirect: true, path:"/", to:"/dashboard", name: "Dashboard" }
+    // {path:"/register", name:"register", component:Main },
+    // { path: "/register", name: "Register", component: Welcome },    
+    // { path: "/register/form", name: "Register Form", component: Form },    
+    // { path: "/register/notUser", name: "Not User", component: notUser },        
+     { redirect: true, path:"/", to:"/dashboard", name: "dashboard" }
 ];
 
 export default appRoutes;

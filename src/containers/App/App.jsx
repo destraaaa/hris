@@ -10,12 +10,21 @@ import Header from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
 
-import {style} from "variables/Variables.jsx";
-
+import { style } from "variables/Variables.jsx";
+import Welcome from '../../RegistPage/Welcome';
+import Form from "../../RegistPage/Regist";
+import notUser from '../../RegistPage/notUser';
 import appRoutes from 'routes/app.jsx';
 
+var name = {
+    username: localStorage.getItem("name")
+}
+const Auth = {
+    isAuthenticated: localStorage.getItem("auth")
+};
+
 class App extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleNotificationClick = this.handleNotificationClick.bind(this);
@@ -23,7 +32,8 @@ class App extends Component {
             _notificationSystem: null
         };
     }
-    handleNotificationClick(position){
+
+    handleNotificationClick(position) {
         var color = Math.floor((Math.random() * 4) + 1);
         var level;
         switch (color) {
@@ -43,10 +53,10 @@ class App extends Component {
                 break;
         }
         this.state._notificationSystem.addNotification({
-            title: (<span data-notify="icon" className="pe-7s-gift"></span>),
+            title: (<span data-notify="icon" className="pe-7s-smile"></span>),
             message: (
                 <div>
-                    Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.
+                    Welcome back <b>{name.username}</b> to HR Registration Form PT.Tokopedia
                 </div>
             ),
             level: level,
@@ -54,8 +64,8 @@ class App extends Component {
             autoDismiss: 15,
         });
     }
-    componentDidMount(){
-        this.setState({_notificationSystem: this.refs.notificationSystem});
+    componentDidMount() {
+        this.setState({ _notificationSystem: this.refs.notificationSystem });
         var _notificationSystem = this.refs.notificationSystem;
         var color = Math.floor((Math.random() * 4) + 1);
         var level;
@@ -76,10 +86,10 @@ class App extends Component {
                 break;
         }
         _notificationSystem.addNotification({
-            title: (<span data-notify="icon" className="pe-7s-gift"></span>),
+            title: (<span data-notify="icon" className="pe-7s-smile"></span>),
             message: (
                 <div>
-                    Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.
+                    Welcome back <b>{name.username}</b> to HR Registration Form PT.Tokopedia
                 </div>
             ),
             level: level,
@@ -87,47 +97,51 @@ class App extends Component {
             autoDismiss: 15,
         });
     }
-    componentDidUpdate(e){
-        if(window.innerWidth < 993 && e.history.location.pathname !== e.location.pathname && document.documentElement.className.indexOf('nav-open') !== -1){
+    componentDidUpdate(e) {
+        if (window.innerWidth < 993 && e.history.location.pathname !== e.location.pathname && document.documentElement.className.indexOf('nav-open') !== -1) {
             document.documentElement.classList.toggle('nav-open');
         }
     }
+
     render() {
         return (
-
+            <div>
                 <div className="wrapper">
-                    <NotificationSystem ref="notificationSystem" style={style}/>
+                    <NotificationSystem ref="notificationSystem" style={style} />
                     <Sidebar {...this.props} />
                     <div id="main-panel" className="main-panel">
-                        <Header {...this.props}/>
-                            <Switch>
-                                {
-                                    appRoutes.map((prop,key) => {
-                                        if(prop.name === "Notifications")
-                                            return (
-                                                <Route
-                                                    path={prop.path}
-                                                    key={key}
-                                                    render={routeProps =>
-                                                       <prop.component
-                                                           {...routeProps}
-                                                           handleClick={this.handleNotificationClick}
-                                                       />}
-                                                />
-                                            );
-                                        if(prop.redirect)
-                                            return (
-                                                <Redirect from={prop.path} to={prop.to} key={key}/>
-                                            );
+                        <Header {...this.props} />
+                        <Switch>
+                            {
+                                appRoutes.map((prop, key) => {
+                                    if (prop.name === "Notifications")
                                         return (
-                                            <Route path={prop.path} component={prop.component} key={key}/>
+                                            <Route
+                                                path={prop.path}
+                                                key={key}
+                                                render={routeProps =>
+                                                    <prop.component
+                                                        {...routeProps}
+                                                        handleClick={this.handleNotificationClick}
+                                                    />}
+                                            />
                                         );
-                                    })
-                                }
-                            </Switch>
+                                    if (prop.redirect)
+                                        return (
+                                            <Redirect from={prop.path} to={prop.to} key={key} />
+                                        );
+                                    return (
+                                        <Route path={prop.path} component={prop.component} key={key} />
+                                    );
+                                })
+
+                            }
+                          
+                        </Switch>
                         <Footer />
                     </div>
                 </div>
+            </div>
         );
     }
 }

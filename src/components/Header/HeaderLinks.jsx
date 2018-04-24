@@ -12,23 +12,17 @@ import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 // const logout = (response)=> {
 //     console.log(response)
 // }
-
+var name = {
+    userName: localStorage.getItem("name")    
+}
 class HeaderLinks extends Component{
-    constructor(){
-        super();
-        // this.onSignIn = this.onSignIn.bind(this)
-        this.state = {
-            name:""
+
+    logOut(){
+        localStorage.removeItem("auth");
+        localStorage.removeItem("name");
+        
+        window.location.href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register"
         }
-    }
-
-    componentDidMount(){
-
-    }
-
-    // logOut(){
-    //     window.open('https://mail.google.com/mail/u/0/?logout&hl=en').then(window.open('localhost:3000/register'))
-    // }
     // componentDidMount () {
     //     const script = document.createElement("script");
     //     console.log("this script")
@@ -182,7 +176,7 @@ class HeaderLinks extends Component{
                     </NavItem>
                 </Nav>
                 <Nav pullRight>
-                    <NavItem eventKey={1}>{this.state.name}</NavItem>
+                    <NavItem eventKey={1}>{name.userName}</NavItem>
                     {/* <NavItem eventKey={1}> <div 
                             className="g-signin2"
                             data-onsuccess={this.onSignIn}
@@ -225,15 +219,16 @@ class HeaderLinks extends Component{
                         <MenuItem divider />
                         <MenuItem eventKey={2.5}>Separated link</MenuItem>
                     </NavDropdown>
-                    <NavItem eventKey={3} 
-                    href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register">Log out</NavItem>
+                    {/* <NavItem eventKey={3} 
+                    href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register">Log out</NavItem> */}
+                   
                     {/* <NavItem eventKey={3}>
                         <GoogleLogout 
                             buttonText="Log out"
                             onLogoutSuccess={logout}>
                         </GoogleLogout>
                     </NavItem> */}
-                    {/* <NavItem eventKey={3}onClick = {this.logOut}>Log out</NavItem> */}
+                    <NavItem eventKey={3}onClick = {this.logOut}>Log out</NavItem>
                     
                 </Nav>
             </div>

@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import {
     BrowserRouter,
     Route,
-    Switch
+    Switch,
+    Redirect
 } from 'react-router-dom';
 
 import App from 'containers/App/App.jsx';
@@ -18,16 +19,61 @@ import './assets/css/pe-icon-7-stroke.css';
 import './assets/css/index.css';
 import './assets/css/datatable.css';
 
-
 import Main from './Main'
 
+const Auth = {
+    isAuthenticated: localStorage.getItem("auth")
+};
 
-
+const DPrivateRoute = ({ component: Component, ...rest }) => (
+    <Route
+        {...rest}
+        render={props =>
+            (Auth.isAuthenticated ? (
+                (
+                 
+                 <Component {...props} /> 
+                  )
+            ) : (
+                    <Redirect
+                        to={{
+                            pathname: "/register",
+                            state: { from: props.location }
+                        }}
+                    />
+                ))
+        }
+    />
+  
+);
+const RPrivateRoute =({ component: Component, ...rest }) => (
+    <Route
+        {...rest}
+        render={props =>
+            (!Auth.isAuthenticated ? (
+                (
+                 
+                 <Component {...props} /> 
+                  )
+            ) : (
+                    <Redirect
+                        to={{
+                            pathname: "/dashboard",
+                            state: { from: props.location }
+                        }}
+                    />
+                ))
+        }
+    />
+  
+);
 ReactDOM.render((
     <BrowserRouter>
         <Switch>
-            <Route path="/register" name="register" component={Main} />
-            <Route path="/" name="Home" component={App} />
+            <RPrivateRoute path="/register" name="register" component={Main} />
+            <DPrivateRoute path="/" name="Home" component={App} /> 
         </Switch>
     </BrowserRouter>
 ), document.getElementById('root'));
+
+

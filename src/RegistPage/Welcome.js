@@ -16,8 +16,10 @@ const responseGoogle = (response) => {
         user.forEach(function (item) {
             if (response.profileObj.email === item) {
                 //redirect to dashboard
+                localStorage.setItem('auth', true);
+                localStorage.setItem('name', response.profileObj.name)
                 window.location.href = '/dashboard';
-                console.log("has enter");
+                console.log(response.profileObj.name);
             }
             else {
                 //redirect to register
@@ -50,7 +52,7 @@ class Main extends Component {
                     <h1>WELCOME TO PT.TOKOPEDIA</h1>
                     <div>
                         <h2 style={{ color: "red", textAlign: "center" }}>please press continue button to enter the form</h2>
-                        <Link to="/register/form">
+                        
 
                             <div>
                                 <GoogleLogin
@@ -59,10 +61,10 @@ class Main extends Component {
                                     onFailure={responseGoogle}
                                     className="g-signin2"
                                     buttonText=""
-                                    // type = "div"
                                     style={{ position: "relative", top: 105, left: 250, }}
                                 />
                             </div>
+                            <Link to="/register/form">
                             <button
                                 type="button"
                                 className="btn"
