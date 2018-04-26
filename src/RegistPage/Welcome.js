@@ -4,26 +4,29 @@ import {
 } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const responseGoogle = (response) => {
     console.log(response);
     axios.get('http://0.0.0.0:8080/authLogin').then(res => {
         var user = []
+        let token = response.Zi.access_token
+        
         res.data.forEach(function (item) {
             user.push(item.email)
         })
 
         user.forEach(function (item) {
-            if (response.profileObj.email === item) {
+            if (response.w3.U3 === item) {
                 //redirect to dashboard
-                localStorage.setItem('auth', true);
-                localStorage.setItem('name', response.profileObj.name)
+                Cookies.set('__hrid', token, {expires: 1, path:'/'})
+                Cookies.set('__hrnu', response.profileObj.name, {expires: 1, path: '/'})                
                 window.location.href = '/dashboard';
-                console.log(response.profileObj.name);
+                console.log(token);
             }
             else {
                 //redirect to register
-                window.location.href = '/register/notUser';
+                window.location.href = '/register/error';
                 console.log("has go out")
             }
 
@@ -64,7 +67,7 @@ class Main extends Component {
                                     style={{ position: "relative", top: 105, left: 250, }}
                                 />
                             </div>
-                            <Link to="/register/form">
+                            <Link to="/register/welcome">
                             <button
                                 type="button"
                                 className="btn"

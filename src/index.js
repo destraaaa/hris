@@ -7,7 +7,6 @@ import {
     Switch,
     Redirect
 } from 'react-router-dom';
-
 import App from 'containers/App/App.jsx';
 
 import './assets/css/bootstrap.min.css';
@@ -18,22 +17,24 @@ import './assets/css/demo.css';
 import './assets/css/pe-icon-7-stroke.css';
 import './assets/css/index.css';
 import './assets/css/datatable.css';
-
-import Main from './Main'
+import Cookies from 'js-cookie';
+import Main from './Main';
 
 const Auth = {
-    isAuthenticated: localStorage.getItem("auth")
+    // isAuthenticated: localStorage.getItem("auth")
+    isAuthenticated: Cookies.get("__hrid")
+
 };
 
 const DPrivateRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            (Auth.isAuthenticated ? (
+            (Auth.isAuthenticated != null ? (
                 (
-                 
-                 <Component {...props} /> 
-                  )
+
+                    <Component {...props} />
+                )
             ) : (
                     <Redirect
                         to={{
@@ -44,17 +45,17 @@ const DPrivateRoute = ({ component: Component, ...rest }) => (
                 ))
         }
     />
-  
+
 );
-const RPrivateRoute =({ component: Component, ...rest }) => (
+const RPrivateRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
             (!Auth.isAuthenticated ? (
                 (
-                 
-                 <Component {...props} /> 
-                  )
+
+                    <Component {...props} />
+                )
             ) : (
                     <Redirect
                         to={{
@@ -65,13 +66,13 @@ const RPrivateRoute =({ component: Component, ...rest }) => (
                 ))
         }
     />
-  
+
 );
 ReactDOM.render((
     <BrowserRouter>
         <Switch>
             <RPrivateRoute path="/register" name="register" component={Main} />
-            <DPrivateRoute path="/" name="Home" component={App} /> 
+            <DPrivateRoute path="/" name="Home" component={App} />
         </Switch>
     </BrowserRouter>
 ), document.getElementById('root'));

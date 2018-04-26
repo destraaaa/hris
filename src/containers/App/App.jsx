@@ -15,13 +15,14 @@ import Welcome from '../../RegistPage/Welcome';
 import Form from "../../RegistPage/Regist";
 import notUser from '../../RegistPage/notUser';
 import appRoutes from 'routes/app.jsx';
+import Cookies from 'js-cookie';
 
 var name = {
-    username: localStorage.getItem("name")
+    username: Cookies.get("__hrnu")
 }
-const Auth = {
-    isAuthenticated: localStorage.getItem("auth")
-};
+// const Auth = {
+//     isAuthenticated: localStorage.getItem("auth")
+// };
 
 class App extends Component {
     constructor(props) {

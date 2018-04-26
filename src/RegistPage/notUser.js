@@ -9,20 +9,11 @@ class notUser extends Component {
         window.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register"
     }
     render() {
-        const styles = {
-            image: {
-                padding: 10,
-                width: 600,
-                height: 200
-            }
-        }
-        
-
         return (
                 <div>
                     <div className="row1">
                         <h1>WELCOME TO PT.TOKOPEDIA</h1>
-                        <h2 style={{color:"red", textAlign:"center"}}>We are sorry you're not a user please Regist your email First</h2>
+                        <h2 style={{color:"red", textAlign:"center"}}>We are sorry you're not a user please use your valid email</h2>
                     
 
                     <button 

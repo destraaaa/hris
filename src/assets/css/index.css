@@ -372,3 +372,28 @@ input:checked {
 #selectCur{
   cursor: pointer;
 }
+
+#interviewFirst{
+
+  cursor: pointer;
+  width: 320px;
+  padding-top:20px;
+  padding-bottom:20px; 
+   
+}
+#interview{
+  position: relative;
+  left: 150px;
+}
+#interviewCard{
+text-align: center;
+padding-top: 30px;
+padding-bottom: 30px;
+
+}
+
+#emailWelcome{
+  position: relative;
+  left: 55px;
+  padding-top:20px; 
+}

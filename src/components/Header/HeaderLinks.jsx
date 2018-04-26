@@ -1,6 +1,7 @@
 /* global gapi */
 import React, {Component} from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import Cookies from 'js-cookie';
 // import {PostData} from"./PostData";   
 // import {GoogleLogout} from 'react-google-login';
 
@@ -13,16 +14,19 @@ import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 //     console.log(response)
 // }
 var name = {
-    userName: localStorage.getItem("name")    
+    userName: Cookies.get("__hrnu")    
 }
 class HeaderLinks extends Component{
 
     logOut(){
-        localStorage.removeItem("auth");
-        localStorage.removeItem("name");
+        // localStorage.removeItem("auth");
+        // localStorage.removeItem("name");
+        Cookies.remove('__hrid', { path: '/' })
+        Cookies.remove('__hrnu', { path: '/' })        
+        // window.location.href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register"
+        window.location.href="/register"
         
-        window.location.href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register"
-        }
+    }
     // componentDidMount () {
     //     const script = document.createElement("script");
     //     console.log("this script")

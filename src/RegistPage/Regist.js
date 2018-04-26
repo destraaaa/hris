@@ -3,15 +3,15 @@ import {
     Link
 } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
-
-export default class Page1 extends Component {
+export default class Regist extends Component {
     constructor(props) {
         super(props);
         this.change = this.change.bind(this);
         this.show = false;
         this.showNew = false;
-        this.isGoing= false;
+        this.isGoing = false;
         this.state = {
             fullName: "",
             fullNameErr: "",
@@ -31,7 +31,7 @@ export default class Page1 extends Component {
             positionErr: "",
             acquaintances: "",
             acquaintancesErr: "",
-            time:"",
+            time: "",
             timeMM: "",
             timeHH: "",
             timeMA: "AM",
@@ -45,20 +45,13 @@ export default class Page1 extends Component {
             relationshipErr: "",
             referralName: "",
             referralNameErr: "",
-            statErr: ""
+            statErr: "",
+            formType: Cookies.get('__intvw')
         };
     }
-
-
-
-
-    // static childContextTypes ={
-    //     checked: this.state.acquaintances
-    // } 
+    
     handleInputChange() {
-       
-            this.isGoing= !this.isGoing
-      
+        this.isGoing = !this.isGoing
     };
 
     change(e) {
@@ -66,6 +59,10 @@ export default class Page1 extends Component {
             [e.target.name]: e.target.value
         });
     };
+    back(){
+        Cookies.remove('__intvw');
+        window.location.href = "/register/welcome"
+    }
 
 
     validate() {
@@ -120,18 +117,17 @@ export default class Page1 extends Component {
             errors.positionErr = "the position column is empty.";
         }
         if (this.state.acquaintances === "") {
-            // dsflkdglakghjlfgjldfskfjl
             isError = true;
             errors.acquaintancesErr = "the acquaintances column is empty.";
         }
-        else if (this.state.acquaintances === "yes"){
+        else if (this.state.acquaintances === "yes") {
             if (this.state.acquaintanceName === "") {
                 isError = true;
                 errors.acquaintanceNameErr = "the acquaintance Name column is empty.";
             }
             if (this.state.relationship === "") {
-                    isError = true;
-                    errors.relationshipErr = "the relationship column is empty.";
+                isError = true;
+                errors.relationshipErr = "the relationship column is empty.";
             }
         }
         if (this.state.GPA === "") {
@@ -160,7 +156,7 @@ export default class Page1 extends Component {
         if (this.isGoing === false) {
             isError = true;
             errors.statErr = "you haven't checked the statment yet.";
-          }
+        }
 
         window.scrollTo(0, 0);
         this.setState(errors);
@@ -170,15 +166,16 @@ export default class Page1 extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        // this.props.onSubmit(this.state);
         const err = this.validate();
         if (!err) {
-           if(this.state.temp ==="")
-            this.state.relationship = this.state.relationship;
+            if (this.state.temp === "")
+                this.state.relationship = this.state.relationship;
             else
-            this.state.relationship = this.state.temp;
+                this.state.relationship = this.state.temp;
 
-            const interviewee ={
+            Cookies.remove('__intvw');
+
+            const interviewee = {
                 fullName: this.state.fullName,
                 nickName: this.state.nickName,
                 phoneNumber: this.state.phoneNumber,
@@ -191,12 +188,14 @@ export default class Page1 extends Component {
                 position: this.state.position,
                 time: this.state.timeHH + ":" + this.state.timeMM + " " + this.state.timeMA,
                 infoJob: this.state.infoJob,
-                acquaintance:this.state.acquaintances,
+                acquaintance: this.state.acquaintances,
                 acquaintanceName: this.state.acquaintanceName,
                 relationship: this.state.relationship,
-                referralName: this.state.referralName
+                referralName: this.state.referralName,
+                formType: this.state.formType,
+                progress: 1
             }
-            
+
             var authOptions = {
                 method: 'POST',
                 url: 'http://0.0.0.0:8080/interviewee/save',
@@ -205,29 +204,16 @@ export default class Page1 extends Component {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 json: true
-              };
-              axios(authOptions)
-              .then(function(response){
-                console.log(response.data);
-                console.log(response.status);
-              })
-              .catch(function(error){
-                console.log(error);
-              });
+            };
+            axios(authOptions)
+                .then(function (response) {
+                    console.log(response.data);
+                    console.log(response.status);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 
-            // axios.post(`http://localhost:9000/interviewee/save`, { interviewee})
-            // .then(res => {
-            //   console.log(res);
-            //   console.log(res.data);
-            // })
-
-            // axios.post(`https://jsonplaceholder.typicode.com/users`, { interviewee})
-            // .then(res => {
-            //   console.log(res);
-            //   console.log(res.data);
-            // })
-
-            // clear form
             this.setState({
                 fullNameErr: "",
                 phoneNumberErr: "",
@@ -243,20 +229,15 @@ export default class Page1 extends Component {
                 referralNameErr: ""
             });
             //window.location.href = '/register';
-
-
         }
-
-
     };
-
 
     render() {
         return (
             <div>
                 <form onSubmit={e => this.onSubmit(e)}>
                     <div className="row">
-                        <h4>Non Operational Registration Form  PT.Tokopedia</h4>
+                        <h4>{this.state.formType} Registration Form  PT.Tokopedia</h4>
                         <h5>*required</h5>
 
                         <p className="pRegist" id="validate" >{this.state.fullNameErr}</p>
@@ -322,50 +303,80 @@ export default class Page1 extends Component {
                             <p>If There, Please mention the name of your friend who refer you.</p>
                             <div className="input-icon"><i className="fa fa-user" /></div>
                         </div>
-                        
-                        <div className="input-group input-group-icon">
-                            <input
-                                placeholder="University / School"
-                                type="text" name="school"
-                                value={this.state.school}
-                                onChange={e => this.change(e)}
-                            />
-                            <pre id="example">example: example University</pre>
-                            <div className="input-icon"><i className="fa fa-building" /></div>
-                        </div>
+                        <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
+                            <div className="input-group input-group-icon">
+                                <input
+                                    placeholder="University / School"
+                                    type="text" name="school"
+                                    value={this.state.school}
+                                    onChange={e => this.change(e)}
+                                />
+                                <pre id="example">example: example University</pre>
+                                <div className="input-icon"><i className="fa fa-building" /></div>
+                            </div>
 
-                        <div className="input-group input-group-icon">
-                            <input
-                                placeholder="Major/ Specialization"
-                                type="text"
-                                name="major"
-                                value={this.state.major}
-                                onChange={e => this.change(e)}
-                            />
-                            <pre id="example">example: Computer Science || industrial Engineering</pre>
-                            <div className="input-icon"><i className="fa fa-cogs" /></div>
-                        </div>
+                            <div className="input-group input-group-icon">
+                                <input
+                                    placeholder="Major/ Specialization"
+                                    type="text"
+                                    name="major"
+                                    value={this.state.major}
+                                    onChange={e => this.change(e)}
+                                />
+                                <pre id="example">example: Computer Science || industrial Engineering</pre>
+                                <div className="input-icon"><i className="fa fa-cogs" /></div>
+                            </div>
 
-                        <p className="pRegist" id="validate" >{this.state.GPAErr}</p>
-                        <div className="input-group input-group-icon">
-                            <input
-                                placeholder="GPA"
-                                type="text"
-                                name="GPA"
-                                value={this.state.GPA}
-                                onChange={e => this.change(e)}
-                            />
-                            <pre id="example">example: 3.45 || 3.40 || 3.00 ||70.25 || 85.00</pre>
-                            <div className="input-icon"><i className="fa fa-industry" /></div>
+                            <p className="pRegist" id="validate" >{this.state.GPAErr}</p>
+                            <div className="input-group input-group-icon">
+                                <input
+                                    placeholder="GPA"
+                                    type="text"
+                                    name="GPA"
+                                    value={this.state.GPA}
+                                    onChange={e => this.change(e)}
+                                />
+                                <pre id="example">example: 3.45 || 3.40 || 3.00 ||70.25 || 85.00</pre>
+                                <div className="input-icon"><i className="fa fa-industry" /></div>
+                            </div>
+
+                        </div>
+                        <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none" }}>
+                            <div className="input-group input-group-icon">
+                                <input
+                                    placeholder="Last Education"
+                                    type="text" name="school"
+                                    value={this.state.school}
+                                    onChange={e => this.change(e)}
+                                />
+                                <pre id="example">example: SMA IPA, SMK Multimedia, S1 Informatika</pre>
+                                <div className="input-icon"><i className="fa fa-building" /></div>
+                            </div>
                         </div>
 
                         <p className="pRegist" id="validate">{this.state.meetErr} {this.state.purposeErr}</p>
                         <div className="input-group input-group-icon" style={{ paddingTop: 20, paddingLeft: 25, width: 520 }}>
-                            <select id="selectCur" name="purpose" value={this.state.purpose} onChange={e => this.change(e)}>
-                                <option hidden>Purpose Here*</option>
-                                <option value="Interview with HR" >Interview with HR</option>
-                                <option value="Interview with User" >Interview with User</option>
-                            </select>
+                            <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
+                                <select id="selectCur" name="purpose" value={this.state.purpose} onChange={e => this.change(e)}>
+                                    <option hidden>Purpose Here*</option>
+                                    <option value="Interview with HR" >Interview with HR</option>
+                                    <option value="Interview with User" >Interview with User</option>
+                                </select>
+                            </div>
+                            <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none" }}>
+                                <select id="selectCur" name="purpose" value={this.state.purpose} onChange={e => this.change(e)}>
+                                    <option hidden>Purpose Here*</option>
+                                    <option value="FGD and Interview (Customer Care)" >FGD and Interview (Customer Care)</option>
+                                    <option value="Interview with HR" >Interview with HR</option>
+                                    <option value="Interview with User" >Interview with User</option>
+                                    <option value="Interview with Vice President (VP)" >Interview with Vice President (VP)</option>
+                                    <option value="Test and FGD" >Test and FGD</option>
+                                    <option value="Test and Interview" >Test and Interview</option>
+                                    <option value="Written Test" >Written Test</option>
+
+
+                                </select>
+                            </div>
                             <select id="selectCur" name="meet" value={this.state.meet} onChange={e => this.change(e)}>
                                 <option hidden>You would to see*</option>
                                 <option value="Ms. Amanda" >Ms. Amanda</option>
@@ -380,130 +391,156 @@ export default class Page1 extends Component {
                                 <option value="Mr. Yoga" >Mr. Yoga</option>
                             </select>
                         </div>
-                        <p className="pRegist" id="validate" >{this.state.positionErr}</p>
-                        <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
-                            <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)}>
-                                <option hidden>Position Apply*</option>
-                                <option value="Accounting" >Accounting</option>
-                                <option value="Android Developer" >Android Developer</option>
-                                <option value="AR / AP Specialist" >AR / AP Specialist</option>
-                                <option value="Asset Management Specialist" >Asset Management Specialist</option>
-                                <option value="Banner Designer Specialist" >Banner Designer Specialist</option>
-                                <option value="Brand Specialist" >Brand Specialist</option>
-                                <option value="Business Acquisition" >Business Acquisition</option>
-                                <option value="Business Development" >Business Development</option>
-                                <option value="Business Head" >Business Head</option>
-                                <option value="Business Intelligence" >Business Intelligence</option>
-                                <option value="Business Partnership & Operation - Category" >Business Partnership &amp; Operation - Category </option>
-                                <option value="Business Promotion Strategist" >Business Promotion Strategist</option>
-                                <option value="Category Administrator" >Category Administrator</option>
-                                <option value="Category Development" >Category Development</option>
-                                <option value="Category Growth Lead" >Category Growth Lead</option>
-                                <option value="Community Lead" >Community Lead</option>
-                                <option value="Community Specialist" >Community Specialist</option>
-                                <option value="Content Lead" >Content Lead</option>
-                                <option value="Copywriter" >Copywriter</option>
-                                <option value="Corporate Banking Relation" >Corporate Banking Relation</option>
-                                <option value="Corporate Finance Analyst" >Corporate Finance Analyst</option>
-                                <option value="Creative Producer" >Creative Producer</option>
-                                <option value="Creative Scriptwriter" >Creative Scriptwriter</option>
-                                <option value="Customer Intelligence Specialist" >Customer Intelligence Specialist</option>
-                                <option value="Data Analyst" >Data Analyst</option>
-                                <option value="Data Engineer" >Data Engineer</option>
-                                <option value="Data Scientist" >Data Scientist</option>
-                                <option value="Database Administrator" >Database Administrator</option>
-                                <option value="Digital Marketing Specialist" >Digital Marketing Specialist</option>
-                                <option value="Digital Implementer" >Digital Implementer</option>
-                                <option value="Email Marketing Specialist" >Email Marketing Specialist</option>
-                                <option value="Employee & Expatriate Management" >Employee &amp; Expatriate Management</option>
-                                <option value="Engineering Manager" >Engineering Manager</option>
-                                <option value="Event Marketing Specialist" >Event Marketing Specialist</option>
-                                <option value="Escrow Specialist" >Escrow Specialist</option>
-                                <option value="Executive Assistant" >Executive Assistant</option>
-                                <option value="Front End Designer" >Front End Designer</option>
-                                <option value="Front End Engineer" >Front End Engineer</option>
-                                <option value="General Affair Admin" >General Affair Admin</option>
-                                <option value="Graphic Designer" >Graphic Designer</option>
-                                <option value="Graphic Designer Intern" >Graphic Designer Intern</option>
-                                <option value="Head of Creative" >Head of Creative</option>
-                                <option value="Head of Community" >Head of Community</option>
-                                <option value="Head of Media Strategist" >Head of Media Strategist</option>
-                                <option value="Head of Operational" >Head of Operational</option>
-                                <option value="Head of Social Media" >Head of Social Media</option>
-                                <option value="HR Data & Policy" >HR Data &amp; Policy</option>
-                                <option value="HR Administrator" >HR Administrator</option>
-                                <option value="Illustrator" >Illustrator</option>
-                                <option value="Internal Auditor" >Internal Auditor</option>
-                                <option value="Intern Business Development" >Intern Business Development</option>
-                                <option value="Intern Category Development" >Intern Category Development</option>
-                                <option value="Intern Content Writer" >Intern Content Writer</option>
-                                <option value="Intern Finance" >Intern Finance</option>
-                                <option value="Intern HR" >Intern HR</option>
-                                <option value="Intern Motion Graphic" >Intern Motion Graphic</option>
-                                <option value="Intern Official Store" >Intern Official Store</option>
-                                <option value="Intern Procurement" >Intern Procurement</option>
-                                <option value="Intern PR & Event" >Intern PR &amp; Event</option>
-                                <option value="Intern Social Media" >Intern Social Media</option>
-                                <option value="Intern Software Engineer" >Intern Software Engineer</option>
-                                <option value="Intern Tax" >Intern Tax</option>
-                                <option value="Intern Quality Assurance" >Intern Quality Assurance</option>
-                                <option value="iOS Developer" >iOS Developer</option>
-                                <option value="IT Security Analyst" >IT Security Analyst</option>
-                                <option value="IT Support Specialist" >IT Support Specialist</option>
-                                <option value="Legal Admin" >Legal Admin</option>
-                                <option value="Legal Specialist" >Legal Specialist</option>
-                                <option value="Motion Graphic Designer" >Motion Graphic Designer</option>
-                                <option value="Organizational Development" >Organizational Development</option>
-                                <option value="Official Store Administrator" >Official Store Administrator</option>
-                                <option value="People Development" >People Development</option>
-                                <option value="Performance Management" >Performance Management</option>
-                                <option value="Procurement Specialist" >Procurement Specialist</option>
-                                <option value="Procurement Infrastructure" >Procurement Infrastructure</option>
-                                <option value="Product Analyst" >Product Analyst</option>
-                                <option value="Product Manager" >Product Manager</option>
-                                <option value="Product Owner" >Product Owner</option>
-                                <option value="PR Specialist" >PR Specialist</option>
-                                <option value="Recruitment Specialist" >Recruitment Specialist</option>
-                                <option value="Risk Specialist" >Risk Specialist</option>
-                                <option value="SAP Developer" >SAP Developer</option>
-                                <option value="Senior Banking Relationship" >Senior Banking Relationship</option>
-                                <option value="Senior Accounting Specialist" >Senior Accounting Specialist</option>
-                                <option value="Senior Payroll Specialist" >Senior Payroll Specialist</option>
-                                <option value="Senior Software Engineer" >Senior Software Engineer</option>
-                                <option value="Search Engine Marketing (SEM) Specialist" >Search Engine Marketing (SEM) Specialist</option>
-                                <option value="Search Engine Optimization (SEO) Specialist" >Search Engine Optimization (SEO) Specialist</option>
-                                <option value="Senior Business Development" >Senior Business Development</option>
-                                <option value="Senior Data Scientist" >Senior Data Scientist</option>
-                                <option value="Senior General Affair Specialist" >Senior General Affair Specialist</option>
-                                <option value="Senior Media Planner Specialist" >Senior Media Planner Specialist</option>
-                                <option value="Senior Network Engineer" >Senior Network Engineer</option>
-                                <option value="Site Reliability Engineer" >Site Reliability Engineer</option>
-                                <option value="Social Media Community Specialist" >Social Media Community Specialist</option>
-                                <option value="Software Development Engineer In-Tes" >Software Development Engineer In-Tes</option>
-                                <option value="Software Engineer" >Software Engineer</option>
-                                <option value="Software Quality Assurance Engineer" >Software Quality Assurance Engineer</option>
-                                <option value="System Administrator" >System Administrator</option>
-                                <option value="Tax Lead" >Tax Lead</option>
-                                <option value="Technical Architect" >Technical Architect</option>
-                                <option value="Talent Management" >Talent Management</option>
-                                <option value="Transaction Officer" >Transaction Officer</option>
-                                <option value="UI Designer" >UI Designer</option>
-                                <option value="UX Designer" >UX Designer</option>
-                                <option value="UX Researcher" >UX Researcher</option>
-                                <option value="Video" >Video Editor</option>
-                                <option value="Videographer" >Videographer</option>
-                                <option value="Video Producer" >Video Producer</option>
-                                <option value="Wordpress Engineer" >Wordpress Engineer</option>
-                            </select>
-                            <select id="selectCur" name="infoJob" value={this.state.infoJob} onChange={e => this.change(e)}>
-                                <option hidden>Information about Job from</option>
-                                <option value="Website tokopedia" >Website Tokopedia</option>
-                                <option value="JobStreet" >JobStreet</option>
-                                <option value="Job Fair" >Job Fair</option>
-                                <option value="Campus Career Center" >Campus Career Center</option>
-                                <option value="LinkedIn" >LinkedIn</option>
-                                <option value="Friend Referral" >Friends Referral</option>
-                            </select>
+                        <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
+                            <p className="pRegist" id="validate" >{this.state.positionErr}</p>
+                            <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
+                                <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)}>
+                                    <option hidden>Position Apply*</option>
+                                    <option value="Accounting" >Accounting</option>
+                                    <option value="Android Developer" >Android Developer</option>
+                                    <option value="AR / AP Specialist" >AR / AP Specialist</option>
+                                    <option value="Asset Management Specialist" >Asset Management Specialist</option>
+                                    <option value="Banner Designer Specialist" >Banner Designer Specialist</option>
+                                    <option value="Brand Specialist" >Brand Specialist</option>
+                                    <option value="Business Acquisition" >Business Acquisition</option>
+                                    <option value="Business Development" >Business Development</option>
+                                    <option value="Business Head" >Business Head</option>
+                                    <option value="Business Intelligence" >Business Intelligence</option>
+                                    <option value="Business Partnership & Operation - Category" >Business Partnership &amp; Operation - Category </option>
+                                    <option value="Business Promotion Strategist" >Business Promotion Strategist</option>
+                                    <option value="Category Administrator" >Category Administrator</option>
+                                    <option value="Category Development" >Category Development</option>
+                                    <option value="Category Growth Lead" >Category Growth Lead</option>
+                                    <option value="Community Lead" >Community Lead</option>
+                                    <option value="Community Specialist" >Community Specialist</option>
+                                    <option value="Content Lead" >Content Lead</option>
+                                    <option value="Copywriter" >Copywriter</option>
+                                    <option value="Corporate Banking Relation" >Corporate Banking Relation</option>
+                                    <option value="Corporate Finance Analyst" >Corporate Finance Analyst</option>
+                                    <option value="Creative Producer" >Creative Producer</option>
+                                    <option value="Creative Scriptwriter" >Creative Scriptwriter</option>
+                                    <option value="Customer Intelligence Specialist" >Customer Intelligence Specialist</option>
+                                    <option value="Data Analyst" >Data Analyst</option>
+                                    <option value="Data Engineer" >Data Engineer</option>
+                                    <option value="Data Scientist" >Data Scientist</option>
+                                    <option value="Database Administrator" >Database Administrator</option>
+                                    <option value="Digital Marketing Specialist" >Digital Marketing Specialist</option>
+                                    <option value="Digital Implementer" >Digital Implementer</option>
+                                    <option value="Email Marketing Specialist" >Email Marketing Specialist</option>
+                                    <option value="Employee & Expatriate Management" >Employee &amp; Expatriate Management</option>
+                                    <option value="Engineering Manager" >Engineering Manager</option>
+                                    <option value="Event Marketing Specialist" >Event Marketing Specialist</option>
+                                    <option value="Escrow Specialist" >Escrow Specialist</option>
+                                    <option value="Executive Assistant" >Executive Assistant</option>
+                                    <option value="Front End Designer" >Front End Designer</option>
+                                    <option value="Front End Engineer" >Front End Engineer</option>
+                                    <option value="General Affair Admin" >General Affair Admin</option>
+                                    <option value="Graphic Designer" >Graphic Designer</option>
+                                    <option value="Graphic Designer Intern" >Graphic Designer Intern</option>
+                                    <option value="Head of Creative" >Head of Creative</option>
+                                    <option value="Head of Community" >Head of Community</option>
+                                    <option value="Head of Media Strategist" >Head of Media Strategist</option>
+                                    <option value="Head of Operational" >Head of Operational</option>
+                                    <option value="Head of Social Media" >Head of Social Media</option>
+                                    <option value="HR Data & Policy" >HR Data &amp; Policy</option>
+                                    <option value="HR Administrator" >HR Administrator</option>
+                                    <option value="Illustrator" >Illustrator</option>
+                                    <option value="Internal Auditor" >Internal Auditor</option>
+                                    <option value="Intern Business Development" >Intern Business Development</option>
+                                    <option value="Intern Category Development" >Intern Category Development</option>
+                                    <option value="Intern Content Writer" >Intern Content Writer</option>
+                                    <option value="Intern Finance" >Intern Finance</option>
+                                    <option value="Intern HR" >Intern HR</option>
+                                    <option value="Intern Motion Graphic" >Intern Motion Graphic</option>
+                                    <option value="Intern Official Store" >Intern Official Store</option>
+                                    <option value="Intern Procurement" >Intern Procurement</option>
+                                    <option value="Intern PR & Event" >Intern PR &amp; Event</option>
+                                    <option value="Intern Social Media" >Intern Social Media</option>
+                                    <option value="Intern Software Engineer" >Intern Software Engineer</option>
+                                    <option value="Intern Tax" >Intern Tax</option>
+                                    <option value="Intern Quality Assurance" >Intern Quality Assurance</option>
+                                    <option value="iOS Developer" >iOS Developer</option>
+                                    <option value="IT Security Analyst" >IT Security Analyst</option>
+                                    <option value="IT Support Specialist" >IT Support Specialist</option>
+                                    <option value="Legal Admin" >Legal Admin</option>
+                                    <option value="Legal Specialist" >Legal Specialist</option>
+                                    <option value="Motion Graphic Designer" >Motion Graphic Designer</option>
+                                    <option value="Organizational Development" >Organizational Development</option>
+                                    <option value="Official Store Administrator" >Official Store Administrator</option>
+                                    <option value="People Development" >People Development</option>
+                                    <option value="Performance Management" >Performance Management</option>
+                                    <option value="Procurement Specialist" >Procurement Specialist</option>
+                                    <option value="Procurement Infrastructure" >Procurement Infrastructure</option>
+                                    <option value="Product Analyst" >Product Analyst</option>
+                                    <option value="Product Manager" >Product Manager</option>
+                                    <option value="Product Owner" >Product Owner</option>
+                                    <option value="PR Specialist" >PR Specialist</option>
+                                    <option value="Recruitment Specialist" >Recruitment Specialist</option>
+                                    <option value="Risk Specialist" >Risk Specialist</option>
+                                    <option value="SAP Developer" >SAP Developer</option>
+                                    <option value="Senior Banking Relationship" >Senior Banking Relationship</option>
+                                    <option value="Senior Accounting Specialist" >Senior Accounting Specialist</option>
+                                    <option value="Senior Payroll Specialist" >Senior Payroll Specialist</option>
+                                    <option value="Senior Software Engineer" >Senior Software Engineer</option>
+                                    <option value="Search Engine Marketing (SEM) Specialist" >Search Engine Marketing (SEM) Specialist</option>
+                                    <option value="Search Engine Optimization (SEO) Specialist" >Search Engine Optimization (SEO) Specialist</option>
+                                    <option value="Senior Business Development" >Senior Business Development</option>
+                                    <option value="Senior Data Scientist" >Senior Data Scientist</option>
+                                    <option value="Senior General Affair Specialist" >Senior General Affair Specialist</option>
+                                    <option value="Senior Media Planner Specialist" >Senior Media Planner Specialist</option>
+                                    <option value="Senior Network Engineer" >Senior Network Engineer</option>
+                                    <option value="Site Reliability Engineer" >Site Reliability Engineer</option>
+                                    <option value="Social Media Community Specialist" >Social Media Community Specialist</option>
+                                    <option value="Software Development Engineer In-Tes" >Software Development Engineer In-Tes</option>
+                                    <option value="Software Engineer" >Software Engineer</option>
+                                    <option value="Software Quality Assurance Engineer" >Software Quality Assurance Engineer</option>
+                                    <option value="System Administrator" >System Administrator</option>
+                                    <option value="Tax Lead" >Tax Lead</option>
+                                    <option value="Technical Architect" >Technical Architect</option>
+                                    <option value="Talent Management" >Talent Management</option>
+                                    <option value="Transaction Officer" >Transaction Officer</option>
+                                    <option value="UI Designer" >UI Designer</option>
+                                    <option value="UX Designer" >UX Designer</option>
+                                    <option value="UX Researcher" >UX Researcher</option>
+                                    <option value="Video" >Video Editor</option>
+                                    <option value="Videographer" >Videographer</option>
+                                    <option value="Video Producer" >Video Producer</option>
+                                    <option value="Wordpress Engineer" >Wordpress Engineer</option>
+                                </select>
+                                <select id="selectCur" name="infoJob" value={this.state.infoJob} onChange={e => this.change(e)}>
+                                    <option hidden>Information about Job from</option>
+                                    <option value="Website tokopedia" >Website Tokopedia</option>
+                                    <option value="JobStreet" >JobStreet</option>
+                                    <option value="Job Fair" >Job Fair</option>
+                                    <option value="Campus Career Center" >Campus Career Center</option>
+                                    <option value="LinkedIn" >LinkedIn</option>
+                                    <option value="Friend Referral" >Friends Referral</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none" , position:"relative", left:22}}>
+                            <p className="pRegist" id="validate" >{this.state.positionErr}</p>
+                            <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
+                                <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)}>
+                                    <option hidden>Position Apply*</option>
+                                    <option value="Call Center Officer" >Call Center Officer</option>
+                                    <option value="Customer Care Officer" >Customer Care Officer</option>
+                                    <option value="Customer Care Officer - Call Center" >Customer Care Officer - Call Center</option>
+                                    <option value="Customer Care Officer - Resolution" >Customer Care Officer - Resolution</option>
+                                    <option value="Customer Care Officer - Social Media" >Customer Care Officer - Social Media</option>
+                                    <option value="Transaction Officer" >Executive Assistant</option>
+                                </select>
+                                <select id="selectCur" name="infoJob" value={this.state.infoJob} onChange={e => this.change(e)}>
+                                    <option hidden>Information about Job from</option>
+                                    <option value="Website tokopedia" >Website Tokopedia</option>
+                                    <option value="JobStreet" >JobStreet</option>
+                                    <option value="Job Fair" >Job Fair</option>
+                                    <option value="Campus Career Center" >Campus Career Center</option>
+                                    <option value="LinkedIn" >LinkedIn</option>
+                                    <option value="Friend Referral" >Friends Referral</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -531,8 +568,8 @@ export default class Page1 extends Component {
                         </div>
                         {this.state.acquaintances === "yes" ? this.showNew = true : this.showNew = false}
                         {/* Munculin kalo Yes -----------------------------------------------*/}
-                        <div className="row"  style={{display:  this.showNew ? 'block' : 'none' }}>
-                        <p id="validate">{this.state.acquaintanceNameErr}</p>
+                        <div className="row" style={{ display: this.showNew ? 'block' : 'none' }}>
+                            <p id="validate">{this.state.acquaintanceNameErr}</p>
                             <div className="input-group input-group-icon">
                                 <input
                                     placeholder="Acquaintance Name *"
@@ -574,7 +611,7 @@ export default class Page1 extends Component {
                             </div>
                         </div>
 
-                        <div className="row" style={{ paddingBottom:70}}>
+                        <div className="row" style={{ paddingBottom: 70 }}>
                             <p className="pRegist" id="validate" >{this.state.timeErr}</p>
                             <p className="pRegist" style={{ textAlign: 'center' }}>Scheduled time*</p>
                             <div className="input-group" style={{ display: "flex", justifyContent: "center", marginLeft: 75 }}>
@@ -614,10 +651,10 @@ export default class Page1 extends Component {
 
                         </div>
                     </div>
-                   
+
                     <p id="validate">{this.state.statErr}</p>
                     <div className="input-group input-group-icon">
-                    
+
                         <p>My Statement</p>
                         <div className="checkB">
                             <label id="page4lbl">
@@ -632,12 +669,12 @@ export default class Page1 extends Component {
                         </div>
 
                         <div style={{ width: 820, position: "relative", right: 320 }}>
-                        <button type="submit" className="btn">Finish</button>
-                        <Link to="/register"><button type="button" className="btn">Back</button></Link>
+                            <button type="submit" className="btn">Finish</button>
+                            <button type="button" className="btn" onClick= {this.back}>Back</button>
                         </div>
                     </div>
 
-                   
+
 
                 </form>
 
