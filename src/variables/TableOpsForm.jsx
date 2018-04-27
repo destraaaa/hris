@@ -9,7 +9,7 @@ export default class Table extends Component {
         this.$el.DataTable(
             {
                 "ajax": {
-                    "url": "http://0.0.0.0:8080/nonopsform/view",
+                    "url": "http://0.0.0.0:8080/opsform/view",
                     "dataSrc": ""
                 },
                 // data: this.props.data,
@@ -20,8 +20,6 @@ export default class Table extends Component {
                     { data: "phoneNumber" },
                     { data: "email" },
                     { data: "school" },
-                    { data: "major" },
-                    { data: "GPA" },
                     { data: "purpose" },
                     { data: "meet" },
                     { data: "position" },
@@ -53,8 +51,6 @@ export default class Table extends Component {
                             <th>PhoneNumber</th>
                             <th>Email</th>
                             <th>School</th>
-                            <th>Major</th>
-                            <th>GPA</th>
                             <th>Purpose</th>
                             <th>ContactPerson</th>
                             <th>Position</th>

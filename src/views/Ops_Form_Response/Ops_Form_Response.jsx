@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col} from 'react-bootstrap';
 import Card from 'components/Card/Card.jsx';
-import Table from 'variables/Table.jsx';
-import {dataSet} from 'variables/Variables.jsx';
+ import Table from 'variables/TableOpsForm.jsx';
+// import Table from 'variables/Table.jsx';
+// import {dataSetNonopsForm} from 'variables/Variables.jsx';
 
-class TableList extends Component {
+class OpsFormResponse extends Component {
 
     render() {
         return (
@@ -13,11 +14,11 @@ class TableList extends Component {
                     <Row>
                         <Col md={12}>
                             <Card
-                                title=" Ops Form Response"
-                                category="Data Ops Form Response"
+                                title="Non-Ops Form Response"
+                                category="data for Non-Ops Form Response"
                                 ctTableFullWidth ctTableResponsive
                                 content={
-                                    <Table data={dataSet}/>
+                                    <Table />
                                 }
                             />
                         </Col>
@@ -30,4 +31,4 @@ class TableList extends Component {
     }
 }
 
-export default TableList;
+export default OpsFormResponse;

@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 
 const responseGoogle = (response) => {
     console.log(response);
-    axios.get('http://0.0.0.0:8080/authLogin').then(res => {
+    axios.get('http://0.0.0.0:8080/authLogin/validate').then(res => {
         var user = []
         let token = response.Zi.access_token
         

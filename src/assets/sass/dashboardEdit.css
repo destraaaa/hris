@@ -122,3 +122,30 @@
       height: 29px;
       width: 100px;
     } */
+
+  #inputRecruiter{
+    position: absolute;
+    font-weight: 600;
+    left: 240px;
+    top: 15px;
+    padding-left: 11px;
+    border-left: solid;
+    border-left-color: #e5e5e5;
+    border-left-width: 0.5px;
+    height: 22px;
+  }
+  #inputEmail{
+    padding-top: 10px; 
+    padding-bottom: 30px; 
+    text-align: center
+  }
+  #btnInput{
+    padding: 20px 0px 20px 0px;
+    color: #fff;
+    font-weight: bold;
+    background-color: #7ed321;
+    float: right;
+    width: 100px;
+    margin-top: 45px;
+  
+  }
