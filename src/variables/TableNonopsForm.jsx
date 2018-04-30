@@ -7,18 +7,32 @@ export default class Table extends Component {
         console.log(this.el)
         this.$el = $(this.el)
         this.$el.DataTable(
+          
             {
                 "ajax": {
                     "url": "http://0.0.0.0:8080/nonopsform/view",
                     "dataSrc": ""
                 },
                 // data: this.props.data,
+                // switch data.progress{
+                //     case 1:	data.progress = "no status"
+                //     return;
+                //     case 2:
+                //         data.progress = "reject"
+                //     case 3:
+                //         data.progress = "approved"
+                    
+                //     case 4: 
+                //         data.progress = "on progress"
+                // }
+                
                 columns: [
                     { data: "id" },
                     { data: "fullName" },
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "email" },
+                    {data: "progress"},
                     { data: "school" },
                     { data: "major" },
                     { data: "GPA" },
@@ -30,8 +44,7 @@ export default class Table extends Component {
                     { data: "acquaintanceName" },
                     { data: "relationship" },
                     { data: "referralName" },
-                    { data: "timestamp" }
-                   
+                    { data: "timestamp" }    
                 ]
 
             }
@@ -52,6 +65,7 @@ export default class Table extends Component {
                             <th>Nickname</th>
                             <th>PhoneNumber</th>
                             <th>Email</th>
+                            <th>Progress</th>                            
                             <th>School</th>
                             <th>Major</th>
                             <th>GPA</th>

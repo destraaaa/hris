@@ -19,6 +19,7 @@ export default class Table extends Component {
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "email" },
+                    {data: "progress"},
                     { data: "school" },
                     { data: "purpose" },
                     { data: "meet" },
@@ -50,6 +51,7 @@ export default class Table extends Component {
                             <th>Nickname</th>
                             <th>PhoneNumber</th>
                             <th>Email</th>
+                            <th>Progress</th>                            
                             <th>School</th>
                             <th>Purpose</th>
                             <th>ContactPerson</th>
