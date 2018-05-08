@@ -51,11 +51,19 @@ const option = {
         xAxes: [{
             ticks: {
                 beginAtZero: true,
-
+                callback: function (value, index, values) {
+                    if (Math.floor(value) === value) {
+                        return value;
+                    }
+                }
             },
             stacked: true
         }],
+
         yAxes: [{
+            ticks: {
+                beginAtZero: true,
+            },
             stacked: true
         }]
     },
@@ -161,7 +169,7 @@ class Dashboard extends Component {
                 Series.push(item.series)
             })
 
-        
+
             this.setState({
                 datapieSchool: {
                     labels: Labels,
@@ -171,370 +179,382 @@ class Dashboard extends Component {
                 }
             })
 
-        }).catch(function(error) {
-        console.log(error);
-    })
-    // job information-----------------------------------------------------------------------------
-    axios.get(`http://0.0.0.0:8080/nonopsform/view/jobpie`).then(res => {
+        }).catch(function (error) {
+            console.log(error);
+        })
+        // job information-----------------------------------------------------------------------------
+        axios.get(`http://0.0.0.0:8080/nonopsform/view/jobpie`).then(res => {
 
-        var Labels = [];
-        var Series = [];
+            var Labels = [];
+            var Series = [];
 
-        res.data.forEach(function (item) {
-            Labels.push(item.labels)
-            Series.push(item.series)
+            res.data.forEach(function (item) {
+                Labels.push(item.labels)
+                Series.push(item.series)
 
+            })
+
+            this.setState({
+                datapieJob: {
+                    labels: Labels,
+                    datasets: [{
+                        data: Series,
+                    }]
+                }
+            })
+
+        }).catch(function (error) {
+            console.log(error);
         })
 
-        this.setState({
-            datapieJob: {
-                labels: Labels,
-                datasets: [{
-                    data: Series,
-                }]
-            }
+        // Stat Final information-----------------------------------------------------------------------------
+        axios.get(`http://0.0.0.0:8080/nonopsform/view/statpie`).then(res => {
+            var Labels = [];
+            var Series = [];
+
+            res.data.forEach(function (item) {
+                Labels.push(item.labels)
+                Series.push(item.series)
+
+            })
+
+            this.setState({
+                datapieStat: {
+                    labels: Labels,
+                    datasets: [{
+                        data: Series,
+                    }]
+                }
+            })
+
+        }).catch(function (error) {
+            console.log(error);
         })
 
-    }).catch(function (error) {
-        console.log(error);
-    })
-
-// Stat Final information-----------------------------------------------------------------------------
-axios.get(`http://0.0.0.0:8080/nonopsform/view/statpie`).then(res => {
-    var Labels = [];
-    var Series = [];
-
-    res.data.forEach(function (item) {
-        Labels.push(item.labels)
-        Series.push(item.series)
-
-    })
-
-    this.setState({
-        datapieStat: {
-            labels: Labels,
-            datasets: [{
-                data: Series,
-            }]
-        }
-    })
-
-}).catch(function (error) {
-    console.log(error);
-})
-
-// Contact Person-----------------------------------------------------------------------------
-axios.get(`http://0.0.0.0:8080/nonopsform/view/cpbar`).then(res => {
-    var Labels = [];
-    var noStatus = [];
-    var reject = [];
-    var Approved = [];
-    var onProgress = [];
+        // Contact Person-----------------------------------------------------------------------------
+        axios.get(`http://0.0.0.0:8080/nonopsform/view/cpbar`).then(res => {
+            var Labels = [];
+            var noStatus = [];
+            var reject = [];
+            var Approved = [];
+            var onProgress = [];
 
 
 
-    res.data.forEach(function (item) {
-        Labels.push(item.labels)
-        noStatus.push(item.nostatus)
-        reject.push(item.reject)
-        Approved.push(item.approved)
-        onProgress.push(item.onprogress)
+            res.data.forEach(function (item) {
+                Labels.push(item.labels)
+                noStatus.push(item.nostatus)
+                reject.push(item.reject)
+                Approved.push(item.approved)
+                onProgress.push(item.onprogress)
 
-    })
-    this.setState({
-        databarCP: {
-            labels: Labels,
-            // datasets: [{
-            //     data: noStatus
-            // },
-            // {
-            //     data: reject
-            // },
-            // {
-            //     data: Approved
-            // },
-            // {
-            //     data: onProgress
-            // }]
-            datasets: [{
-                label: "No Status",
-                data: noStatus,
-                backgroundColor: "#9E9E9E",
-                stack: 1
-            },
-            {
-                label: "Reject",
-                data: reject,
-                backgroundColor: "#F44336",
-                stack: 1
-            },
-            {
-                label: "Approved",
-                data: Approved,
-                backgroundColor: "#00C853",
-                stack: 1
-            },
-            {
-                label: "On Progress",
-                data: onProgress,
-                backgroundColor: "#03A9F4",
-                stack: 1
-            }
-            ]
-        }
-    })
-    console.log(this.state.databarCP.datasets);
+            })
+            this.setState({
+                databarCP: {
+                    labels: Labels,
+                    // datasets: [{
+                    //     data: noStatus
+                    // },
+                    // {
+                    //     data: reject
+                    // },
+                    // {
+                    //     data: Approved
+                    // },
+                    // {
+                    //     data: onProgress
+                    // }]
+                    datasets: [{
+                        label: "No Status",
+                        data: noStatus,
+                        backgroundColor: "#9E9E9E",
+                        stack: 1
+                    },
+                    {
+                        label: "Reject",
+                        data: reject,
+                        backgroundColor: "#F44336",
+                        stack: 1
+                    },
+                    {
+                        label: "Approved",
+                        data: Approved,
+                        backgroundColor: "#00C853",
+                        stack: 1
+                    },
+                    {
+                        label: "On Progress",
+                        data: onProgress,
+                        backgroundColor: "#03A9F4",
+                        stack: 1
+                    }
+                    ]
+                }
+            })
+            console.log(this.state.databarCP.datasets);
 
-}).catch(function (error) {
-    console.log(error);
-})
+        }).catch(function (error) {
+            console.log(error);
+        })
 
-// Status applicant-----------------------------------------------------------------------------
-axios.get(`http://0.0.0.0:8080/nonopsform/view/statbar`).then(res => {
-    var Series = [];
-    console.log(res);
-    res.data.forEach(function (item) {
-        Series.push(item.series)
+        // Status applicant-----------------------------------------------------------------------------
+        axios.get(`http://0.0.0.0:8080/nonopsform/view/statbar`).then(res => {
+            var Series = [];
+            console.log(res);
+            res.data.forEach(function (item) {
+                Series.push(item.series)
 
-    })
+            })
 
-    this.setState({
-        databarStat: {
-            datasets: [{
-                data: Series
-            }]
-        }
-    })
+            this.setState({
+                databarStat: {
+                    datasets: [{
+                        data: Series
+                    }]
+                }
+            })
 
-}).catch(function (error) {
-    console.log(error);
-})
-
-
-// Position applicant-----------------------------------------------------------------------------
-axios.get(`http://0.0.0.0:8080/nonopsform/view/posbar`).then(res => {
-    var Labels = [];
-    var Series = [];
-    console.log(res);
-    res.data.forEach(function (item) {
-        Labels.push(item.labels)
-        Series.push(item.series)
-
-    })
-
-    this.setState({
-        databarPos: {
-            labels: Labels,
-            datasets: [{
-                data: Series
-            }]
-        }
-    })
-
-}).catch(function (error) {
-    console.log(error);
-})
+        }).catch(function (error) {
+            console.log(error);
+        })
 
 
-//Total-------------------------------------------------------------------
-axios.get(`http://0.0.0.0:8080/nonopsform/view/total`).then(res => {
-    var Total = []
-    var Success = []
-    var Reject = []
-    var Progress = []
-    res.data.forEach(function (item) {
-        Total.push(item.total),
-            Success.push(item.approved),
-            Reject.push(item.reject),
-            Progress.push(item.onprogress)
-    })
-    this.setState({
-        totalCandidate: Total,
-        successCandidate: Success,
-        rejectCandidate: Reject,
-        progressCandidate: Progress
-    })
-}).catch(function (error) {
-    console.log(error);
-})
+        // Position applicant-----------------------------------------------------------------------------
+        axios.get(`http://0.0.0.0:8080/nonopsform/view/posbar`).then(res => {
+            var Labels = [];
+            var Series = [];
+            console.log(res);
+            res.data.forEach(function (item) {
+                Labels.push(item.labels)
+                Series.push(item.series)
+
+            })
+
+            this.setState({
+                databarPos: {
+                    labels: Labels,
+                    datasets: [{
+                        data: Series
+                    }]
+                }
+            })
+
+        }).catch(function (error) {
+            console.log(error);
+        })
+
+
+        //Total-------------------------------------------------------------------
+        axios.get(`http://0.0.0.0:8080/nonopsform/view/total`).then(res => {
+            var Total = []
+            var Success = []
+            var Reject = []
+            var Progress = []
+            res.data.forEach(function (item) {
+                Total.push(item.total),
+                    Success.push(item.approved),
+                    Reject.push(item.reject),
+                    Progress.push(item.onprogress)
+            })
+            this.setState({
+                totalCandidate: Total,
+                successCandidate: Success,
+                rejectCandidate: Reject,
+                progressCandidate: Progress
+            })
+        }).catch(function (error) {
+            console.log(error);
+        })
 
     }
 
 
-render() {
-    return (
+    render() {
+        return (
 
-        <div className="content">
-            <Grid fluid>
-                <Row>
-                    <Col lg={3} sm={6}>
-                        <StatsCard
-                            bigIcon={<i className="pe-7s-server text-warning"></i>}
-                            statsText="Participant"
-                            statsValue={this.state.totalCandidate}
-                            statsIcon={<i className="fa fa-refresh"></i>}
-                            statsIconText="Updated now"
-                        />
-                    </Col>
-                    <Col lg={3} sm={6}>
-                        <StatsCard
-                            bigIcon={<i className="fa fa-thumbs-o-up text-success"></i>}
-                            statsText="Accepted"
-                            statsValue={this.state.successCandidate}
-                            statsIcon={<i className="fa fa-calendar-o"></i>}
-                            statsIconText="Last day"
-                        />
-                    </Col>
-                    <Col lg={3} sm={6}>
-                        <StatsCard
-                            bigIcon={<i className="fa fa-thumbs-down text-danger"></i>}
-                            statsText="Rejected"
-                            statsValue={this.state.rejectCandidate}
-                            statsIcon={<i className="fa fa-clock-o"></i>}
-                            statsIconText="In the last hour"
-                        />
-                    </Col>
-                    <Col lg={3} sm={6}>
-                        <StatsCard
-                            bigIcon={<i className="pe-7s-help1 text-info"></i>}
-                            statsText="On Progress"
-                            statsValue={this.state.progressCandidate}
-                            statsIcon={<i className="fa fa-refresh"></i>}
-                            statsIconText="Updated now"
-                        />
-                    </Col>
-                </Row>
-                <Row>
+            <div className="content">
+                <Grid fluid>
+                    <Row>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="pe-7s-server text-warning"></i>}
+                                statsText="Participant"
+                                statsValue={this.state.totalCandidate}
+                                statsIcon={<i className="fa fa-address-card-o"></i>}
+                                statsIconText="Total Participant"
+                            />
+                        </Col>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="fa fa-thumbs-o-up text-success"></i>}
+                                statsText="Accepted"
+                                statsValue={this.state.successCandidate}
+                                statsIcon={<i className="fa fa-calendar-check-o"></i>}
+                                statsIconText="Total Accepted"
+                            />
+                        </Col>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="fa fa-thumbs-down text-danger"></i>}
+                                statsText="Rejected"
+                                statsValue={this.state.rejectCandidate}
+                                statsIcon={<i className="fa fa-calendar-times-o"></i>}
+                                statsIconText="Total Rejected"
+                            />
+                        </Col>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="pe-7s-help1 text-info"></i>}
+                                statsText="On Progress"
+                                statsValue={this.state.progressCandidate}
+                                statsIcon={<i className="fa fa-refresh"></i>}
+                                statsIconText="On Progress Status"
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
 
-                    {/* ---------------PieChart for University Statistics------------------- */}
-                    <Col md={6}>
+                        {/* ---------------PieChart for University Statistics------------------- */}
+                        <Col md={6}>
 
-                        <Card
-                            statsIcon="fa fa-clock-o"
-                            title="School Statistics"
-                            category="percentage candidate School"
-                            stats="Campaign sent 2 days ago"
-                            content={
-                                <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                    {/* <ChartistGraph data={datapie.chartpie} options={optionsPie} responsiveOptions={responsiveOptionsPie} type="Pie"/> */}
-                                    <Pie
-                                        data={this.state.datapieSchool}
-                                        width={150}
-                                        height={100}
-                                    />
-                                </div>
-                            }
-                        />
-                    </Col>
-                    {/* ---------------PieChart for University Statistics------------------- */}
+                            <Card
+                                statsIcon="fa fa-database"
+                                title="School Statistics"
+                                category="percentage candidate School"
+                                stats="School Statistics candidate School Data"
+                                content={
+                                    <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                                        {/* <ChartistGraph data={datapie.chartpie} options={optionsPie} responsiveOptions={responsiveOptionsPie} type="Pie"/> */}
+                                        <Pie
+                                            data={this.state.datapieSchool}
+                                            width={150}
+                                            height={100}
+                                        />
+                                    </div>
+                                }
+                            />
+                        </Col>
+                        {/* ---------------PieChart for University Statistics------------------- */}
 
-                    <Col md={6}>
-                        <Card
-                            statsIcon="fa fa-clock-o"
-                            title="Job Information"
-                            category="percentage job Information"
-                            stats="Campaign sent 2 days ago"
-                            content={
-                                <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                    <Pie
-                                        data={this.state.datapieJob}
-                                        width={150}
-                                        height={100}
-                                    />
-                                </div>
-                            }
-                        />
-                    </Col>
+                        <Col md={6}>
+                            <Card
+                                statsIcon="fa fa-database"
+                                title="Job Information"
+                                category="percentage job Information"
+                                stats="Job Information From Data"
+                                content={
+                                    <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                                        <Pie
+                                            data={this.state.datapieJob}
+                                            width={150}
+                                            height={100}
+                                        />
+                                    </div>
+                                }
+                            />
+                        </Col>
 
-                </Row>
+                    </Row>
 
-                <Row>
-                    <Col md={12} style={{ height: 550 }} >
-                        <Card
-                            statsIcon="fa fa-clock-o"
-                            title="Recruitment per Contact Person"
-                            category="percentage Recruitment"
-                            stats="Campaign sent 2 days ago"
-                            content={
-                                <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                    <HorizontalBar
-                                        data={this.state.databarPos}
-                                        width={150}
-                                        height={50}
-                                        respoinsive={true}
-                                        options={{ legend: false, scales: { xAxes: [{ ticks: { beginAtZero: true } }] } }}
-                                    />
-                                </div>
-                            }
-                        />
-                    </Col>
-                </Row>
+                    <Row>
+                        <Col md={12} style={{ height: 550 }} >
+                            <Card
+                                statsIcon="fa fa-database"
+                                title="Position Selection"
+                                category="percentage Position Selected"
+                                stats="Position Selection Data"
+                                content={
+                                    <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                                        <HorizontalBar
+                                            data={this.state.databarPos}
+                                            width={150}
+                                            height={50}
+                                            respoinsive={true}
+                                            options={{
+                                                legend: false, scales: {
+                                                    xAxes: [{
+                                                        ticks: {
+                                                            beginAtZero: true, callback: function (value, index, values) {
+                                                                if (Math.floor(value) === value) {
+                                                                    return value;
+                                                                }
+                                                            }
+                                                        }
+                                                    }]
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                }
+                            />
+                        </Col>
+                    </Row>
 
-                <Row>
-                    <Col md={12} style={{ height: 550 }} >
-                        <Card
-                            statsIcon="fa fa-clock-o"
-                            title="Applicant Status per Contact Person"
-                            category="data of Applicant"
-                            stats="Campaign sent 2 days ago"
-                            content={
-                                <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                    <HorizontalBar
-                                        data={this.state.databarCP}
-                                        width={150}
-                                        height={50}
-                                        respoinsive={true}
-                                        options={option}
+                    <Row>
+                        <Col md={12} style={{ height: 550 }} >
+                            <Card
+                                statsIcon="fa fa-database"
+                                title="Recruitment per Contact Person"
+                                category="data of Applicant"
+                                stats="Recruitment per Contact Person Data"
+                                content={
+                                    <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                                        <HorizontalBar
+                                            data={this.state.databarCP}
+                                            width={150}
+                                            height={50}
+                                            respoinsive={true}
+                                            options={option}
 
-                                    />
-                                </div>
-                            }
-                        />
-                    </Col>
-                    <Col md={6} >
-                        <Card
-                            statsIcon="fa fa-clock-o"
-                            title="Status of Participant"
-                            category="stat Status"
-                            stats="Campaign sent 2 days ago"
-                            content={
-                                <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                    <HorizontalBar
-                                        data={this.state.databarStat}
-                                        width={150}
-                                        height={70}
-                                        respoinsive={true}
-                                        options={{ legend: false, scales: { xAxes: [{ ticks: { beginAtZero: true } }] } }}
-                                    />
-                                </div>
-                            }
-                        />
-                    </Col>
-                    <Col md={6} >
-                        <Card
-                            statsIcon="fa fa-clock-o"
-                            title="Final  Applicant Status"
-                            category="percentage Status"
-                            stats="Campaign sent 2 days ago"
-                            content={
-                                <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                    <Pie
-                                        data={this.state.datapieStat}
-                                        width={150}
-                                        height={100}
-                                    />
-                                </div>
-                            }
-                        />
-                    </Col>
+                                        />
+                                    </div>
+                                }
+                            />
+                        </Col>
+                        <Col md={6} >
+                            <Card
+                                statsIcon="fa fa-database"
+                                title="Status of Participant"
+                                category="stat Status"
+                                stats="Status of Participant Data"
+                                content={
+                                    <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                                        <HorizontalBar
+                                            data={this.state.databarStat}
+                                            width={150}
+                                            height={70}
+                                            respoinsive={true}
+                                            options={{ legend: false, scales: { xAxes: [{ ticks: { beginAtZero: true } }] } }}
+                                        />
+                                    </div>
+                                }
+                            />
+                        </Col>
+                        <Col md={6} >
+                            <Card
+                                statsIcon="fa fa-database"
+                                title="Final  Applicant Status"
+                                category="percentage Status"
+                                stats="Final  Applicant Status Data"
+                                content={
+                                    <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                                        <Pie
+                                            data={this.state.datapieStat}
+                                            width={150}
+                                            height={100}
+                                        />
+                                    </div>
+                                }
+                            />
+                        </Col>
 
-                </Row>
+                    </Row>
 
-            </Grid>
+                </Grid>
 
-        </div>
-    );
-}
+            </div>
+        );
+    }
 }
 
 export default Dashboard;

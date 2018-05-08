@@ -47,6 +47,7 @@ export default class Regist extends Component {
             phoneNumberErr: "",
             acquaintancesErr: "",
             infoJobErr :"",
+            schoolErr:"",
             formType: Cookies.get('__intvw')
         };
     }
@@ -69,6 +70,7 @@ export default class Regist extends Component {
     validate() {
         let isError = false;
         let check = /^\d?[0-9]\.\d\d$/;
+        let checkPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
         const errors = {
             fullNameErr: "",
             phoneNumberErr: "",
@@ -79,6 +81,7 @@ export default class Regist extends Component {
             acquaintancesErr: "",
             timeErr: "",
             GPAErr: "",
+            schoolErr:"",
             acquaintanceNameErr: "",
             relationshipErr: "",
             referralNameErr: "",
@@ -98,6 +101,14 @@ export default class Regist extends Component {
         if (isNaN(this.state.phoneNumber)) {
             isError = true;
             errors.phoneNumberErr = "the phone number column is not a number.";
+        }
+        if (!checkPhone.test(this.state.phoneNumber)) {
+            isError = true;
+            errors.phoneNumberErr = "the phone number Format is wrong.";
+        }
+        if (this.state.school === "") {
+            isError = true;
+            errors.schoolErr = "the University/school column is empty.";
         }
         if (this.state.email === "") {
             isError = true;
@@ -123,7 +134,7 @@ export default class Regist extends Component {
             isError = true;
             errors.acquaintancesErr = "the acquaintances column is empty.";
         }
-        if (this.state.infoJobErr ===""){
+        if (this.state.infoJob ===""){
             isError = true;
             errors.infoJobErr = "the Job Info column is empty";
         }
@@ -235,8 +246,8 @@ export default class Regist extends Component {
                 relationshipErr: "",
                 referralNameErr: ""
             });
-            console.log(interviewee)
-            //window.location.href = '/register';
+            
+            window.location.href = '/register';
         }
     };
 
@@ -255,7 +266,9 @@ export default class Regist extends Component {
                                 type="text"
                                 name="fullName"
                                 value={this.state.fullName}
+                                style = {{border:this.state.fullNameErr!=""?"1.5px solid #ff1100ad": ""}}
                                 onChange={e => this.change(e)} />
+                                
                             <p className="pRegist" >Based on you National Identity Card (KTP)</p>
                             <div className="input-icon"><i className="fa fa-user" /></div>
                         </div>
@@ -275,9 +288,11 @@ export default class Regist extends Component {
                         <p className="pRegist" id="validate" >{this.state.phoneNumberErr}</p>
                         <div className="input-group input-group-icon">
                             <input
+                                id = "phone"
                                 placeholder="phone Number*"
-                                type="text"
+                                type="number"
                                 name="phoneNumber"
+                                style = {{border:this.state.phoneNumberErr!=""?"1.5px solid #ff1100ad": ""}}
                                 value={this.state.phoneNumber}
                                 onChange={e => this.change(e)}
                             />
@@ -292,6 +307,7 @@ export default class Regist extends Component {
                                 placeholder="Email Adress*"
                                 type="email"
                                 name="email"
+                                style = {{border:this.state.emailErr!=""?"1.5px solid #ff1100ad": ""}}
                                 value={this.state.email}
                                 onChange={e => this.change(e)}
                             />
@@ -311,6 +327,7 @@ export default class Regist extends Component {
                             <p>If There, Please mention the name of your friend who refer you.</p>
                             <div className="input-icon"><i className="fa fa-user" /></div>
                         </div>
+                        <p className="pRegist" id="validate" >{this.state.schoolErr}</p>
                         <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
                             <div className="input-group input-group-icon">
                                 <input
@@ -318,6 +335,7 @@ export default class Regist extends Component {
                                     type="text" name="school"
                                     value={this.state.school}
                                     onChange={e => this.change(e)}
+                                    style = {{border:this.state.schoolErr!=""? "1.5px solid #ff1100ad":""}}
                                 />
                                 <pre id="example">example: example University</pre>
                                 <div className="input-icon"><i className="fa fa-building" /></div>
@@ -338,10 +356,12 @@ export default class Regist extends Component {
                             <p className="pRegist" id="validate" >{this.state.GPAErr}</p>
                             <div className="input-group input-group-icon">
                                 <input
+                                    id="phone"
                                     placeholder="GPA"
-                                    type="text"
+                                    type="number"
                                     name="GPA"
                                     value={this.state.GPA}
+                                    style = {{border:this.state.GPAErr!=""? "1.5px solid #ff1100ad":""}}
                                     onChange={e => this.change(e)}
                                 />
                                 <pre id="example">example: 3.45 || 3.40 || 3.00 ||70.25 || 85.00</pre>
@@ -365,14 +385,14 @@ export default class Regist extends Component {
                         <p className="pRegist" id="validate">{this.state.meetErr} {this.state.purposeErr}</p>
                         <div className="input-group input-group-icon" style={{ paddingTop: 20, paddingLeft: 25, width: 520 }}>
                             <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
-                                <select id="selectCur" name="purpose" value={this.state.purpose} onChange={e => this.change(e)}>
+                                <select id="selectCur" name="purpose" value={this.state.purpose} onChange={e => this.change(e)}  style = {{border:this.state.purposeErr!=""?"1.5px solid #ff1100ad": ""}}>
                                     <option hidden>Purpose Here*</option>
                                     <option value="Interview with HR" >Interview with HR</option>
                                     <option value="Interview with User" >Interview with User</option>
                                 </select>
                             </div>
-                            <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none" }}>
-                                <select id="selectCur" name="purpose" value={this.state.purpose} onChange={e => this.change(e)}>
+                            <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none"}}>
+                                <select id="selectCur" name="purpose" value={this.state.purpose} onChange={e => this.change(e)} style={{border:this.state.purposeErr!=""?"1.5px solid #ff1100ad": ""}}>
                                     <option hidden>Purpose Here*</option>
                                     <option value="FGD and Interview (Customer Care)" >FGD and Interview (Customer Care)</option>
                                     <option value="Interview with HR" >Interview with HR</option>
@@ -385,7 +405,7 @@ export default class Regist extends Component {
 
                                 </select>
                             </div>
-                            <select id="selectCur" name="meet" value={this.state.meet} onChange={e => this.change(e)}>
+                            <select id="selectCur" name="meet" value={this.state.meet} onChange={e => this.change(e)}  style = {{border:this.state.meetErr!=""?"1.5px solid #ff1100ad": ""}}>
                                 <option hidden>You would to see*</option>
                                 <option value="Ms. Amanda" >Ms. Amanda</option>
                                 <option value="Ms. Clarissa" >Ms. Clarissa</option>
@@ -402,7 +422,7 @@ export default class Regist extends Component {
                         <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
                             <p className="pRegist" id="validate" >{this.state.positionErr}</p>
                             <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
-                                <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)}>
+                                <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)} style={{border:this.state.positionErr!=""?"1.5px solid #ff1100ad": ""}}>
                                     <option hidden>Position Apply*</option>
                                     <option value="Accounting" >Accounting</option>
                                     <option value="Android Developer" >Android Developer</option>
@@ -515,8 +535,8 @@ export default class Regist extends Component {
                                     <option value="Video Producer" >Video Producer</option>
                                     <option value="Wordpress Engineer" >Wordpress Engineer</option>
                                 </select>
-                                <select id="selectCur" name="infoJob" value={this.state.infoJob} onChange={e => this.change(e)}>
-                                    <option hidden>Information about Job from</option>
+                                <select id="selectCur" name="infoJob" value={this.state.infoJob} onChange={e => this.change(e)}  style = {{border:this.state.infoJobErr!=""?"1.5px solid #ff1100ad": ""}}>
+                                    <option hidden>Information about Job from*</option>
                                     <option value="Website tokopedia" >Website Tokopedia</option>
                                     <option value="JobStreet" >JobStreet</option>
                                     <option value="Job Fair" >Job Fair</option>
@@ -530,7 +550,7 @@ export default class Regist extends Component {
                         <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none", position: "relative", left: 22 }}>
                             <p className="pRegist" id="validate" >{this.state.positionErr}{this.state.infoJobErr}</p>
                             <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
-                                <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)}>
+                                <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)} style = {{border:this.state.positionErr!=""?"1.5px solid #ff1100ad": ""}}>
                                     <option hidden>Position Apply*</option>
                                     <option value="Call Center Officer" >Call Center Officer</option>
                                     <option value="Customer Care Officer" >Customer Care Officer</option>
@@ -539,8 +559,8 @@ export default class Regist extends Component {
                                     <option value="Customer Care Officer - Social Media" >Customer Care Officer - Social Media</option>
                                     <option value="Transaction Officer" >Executive Assistant</option>
                                 </select>
-                                <select id="selectCur" name="infoJob" value={this.state.infoJob} onChange={e => this.change(e)}>
-                                    <option hidden>Information about Job from</option>
+                                <select id="selectCur" name="infoJob" value={this.state.infoJob} onChange={e => this.change(e)}  style = {{border:this.state.infoJobErr!=""?"1.5px solid #ff1100ad": ""}}>
+                                    <option hidden>Information about Job from*</option>
                                     <option value="Website tokopedia" >Website Tokopedia</option>
                                     <option value="JobStreet" >JobStreet</option>
                                     <option value="Job Fair" >Job Fair</option>
@@ -556,7 +576,7 @@ export default class Regist extends Component {
                     <div className="row" >
                         <p className="pRegist" id="validate" >{this.state.acquaintancesErr}</p>
                         <p className="pRegist" style={{ textAlign: 'center' }}>have any acquaintances in PT. Tokopedia?*</p>
-                        <div className="input-group" style={{ paddingLeft: 265 }}>
+                        <div className="input-group" style={{ paddingLeft: 265}}>
                             <input
                                 name="acquaintances"
                                 value="yes"
@@ -584,6 +604,7 @@ export default class Regist extends Component {
                                     type="text"
                                     name="acquaintanceName"
                                     value={this.state.acquaintanceName}
+                                    style = {{border:this.state.acquaintanceNameErr!=""?"1.5px solid #ff1100ad": ""}}
                                     onChange={e => this.change(e)}
                                 />
                                 <p>Your Acquaintance name</p>
@@ -593,7 +614,7 @@ export default class Regist extends Component {
                             <p id="validate">{this.state.relationshipErr}</p>
                             <div className="input-group input-group-icon" style={{ paddingTop: 20, left: 150, width: 640 }}>
 
-                                <select name="relationship" value={this.state.relationship} onChange={e => this.change(e)} >
+                                <select name="relationship" value={this.state.relationship} onChange={e => this.change(e)}  style = {{border:this.state.relationshipErr!=""?"1.5px solid #ff1100ad": ""}} >
                                     <option hidden >Relationship with Nakama *</option>
                                     <option value="College Friends">College Friends</option>
                                     <option value="Colleagues">Colleagues</option>
@@ -623,7 +644,7 @@ export default class Regist extends Component {
                             <p className="pRegist" id="validate" >{this.state.timeErr}</p>
                             <p className="pRegist" style={{ textAlign: 'center' }}>Scheduled time*</p>
                             <div className="input-group" style={{ display: "flex", justifyContent: "center", marginLeft: 75 }}>
-                                <div className="col-third" style={{ width: 70 }}>
+                                <div className="col-third" style={{ width: 78 }}>
                                     <input
                                         name="timeHH"
                                         placeholder="HH"
@@ -632,11 +653,12 @@ export default class Regist extends Component {
                                         max="12"
                                         style={{ width: 72 }}
                                         value={this.state.timeHH}
+                                        style = {{border:this.state.timeErr!=""?"1.5px solid #ff1100ad": ""}}
                                         onChange={e => this.change(e)}
                                     />
                                 </div>
-
-                                <div className="col-third" style={{ width: 78 }}>
+                                <span id="colon">:</span>
+                                <div className="col-third" style={{ width: 80 }}>
                                     <input
                                         name="timeMM"
                                         placeholder="MM"
@@ -645,6 +667,7 @@ export default class Regist extends Component {
                                         max="59"
                                         style={{ width: 72 }}
                                         value={this.state.timeMM}
+                                        style = {{border:this.state.timeErr!=""?"1.5px solid #ff1100ad": ""}}
                                         onChange={e => this.change(e)}
                                     />
                                 </div>
@@ -672,7 +695,7 @@ export default class Regist extends Component {
 
                                     onClick={this.handleInputChange.bind(this)}
                                 />
-                                <span style={{ cursor: "pointer" }} className="checkmark"></span>
+                                <span style={{ cursor: "pointer" }} className="checkmark"  style = {{border:this.state.statErr!=""?"1.5px solid #ff1100ad": ""}}></span>
                                 I hereby declare that this information I have made in truth and can be justified as it should</label>
                         </div>
 

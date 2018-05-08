@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem, Popover, OverlayTrigger } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import Dashboard from '../../views/Dashboard/Dashboard';
-import axios from 'axios'
+import axios from 'axios';
+import {withRouter} from 'react-router-dom'
 
 var name = {
     userName: Cookies.get("__hrnu")
 }
+
 const popoverYear = (
     <Popover id="popover-positioned-left" >
         <strong>Filter!</strong> per years data
@@ -37,18 +39,20 @@ const popoverW = (
 
 const year = parseInt(new Date().getFullYear());
 
+
 class HeaderLinks extends Component {
     constructor() {
         super();
         this.state = {
             years: "all",
             type: "all",
+            daily: "quarter",
             quarter: "all",
-            month: "all",
-            daily: "month"
+            month: "all"
 
         }
         this.change = this.change.bind(this);
+        this.resetQ = this.resetQ.bind(this);
     }
 
     // componentWillMount(){
@@ -91,25 +95,40 @@ class HeaderLinks extends Component {
                 console.log(error);
             });
 
-        this.setState({
-            year: this.state.years,
-            type: this.state.type,
-            quarter: this.state.quarter,
-            month: this.state.month,
-            daily: this.state.daily
-        })
+            if(window.parent.location.href === "http://localhost:3000/dashboard")
+            this.props.history.push("/");
+            if(window.parent.location.href === "http://localhost:3000/NonOps_Form_Response")
+            this.props.history.push("/NonOps_Form_Response");
+            if(window.parent.location.href === "http://localhost:3000/Ops_Form_Response")
+            this.props.history.push("/Ops_Form_Response");
+            // window.parent.location = window.parent.location.href;
+            // this.setState({
+            //     years: Cookies.get('year'),
+            //     type: Cookies.get('type'),
+            //     daily: Cookies.get('quarter'),
+            //     quarter: Cookies.get('month'),
+            //     month: Cookies.get('daily')
+            // })
 
-        window.location.href = "/dashboard"
+        // window.location.href = "/dashboard"
 
 
-        // Cookies.set('year',this.state.years,{ expires: 1 });
-        // Cookies.set('type',this.state.type,{ expires: 1 });
-        // Cookies.set('quarter',this.state.quarter,{ expires: 1 });
-        // Cookies.set('month',this.state.month,{ expires: 1 });
-        // Cookies.set('daily',this.state.daily,{ expires: 1 }); 
+        // years: Cookies.get('year'),
+        // type:   Cookies.get('type'),
+        // daily:  Cookies.get('quarter'),
+        // quarter: Cookies.get('month'),
+        // month:   Cookies.get('daily')
+        // year: Cookies.set('year',this.state.years,{ expires: 1 }),
+        // type: Cookies.set('type',this.state.type,{ expires: 1 }),
+        // quarter:  Cookies.set('quarter',this.state.quarter,{ expires: 1 }),
+        // month: Cookies.set('month',this.state.month,{ expires: 1 }),
+        // daily:  Cookies.set('daily',this.state.daily,{ expires: 1 }), 
+
+
+
+
 
     }
-
 
 
     logOut() {
@@ -141,6 +160,7 @@ class HeaderLinks extends Component {
             .catch(function (error) {
                 console.log(error);
             });
+
         window.location.href = "/register"
 
     }
@@ -178,63 +198,37 @@ class HeaderLinks extends Component {
         let today = new Date();
         let quarter = (Math.floor((today.getMonth() + 3) / 3)).toString();
         const day = parseInt(new Date().getMonth());
-        var date = ["January", "February", "March", "April", "Mei", "June",
-            "July", "August", "September", "October", "November", "Desember"]
+        var date = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Des"]
         let check = null;
-    
+
         if (this.state.quarter === "1")
-            check = this.state.quarter === quarter ? (day + 1) : 3
+            check = this.state.quarter === quarter && this.state.years != "all" ? (day + 1) : 3
         for (let i = 1; i <= check; i++) {
             arr.push(<option key={i} value={i}>
                 {date[i - 1]}</option>)
         }
         if (this.state.quarter === "2") {
-            check = this.state.quarter === quarter ? (day + 1) : 6
+            check = this.state.quarter === quarter && this.state.years != "all" ? (day + 1) : 6
             for (let i = 4; i <= check; i++) {
                 arr.push(<option key={i} value={i}>
                     {date[i - 1]}</option>)
             }
         }
         if (this.state.quarter === "3") {
-            check = this.state.quarter === quarter ? (day + 1) : 9
+            check = this.state.quarter === quarter && this.state.years != "all" ? (day + 1) : 9
             for (let i = 7; i <= check; i++) {
                 arr.push(<option key={i} value={i}>
                     {date[i - 1]}</option>)
             }
         }
         if (this.state.quarter === "4") {
+            check = this.state.quarter === quarter && this.state.years != "all" ? (day + 1) : 12
             for (let i = 10; i <= check; i++) {
-                check = this.state.quarter === quarter ? (day + 1) : 12
                 arr.push(<option key={i} value={i}>
                     {date[i - 1]}</option>)
             }
         }
-
-        // else {
-        //     if (this.state.quarter === "1")
-        //         for (let i = 1; i <= this.state.quarter === quarter?(day+1):4; i++) {
-        //             arr.push(<option key={i} value={i}>
-        //                 {date[i - 1]}</option>)
-        //         }
-        //     if (this.state.quarter === "2") {
-        //         for (let i = 4; i <= (day-1); i++) {
-        //             arr.push(<option key={i} value={i}>
-        //                 {date[i - 1]}</option>)
-        //         }
-        //     }
-        //     if (this.state.quarter === "3") {
-        //         for (let i = 7; i <= (day); i++) {
-        //             arr.push(<option key={i} value={i}>
-        //                 {date[i - 1]}</option>)
-        //         }
-        //     }
-        //     if (this.state.quarter === "4") {
-        //         for (let i = 10; i <= (day); i++) {
-        //             arr.push(<option key={i} value={i}>
-        //                 {date[i - 1]}</option>)
-        //         }
-        //     }
-        // }
         return arr;
     }
 
@@ -246,6 +240,17 @@ class HeaderLinks extends Component {
         });
     }
 
+    resetQ() {
+        if (this.state.daily != "quarter") {
+            this.setState({
+                quarter: "all",
+                month: "all"
+            });
+        }
+    }
+
+
+
     render() {
         const notification = (
             <div>
@@ -255,10 +260,10 @@ class HeaderLinks extends Component {
                 <p className="hidden-lg hidden-md">Notification</p>
             </div>
         );
-        console.log (...this.props)
+        console.log(...this.props)
         return (
 
-            
+
             <div>
                 {/* this is the icon Header ..............................................*/}
                 <Nav>
@@ -271,7 +276,7 @@ class HeaderLinks extends Component {
                     </NavDropdown> */}
                     <NavItem eventKey={2} id="navitem">
                         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverYear}>
-                            <select name="years" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
+                            <select name="years" id="navbarYear" onChange={e => this.change(e)}>
                                 <option value="all">All</option>
                                 {this.yearly()}
                             </select>
@@ -279,69 +284,44 @@ class HeaderLinks extends Component {
                     </NavItem>
                     <NavItem eventKey={3} id="navitem">
                         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverType}>
-                            <select name="type" id="navbarType" value={this.state.purpose} onChange={e => this.change(e)}>
+                            <select name="type" id="navbarType" onChange={e => this.change(e)}>
                                 <option value="all">All</option>
                                 <option value="Non Operational Form">Nonops</option>
                                 <option value="Operational Form">Ops</option>
                             </select>
                         </OverlayTrigger>
                     </NavItem>
-                    <NavItem eventKey={4} id="navItemQ">
-                        <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverQ}>
-                            <select name="quarter" id="navbarQ" value={this.state.purpose} onChange={e => this.change(e)}>
-                                <option value="all">All</option>
-                                {this.quarterly()}
-                                {/* <option value="1" >Q1 (Jan-Mar)</option>
-                                <option value="2" style={{ display:this.state.years ==="all" 
-                                || this.state.years === year.toString() ?this.quarterly() === 2 ?"block":"none":"block"}}>Q2 (Apr-Jun)</option>
-                                <option value="3" style={{ display:this.state.years ==="all" 
-                                || this.state.years === year.toString() ?this.quarterly() === 3 ?"block":"none":"block"}}>Q3 (Jul-Sep)</option>
-                                <option value="4" style={{ display:this.state.years ==="all" 
-                                || this.state.years === year.toString() ?this.quarterly() === 4 ?"block":"none":"block"}}>Q4 (Oct-Des)</option> */}
+                    <NavItem eventKey={4} id="navitem">
+                        <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverW}>
+                            <select name="daily" id="navbarType" onChange={e => this.change(e)} onClick={this.resetQ}>
+                                <option value="quarter">Quarter</option>
+                                <option value="week" >Weeks</option>
+                                <option value="day">Today</option>
+
                             </select>
                         </OverlayTrigger>
                     </NavItem>
+                    <NavItem eventKey={5} id="navItemQ">
+                        <div style={{ display: this.state.daily != "quarter" ? "none" : "block" }}>
+                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverQ}>
+                                <select name="quarter" id="navbarQ" onChange={e => this.change(e)}>
+                                    <option value="all">All</option>
+                                    {this.quarterly()}
+                                </select>
+                            </OverlayTrigger>
+                        </div>
+                    </NavItem>
                     <NavItem eventKey={5} id="navitem">
-                        <div style={{ display: this.state.quarter != "all" ? "block" : "none" }}>
+                        <div style={{ display: this.state.quarter != "all" ? this.state.daily != "quarter" ? "none" : "block" : "none" }}>
                             <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverD}>
-                                <select name="month" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
+                                <select name="month" id="navbarM" onChange={e => this.change(e)}>
                                     <option value="all">All</option>
                                     {this.monthly()}
                                 </select>
                             </OverlayTrigger>
                         </div>
-                        {/* <div style={{ display: this.state.quarter === "2" ? "block" : "none" }}>
-                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverD}>
-                                <select name="month" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
-                                    <option value="all">All</option>
-                                    <option value="4">Apr</option>
-                                    <option value="5">Mei</option>
-                                    <option value="6">Jun</option>
-                                </select>
-                            </OverlayTrigger>
-                        </div>
-                        <div style={{ display: this.state.quarter === "3" ? "block" : "none" }}>
-                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverD}>
-                                <select name="month" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
-                                    <option value="all">All</option>
-                                    <option value="7">Jul</option>
-                                    <option value="8">Aug</option>
-                                    <option value="9">Sep</option>
-                                </select>
-                            </OverlayTrigger>
-                        </div>
-                        <div style={{ display: this.state.quarter === "4" ? "block" : "none" }}>
-                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverD}>
-                                <select name="month" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
-                                    <option value="all">All</option>
-                                    <option value="10">Oct</option>
-                                    <option value="11">Nov</option>
-                                    <option value="12">Des</option>
-                                </select>
-                            </OverlayTrigger>
-                        </div> */}
                     </NavItem>
-                    <NavItem eventKey={6} id="navitem">
+                    {/* <NavItem eventKey={6} id="navitem">
                         <div style={{ display: this.state.month === "all" || this.state.quarter === "all" ? "none" : "block" }}>
                             <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverW}>
                                 <select name="daily" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
@@ -351,10 +331,10 @@ class HeaderLinks extends Component {
                                 </select>
                             </OverlayTrigger>
                         </div>
-                    </NavItem>
+                    </NavItem> */}
                     <NavItem eventKey={7} style={{
                         position: "relative",
-                        right: this.state.quarter === "all" ? 210 : this.state.month === "all" ? 100 : 0
+                        right: this.state.daily != "quarter" ? 240 : this.state.daily != "quarter" ? 110 : this.state.quarter === "all" ? 100 : 0
                     }}>
                         <button type="button" onClick={e => this.submit(e)} className="btn" id="navbutton">Filter</button>
                     </NavItem>
@@ -384,10 +364,10 @@ class HeaderLinks extends Component {
                     </NavItem> */}
                     <NavItem eventKey={2} onClick={this.logOut}>Log out</NavItem>
                 </Nav>
-                {console.log(this.quarterly())}
+                {console.log(this.state)}
             </div >
         );
     }
 }
 
-export default HeaderLinks;
+export default withRouter(HeaderLinks);

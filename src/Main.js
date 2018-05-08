@@ -19,6 +19,7 @@ const NoMatch = ({ location }) => (
         </div>
     </div>
 );
+
 class Main extends Component {
     render() {
         document.title = "PT.Tokopedia - Registration Form"

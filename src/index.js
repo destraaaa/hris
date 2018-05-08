@@ -19,6 +19,8 @@ import './assets/css/index.css';
 import './assets/css/datatable.css';
 import Cookies from 'js-cookie';
 import Main from './Main';
+import Admin from './RegistPage/Admin';
+import notUser from './RegistPage/notUser';
 
 const Auth = {
     // isAuthenticated: localStorage.getItem("auth")
@@ -36,6 +38,7 @@ const DPrivateRoute = ({ component: Component, ...rest }) => (
                     <Component {...props} />
                 )
             ) : (
+                
                     <Redirect
                         to={{
                             pathname: "/register",
@@ -71,6 +74,7 @@ const RPrivateRoute = ({ component: Component, ...rest }) => (
 ReactDOM.render((
     <BrowserRouter>
         <Switch>
+            <Route path="/adminHR" name="admin" component = {Admin} />
             <RPrivateRoute path="/register" name="register" component={Main} />
             <DPrivateRoute path="/" name="Home" component={App} />
         </Switch>
