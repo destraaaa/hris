@@ -1,157 +1,252 @@
 /* global gapi */
-import React, {Component} from 'react';
-import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { NavItem, Nav, NavDropdown, MenuItem, Popover, OverlayTrigger } from 'react-bootstrap';
 import Cookies from 'js-cookie';
-// import {PostData} from"./PostData";   
-// import {GoogleLogout} from 'react-google-login';
+import Dashboard from '../../views/Dashboard/Dashboard';
+import axios from 'axios'
 
-
-// const responseGoogle = (response) => {
-//     console.log(response);
-//   }
-
-// const logout = (response)=> {
-//     console.log(response)
-// }
 var name = {
-    userName: Cookies.get("__hrnu")    
+    userName: Cookies.get("__hrnu")
 }
-class HeaderLinks extends Component{
+const popoverYear = (
+    <Popover id="popover-positioned-left" >
+        <strong>Filter!</strong> per years data
+    </Popover>
+);
+const popoverType = (
+    <Popover id="popover-positioned-left" >
+        <strong>Filter!</strong> per Type Candidate data
+    </Popover>
+);
+const popoverQ = (
+    <Popover id="popover-positioned-left" >
+        <strong>Filter!</strong> per Quarter data
+    </Popover>
+);
+const popoverD = (
+    <Popover id="popover-positioned-left" >
+        <strong>Filter!</strong> per Month Quarter data
+    </Popover>
+);
 
-    logOut(){
-        // localStorage.removeItem("auth");
-        // localStorage.removeItem("name");
-        Cookies.remove('__hrid', { path: '/' })
-        Cookies.remove('__hrnu', { path: '/' })        
-        // window.location.href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register"
-        window.location.href="/register"
-        
+const popoverW = (
+    <Popover id="popover-positioned-left" >
+        <strong>Filter!</strong> per Daily data
+    </Popover>
+)
+
+const year = parseInt(new Date().getFullYear());
+
+class HeaderLinks extends Component {
+    constructor() {
+        super();
+        this.state = {
+            years: "all",
+            type: "all",
+            quarter: "all",
+            month: "all",
+            daily: "month"
+
+        }
+        this.change = this.change.bind(this);
     }
-    // componentDidMount () {
-    //     const script = document.createElement("script");
-    //     console.log("this script")
-    //     script.src = "https://apis.google.com/js/platform.js?onload=onLoadCallback";
-    //     script.async = true;
-    //     script.defer = true;
-    //     document.body.appendChild(script);
 
-    //     window.onLoadCallback = function(){
-    //         console.log("this window callback")
-                
-    //             gapi.auth2.init({
-    //                 client_id: '667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com'
-                 
-    //             });
-    //           }
-    // }
-    
+    // componentWillMount(){
 
-    // init() {
-    //     gapi.load('auth2', function() { 
-    //         client_id:'667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com'
-    //       
-    //   })
-    // }
-    // signOut() {
-    //     var auth2 = gapi.auth2.getAuthInstance();
-    //     auth2.signOut().then(function () {
-    //       console.log('User signed out.');
-    //     });
-    //   }
-
-    // componentDidMount() {
-    //     gapi.signin2.render('g-signin2', {
-    //       'scope': 'https://www.googleapis.com/auth/plus.login',
-    //       'width': 200,
-    //       'height': 50,
-    //       'longtitle': true,
-    //       'theme': 'dark',
-    //       'onsuccess': this. onSignIn
-    //     });  
-        
-    //   }
-    // onSignIn(googleUser) {
-    //     console.log("this onsignin")
-    //     // Useful data for your client-side scripts:
-    //     var profile = googleUser.getBasicProfile();
-    //     console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-    //     console.log('Full Name: ' + profile.getName());
-    //     console.log('Given Name: ' + profile.getGivenName());
-    //     console.log('Family Name: ' + profile.getFamilyName());
-    //     console.log("Image URL: " + profile.getImageUrl());
-    //     console.log("Email: " + profile.getEmail());
-    
-    //     // The ID token you need to pass to your backend:
-    //     var id_token = googleUser.getAuthResponse().id_token;
-    //     console.log("ID Token: " + id_token);
-    // };
-        // window.onLoadCallback = function(){
-        // gapi.auth2.init({
-        //     client_id: '667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com'
-        //   });
-//     constructor(props) {
-//         super(props);
-//            this.state = {
-//         //    loginError: false,
-//         redirectToReferrer: false
-//     };
-//     this.signup = this.signup.bind(this);
-//     }
-
-//     signup (res) {
-//         let postData;
-
-//         PostData('signup',postData).then((res)=>
-//     {
-//         let responseJson = res;
-//         if(responseJson.userData){
-//             sessionStorage.setItem('userData',JSON.stringify(responseJson));
-//             this.setState({redirectToReferrer:true});
-//         }
-//     }
-//     )
-//         // postData = {
-//         //     name: res.w3.ig,
-//         //     provider: type,
-//         //     email: res.w3.U3,
-//         //     provider_id: res.El,
-//         //     token: res.Zi.access_token,
-//         //     provider_pic: res.w3.Paa
-//         //   };
-
-//         if (postData) {
-//         PostData('signup', postData).then((result) => {
-//             let responseJson = result;
-//             sessionStorage.setItem("userData", JSON.stringify(responseJson));
-//             this.setState({redirect: true});
-//         });
-//     }
-// }
-//     onSignIn(userProfile, accessToken) {
-//         console.log(userProfile)
-//     }
-    
-    // logout() {
-    //     // this.googleAuth.signOut();
-    //     console.log("user has been sign out")
+    //     this.setState({
+    //         years: Cookies.get('year'),
+    //         type: Cookies.get('type'),
+    //         quarter: Cookies.get('quarter'),
+    //         month: Cookies.get('month'),
+    //         daily: Cookies.get('daily')
+    //     })
     // }
 
-//     responseGoogle (googleUser) {
-//         var id_token = googleUser.getAuthResponse().id_token;
-//         console.log({accessToken: id_token});
-//         //anything else you want to do(save to localStorage)...
-//       }
+
+    submit(e) {
+        e.preventDefault();
+        let filter = {
+            year: this.state.years,
+            type: this.state.type,
+            quarter: this.state.quarter,
+            month: this.state.month,
+            daily: this.state.daily
+        }
+
+        var authOptions = {
+            method: 'POST',
+            url: 'http://0.0.0.0:8080/nonopsform/filter',
+            data: JSON.stringify(filter),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            json: true
+        };
+        axios(authOptions)
+            .then(function (response) {
+                console.log(response.data);
+                console.log(response.status);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        this.setState({
+            year: this.state.years,
+            type: this.state.type,
+            quarter: this.state.quarter,
+            month: this.state.month,
+            daily: this.state.daily
+        })
+
+        window.location.href = "/dashboard"
+
+
+        // Cookies.set('year',this.state.years,{ expires: 1 });
+        // Cookies.set('type',this.state.type,{ expires: 1 });
+        // Cookies.set('quarter',this.state.quarter,{ expires: 1 });
+        // Cookies.set('month',this.state.month,{ expires: 1 });
+        // Cookies.set('daily',this.state.daily,{ expires: 1 }); 
+
+    }
 
 
 
-    render(){
+    logOut() {
 
-        // const responseGoogle = (response) => {
-        //     console.log("google console");
-        //     console.log(response);
-        //     this.signup(response);
+        Cookies.remove('__hrid', { path: '/' })
+        Cookies.remove('__hrnu', { path: '/' })
+        // window.location.href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register"
+        var filter = {
+            year: "all",
+            type: "all",
+            quarter: "all",
+            month: "all",
+            daily: "month"
+        }
+        var authOptions = {
+            method: 'POST',
+            url: 'http://0.0.0.0:8080/nonopsform/filter',
+            data: JSON.stringify(filter),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            json: true
+        };
+        axios(authOptions)
+            .then(function (response) {
+                console.log(response.data);
+                console.log(response.status);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        window.location.href = "/register"
+
+    }
+
+    yearly() {
+        var arr = []
+        for (let i = 2018; i <= year; i++) {
+            arr.push(<option key={i} value={i}>{i}</option>)
+        }
+
+        return arr;
+    }
+
+    quarterly() {
+        var arr = [];
+        let today = new Date();
+        let quarter = Math.floor((today.getMonth() + 3) / 3);
+        var date = ["(Jan-Mar)", "(Apr-Jun)", "(Jul-Sep)", "(Oct-Des)"]
+        if (this.state.years === "all" || this.state.years != year.toString()) {
+            for (let i = 1; i <= 4; i++) {
+                arr.push(<option key={i} value={i}>
+                    Q{i} {date[i - 1]}</option>)
+            }
+        }
+        else
+            for (let i = 1; i <= quarter; i++) {
+                arr.push(<option key={i} value={i}>Q{i} {date[i - 1]}</option>)
+            }
+
+        return arr;
+    }
+
+    monthly() {
+        var arr = [];
+        let today = new Date();
+        let quarter = (Math.floor((today.getMonth() + 3) / 3)).toString();
+        const day = parseInt(new Date().getMonth());
+        var date = ["January", "February", "March", "April", "Mei", "June",
+            "July", "August", "September", "October", "November", "Desember"]
+        let check = null;
+    
+        if (this.state.quarter === "1")
+            check = this.state.quarter === quarter ? (day + 1) : 3
+        for (let i = 1; i <= check; i++) {
+            arr.push(<option key={i} value={i}>
+                {date[i - 1]}</option>)
+        }
+        if (this.state.quarter === "2") {
+            check = this.state.quarter === quarter ? (day + 1) : 6
+            for (let i = 4; i <= check; i++) {
+                arr.push(<option key={i} value={i}>
+                    {date[i - 1]}</option>)
+            }
+        }
+        if (this.state.quarter === "3") {
+            check = this.state.quarter === quarter ? (day + 1) : 9
+            for (let i = 7; i <= check; i++) {
+                arr.push(<option key={i} value={i}>
+                    {date[i - 1]}</option>)
+            }
+        }
+        if (this.state.quarter === "4") {
+            for (let i = 10; i <= check; i++) {
+                check = this.state.quarter === quarter ? (day + 1) : 12
+                arr.push(<option key={i} value={i}>
+                    {date[i - 1]}</option>)
+            }
+        }
+
+        // else {
+        //     if (this.state.quarter === "1")
+        //         for (let i = 1; i <= this.state.quarter === quarter?(day+1):4; i++) {
+        //             arr.push(<option key={i} value={i}>
+        //                 {date[i - 1]}</option>)
+        //         }
+        //     if (this.state.quarter === "2") {
+        //         for (let i = 4; i <= (day-1); i++) {
+        //             arr.push(<option key={i} value={i}>
+        //                 {date[i - 1]}</option>)
+        //         }
+        //     }
+        //     if (this.state.quarter === "3") {
+        //         for (let i = 7; i <= (day); i++) {
+        //             arr.push(<option key={i} value={i}>
+        //                 {date[i - 1]}</option>)
+        //         }
+        //     }
+        //     if (this.state.quarter === "4") {
+        //         for (let i = 10; i <= (day); i++) {
+        //             arr.push(<option key={i} value={i}>
+        //                 {date[i - 1]}</option>)
+        //         }
+        //     }
         // }
+        return arr;
+    }
 
+
+
+    change(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    render() {
         const notification = (
             <div>
                 <i className="fa fa-globe"></i>
@@ -160,61 +255,116 @@ class HeaderLinks extends Component{
                 <p className="hidden-lg hidden-md">Notification</p>
             </div>
         );
+        console.log (...this.props)
         return (
+
+            
             <div>
+                {/* this is the icon Header ..............................................*/}
                 <Nav>
-                    <NavItem eventKey={1} href="#">
-                        <i className="fa fa-dashboard"></i>
-                        <p className="hidden-lg hidden-md">Dashboard</p>
+                    {/* <NavDropdown eventKey={1} title={notification} noCaret id="basic-nav-dropdown">
+                        <MenuItem eventKey={1.1}>Notification 1</MenuItem>
+                        <MenuItem eventKey={1.2}>Notification 2</MenuItem>
+                        <MenuItem eventKey={1.3}>Notification 3</MenuItem>
+                        <MenuItem eventKey={1.4}>Notification 4</MenuItem>
+                        <MenuItem eventKey={1.5}>Another notifications</MenuItem>
+                    </NavDropdown> */}
+                    <NavItem eventKey={2} id="navitem">
+                        <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverYear}>
+                            <select name="years" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
+                                <option value="all">All</option>
+                                {this.yearly()}
+                            </select>
+                        </OverlayTrigger>
                     </NavItem>
-                    <NavDropdown eventKey={2} title={notification} noCaret id="basic-nav-dropdown">
-                        <MenuItem eventKey={2.1}>Notification 1</MenuItem>
-                        <MenuItem eventKey={2.2}>Notification 2</MenuItem>
-                        <MenuItem eventKey={2.3}>Notification 3</MenuItem>
-                        <MenuItem eventKey={2.4}>Notification 4</MenuItem>
-                        <MenuItem eventKey={2.5}>Another notifications</MenuItem>
-                    </NavDropdown>
-                    <NavItem eventKey={3} href="#">
-                        <i className="fa fa-search"></i>
-                        <p className="hidden-lg hidden-md">Search</p>
+                    <NavItem eventKey={3} id="navitem">
+                        <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverType}>
+                            <select name="type" id="navbarType" value={this.state.purpose} onChange={e => this.change(e)}>
+                                <option value="all">All</option>
+                                <option value="Non Operational Form">Nonops</option>
+                                <option value="Operational Form">Ops</option>
+                            </select>
+                        </OverlayTrigger>
                     </NavItem>
+                    <NavItem eventKey={4} id="navItemQ">
+                        <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverQ}>
+                            <select name="quarter" id="navbarQ" value={this.state.purpose} onChange={e => this.change(e)}>
+                                <option value="all">All</option>
+                                {this.quarterly()}
+                                {/* <option value="1" >Q1 (Jan-Mar)</option>
+                                <option value="2" style={{ display:this.state.years ==="all" 
+                                || this.state.years === year.toString() ?this.quarterly() === 2 ?"block":"none":"block"}}>Q2 (Apr-Jun)</option>
+                                <option value="3" style={{ display:this.state.years ==="all" 
+                                || this.state.years === year.toString() ?this.quarterly() === 3 ?"block":"none":"block"}}>Q3 (Jul-Sep)</option>
+                                <option value="4" style={{ display:this.state.years ==="all" 
+                                || this.state.years === year.toString() ?this.quarterly() === 4 ?"block":"none":"block"}}>Q4 (Oct-Des)</option> */}
+                            </select>
+                        </OverlayTrigger>
+                    </NavItem>
+                    <NavItem eventKey={5} id="navitem">
+                        <div style={{ display: this.state.quarter != "all" ? "block" : "none" }}>
+                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverD}>
+                                <select name="month" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
+                                    <option value="all">All</option>
+                                    {this.monthly()}
+                                </select>
+                            </OverlayTrigger>
+                        </div>
+                        {/* <div style={{ display: this.state.quarter === "2" ? "block" : "none" }}>
+                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverD}>
+                                <select name="month" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
+                                    <option value="all">All</option>
+                                    <option value="4">Apr</option>
+                                    <option value="5">Mei</option>
+                                    <option value="6">Jun</option>
+                                </select>
+                            </OverlayTrigger>
+                        </div>
+                        <div style={{ display: this.state.quarter === "3" ? "block" : "none" }}>
+                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverD}>
+                                <select name="month" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
+                                    <option value="all">All</option>
+                                    <option value="7">Jul</option>
+                                    <option value="8">Aug</option>
+                                    <option value="9">Sep</option>
+                                </select>
+                            </OverlayTrigger>
+                        </div>
+                        <div style={{ display: this.state.quarter === "4" ? "block" : "none" }}>
+                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverD}>
+                                <select name="month" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
+                                    <option value="all">All</option>
+                                    <option value="10">Oct</option>
+                                    <option value="11">Nov</option>
+                                    <option value="12">Des</option>
+                                </select>
+                            </OverlayTrigger>
+                        </div> */}
+                    </NavItem>
+                    <NavItem eventKey={6} id="navitem">
+                        <div style={{ display: this.state.month === "all" || this.state.quarter === "all" ? "none" : "block" }}>
+                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverW}>
+                                <select name="daily" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
+                                    <option value="month">Month</option>
+                                    <option value="week">Weeks</option>
+                                    <option value="day">Today</option>
+                                </select>
+                            </OverlayTrigger>
+                        </div>
+                    </NavItem>
+                    <NavItem eventKey={7} style={{
+                        position: "relative",
+                        right: this.state.quarter === "all" ? 210 : this.state.month === "all" ? 100 : 0
+                    }}>
+                        <button type="button" onClick={e => this.submit(e)} className="btn" id="navbutton">Filter</button>
+                    </NavItem>
+
+
                 </Nav>
+                {/* this is the icon Header ..............................................*/}
                 <Nav pullRight>
                     <NavItem eventKey={1}>{name.userName}</NavItem>
-                    {/* <NavItem eventKey={1}> <div 
-                            className="g-signin2"
-                            data-onsuccess={this.onSignIn}
-                            data-theme="dark"
-                            buttonText="blbalbal"
-                            style={{position:"relative", bottom:8}}
-                            >
-                            
-                            </div>
-                    </NavItem> */}
-                    {/* <NavItem eventKey={1}>
-                    <GoogleLogin
-                        clientId="667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        className = "g-signin2"
-                        buttonText = ""
-                        // type = "div"
-                        style={{position:"relative", bottom:11, backgroundColor:"#fff"}}
-                    />
-                    </NavItem> */}
-                    {/* <div style={{position:"relative", bottom:5, width:170}}>
-                     <GoogleSignIn 
-                          clientId="667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com"
-                          width ="180"
-                          height = "30"
-                          buttonText = "Login"
-                          onSuccess={responseGoogle}
-                          onFailure={responseGoogle}
-                        //   ref={g => this.googleAuth = g}
-                        //   onSuccess={this.onSignIn.bind(this)}
-                     />
-                     </div> */}
-                    <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown-right">
+                    {/* <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown-right">
                         <MenuItem eventKey={2.1}>Action</MenuItem>
                         <MenuItem eventKey={2.2}>Another action</MenuItem>
                         <MenuItem eventKey={2.3}>Something</MenuItem>
@@ -222,20 +372,20 @@ class HeaderLinks extends Component{
                         <MenuItem eventKey={2.5}>Something</MenuItem>
                         <MenuItem divider />
                         <MenuItem eventKey={2.5}>Separated link</MenuItem>
-                    </NavDropdown>
+                    </NavDropdown> */}
                     {/* <NavItem eventKey={3} 
                     href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register">Log out</NavItem> */}
-                   
+
                     {/* <NavItem eventKey={3}>
                         <GoogleLogout 
                             buttonText="Log out"
                             onLogoutSuccess={logout}>
                         </GoogleLogout>
                     </NavItem> */}
-                    <NavItem eventKey={3}onClick = {this.logOut}>Log out</NavItem>
-                    
+                    <NavItem eventKey={2} onClick={this.logOut}>Log out</NavItem>
                 </Nav>
-            </div>
+                {console.log(this.quarterly())}
+            </div >
         );
     }
 }

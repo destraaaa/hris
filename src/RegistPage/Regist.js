@@ -14,42 +14,43 @@ export default class Regist extends Component {
         this.isGoing = false;
         this.state = {
             fullName: "",
-            fullNameErr: "",
             nickName: "",
             phoneNumber: "",
-            phoneNumberErr: "",
             email: "",
-            emailErr: "",
             school: "",
             major: "",
             GPA: "",
             purpose: "",
-            purposeErr: "",
             meet: "",
-            meetErr: "",
             position: "",
-            positionErr: "",
             acquaintances: "",
-            acquaintancesErr: "",
             time: "",
             timeMM: "",
             timeHH: "",
             timeMA: "AM",
-            timeErr: "",
             infoJob: "",
-            GPAErr: "",
             acquaintanceName: "",
             relationship: "",
             temp: "",
+            meetErr: "",
+            positionErr: "",
+            GPAErr: "",
+            timeErr: "",
             acquaintanceNameErr: "",
             relationshipErr: "",
             referralName: "",
+            purposeErr: "",
+            emailErr: "",
             referralNameErr: "",
             statErr: "",
+            fullNameErr: "",
+            phoneNumberErr: "",
+            acquaintancesErr: "",
+            infoJobErr :"",
             formType: Cookies.get('__intvw')
         };
     }
-    
+
     handleInputChange() {
         this.isGoing = !this.isGoing
     };
@@ -59,7 +60,7 @@ export default class Regist extends Component {
             [e.target.name]: e.target.value
         });
     };
-    back(){
+    back() {
         Cookies.remove('__intvw');
         window.location.href = "/register/welcome"
     }
@@ -80,7 +81,9 @@ export default class Regist extends Component {
             GPAErr: "",
             acquaintanceNameErr: "",
             relationshipErr: "",
-            referralNameErr: ""
+            referralNameErr: "",
+            statErr: "",
+            infoJobErr : ""
         };
 
 
@@ -119,6 +122,10 @@ export default class Regist extends Component {
         if (this.state.acquaintances === "") {
             isError = true;
             errors.acquaintancesErr = "the acquaintances column is empty.";
+        }
+        if (this.state.infoJobErr ===""){
+            isError = true;
+            errors.infoJobErr = "the Job Info column is empty";
         }
         else if (this.state.acquaintances === "yes") {
             if (this.state.acquaintanceName === "") {
@@ -228,6 +235,7 @@ export default class Regist extends Component {
                 relationshipErr: "",
                 referralNameErr: ""
             });
+            console.log(interviewee)
             //window.location.href = '/register';
         }
     };
@@ -519,8 +527,8 @@ export default class Regist extends Component {
                             </div>
                         </div>
 
-                        <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none" , position:"relative", left:22}}>
-                            <p className="pRegist" id="validate" >{this.state.positionErr}</p>
+                        <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none", position: "relative", left: 22 }}>
+                            <p className="pRegist" id="validate" >{this.state.positionErr}{this.state.infoJobErr}</p>
                             <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
                                 <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)}>
                                     <option hidden>Position Apply*</option>
@@ -670,7 +678,7 @@ export default class Regist extends Component {
 
                         <div style={{ width: 820, position: "relative", right: 320 }}>
                             <button type="submit" className="btn">Finish</button>
-                            <button type="button" className="btn" onClick= {this.back}>Back</button>
+                            <button type="button" className="btn" onClick={this.back}>Back</button>
                         </div>
                     </div>
 

@@ -11,9 +11,9 @@ import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
 
 import { style } from "variables/Variables.jsx";
-import Welcome from '../../RegistPage/Welcome';
-import Form from "../../RegistPage/Regist";
-import notUser from '../../RegistPage/notUser';
+// import Welcome from '../../RegistPage/Welcome';
+// import Form from "../../RegistPage/Regist";
+// import notUser from '../../RegistPage/notUser';
 import appRoutes from 'routes/app.jsx';
 import Cookies from 'js-cookie';
 
@@ -62,7 +62,7 @@ class App extends Component {
             ),
             level: level,
             position: position,
-            autoDismiss: 15,
+            autoDismiss: 3,
         });
     }
     componentDidMount() {
@@ -95,7 +95,7 @@ class App extends Component {
             ),
             level: level,
             position: "tr",
-            autoDismiss: 15,
+            autoDismiss: 3,
         });
     }
     componentDidUpdate(e) {
@@ -112,6 +112,7 @@ class App extends Component {
                     <Sidebar {...this.props} />
                     <div id="main-panel" className="main-panel">
                         <Header {...this.props} />
+                        <div style={{marginTop:90}}>
                         <Switch>
                             {
                                 appRoutes.map((prop, key) => {
@@ -140,6 +141,7 @@ class App extends Component {
                           
                         </Switch>
                         <Footer />
+                        </div>
                     </div>
                 </div>
             </div>

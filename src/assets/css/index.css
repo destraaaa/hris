@@ -397,3 +397,52 @@ padding-bottom: 30px;
   left: 55px;
   padding-top:20px; 
 }
+
+
+#navitem{
+  width: 100px;
+}
+#navItemQ{
+  width: 140px;
+}
+#navbarYear{
+  position: relative;
+  bottom: 13px;
+  font-size: 13.5px;
+  width: 90px;
+  height: 45px;
+}
+#navbarType{
+  position: relative;
+  bottom: 13px;
+  font-size: 13.5px;
+  width: 95px;
+
+}
+#navbarQ{
+  position: relative;
+  bottom: 13px;
+  font-size: 13.5px;
+  width: 128px;
+}
+#navbutton{
+  display: inline-block;
+  padding: 0px;
+  width: 60px;
+  height: 30px;
+  position: relative;
+  bottom: 20px;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  background-color:#7fd31f;
+  border-color: rgb(212, 212, 212);
+}
+
+#navbutton:hover{
+  background-color:transparent;
+  color: #b1b1b1;
+}
+
+
+

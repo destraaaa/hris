@@ -9,18 +9,18 @@ export default class Table extends Component {
         this.$el.DataTable(
             {
                 "ajax": {
-                    "url": "http://0.0.0.0:8080/opsform/view",
+                    "url": "http://0.0.0.0:8080/rejected/view",
                     "dataSrc": ""
                 },
-                // data: this.props.data,
                 columns: [
                     { data: "id" },
                     { data: "fullName" },
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "email" },
-                    { data: "statProgress" },
                     { data: "school" },
+                    { data: "major" },
+                    { data: "GPA" },
                     { data: "purpose" },
                     { data: "meet" },
                     { data: "position" },
@@ -34,10 +34,9 @@ export default class Table extends Component {
                         "render": function (data) {
                             var date = new Date(data);
                             var month = date.getMonth() + 1;
-                            return date.getDate() + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+                            return   date.getDate()+ "/"  +(month.length > 1 ? month : "0" + month)+ "/" + date.getFullYear();
                         }
                     }
-
                 ]
 
             }
@@ -58,8 +57,9 @@ export default class Table extends Component {
                             <th>Nickname</th>
                             <th>PhoneNumber</th>
                             <th>Email</th>
-                            <th>Progress</th>
                             <th>School</th>
+                            <th>Major</th>
+                            <th>GPA</th>
                             <th>Purpose</th>
                             <th>ContactPerson</th>
                             <th>Position</th>

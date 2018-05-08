@@ -7,32 +7,18 @@ export default class Table extends Component {
         console.log(this.el)
         this.$el = $(this.el)
         this.$el.DataTable(
-          
             {
                 "ajax": {
                     "url": "http://0.0.0.0:8080/nonopsform/view",
                     "dataSrc": ""
                 },
-                // data: this.props.data,
-                // switch data.progress{
-                //     case 1:	data.progress = "no status"
-                //     return;
-                //     case 2:
-                //         data.progress = "reject"
-                //     case 3:
-                //         data.progress = "approved"
-                    
-                //     case 4: 
-                //         data.progress = "on progress"
-                // }
-                
                 columns: [
                     { data: "id" },
                     { data: "fullName" },
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "email" },
-                    {data: "progress"},
+                    { data: "statProgress" },
                     { data: "school" },
                     { data: "major" },
                     { data: "GPA" },
@@ -44,7 +30,14 @@ export default class Table extends Component {
                     { data: "acquaintanceName" },
                     { data: "relationship" },
                     { data: "referralName" },
-                    { data: "timestamp" }    
+                    {
+                        data: "timestamp",
+                        "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return   date.getDate()+ "/"  +(month.length > 1 ? month : "0" + month)+ "/" + date.getFullYear();
+                        }
+                    }
                 ]
 
             }
@@ -56,7 +49,7 @@ export default class Table extends Component {
     // }
     render() {
         return (
-            <div style={{ width: 1010, paddingLeft: 50, overflowX:"auto" }}>
+            <div style={{ width: 1010, paddingLeft: 50, overflowX: "auto" }}>
                 <table className="display" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
@@ -65,7 +58,7 @@ export default class Table extends Component {
                             <th>Nickname</th>
                             <th>PhoneNumber</th>
                             <th>Email</th>
-                            <th>Progress</th>                            
+                            <th>Progress</th>
                             <th>School</th>
                             <th>Major</th>
                             <th>GPA</th>

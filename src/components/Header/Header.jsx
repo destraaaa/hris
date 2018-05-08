@@ -57,7 +57,7 @@ class Header extends Component{
     }
     render(){
         return (
-            <Navbar fluid>
+            <Navbar fluid style={{position: "fixed", zIndex: 999, width: 1100}} >
                 <Navbar.Header style={{marginLeft:20}}>
                     <Navbar.Brand>
                         <a href="#pablo">{this.getBrand()}</a>
