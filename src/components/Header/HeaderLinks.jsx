@@ -2,9 +2,8 @@
 import React, { Component } from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem, Popover, OverlayTrigger } from 'react-bootstrap';
 import Cookies from 'js-cookie';
-import Dashboard from '../../views/Dashboard/Dashboard';
 import axios from 'axios';
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 var name = {
     userName: Cookies.get("__hrnu")
@@ -55,15 +54,22 @@ class HeaderLinks extends Component {
         this.resetQ = this.resetQ.bind(this);
     }
 
-    // componentWillMount(){
+    // start() {
+    //     if (window.parent.location.href === "http://localhost:3000/Ops_Form_Response") {
+    //         {
+    //             Cookies.set('__filt', 'Ops_Form_Response', { expires: 1, path: '/' })
+    //             console.log("di response ops")
+    //         }
+    //     }
+    //     else Cookies.remove('__filt')
+    //     if (window.parent.location.href === "http://localhost:3000/NonOps_Form_Response") {
+    //         {
+    //             Cookies.set('__filt', 'Ops_Form_Response', { expires: 1, path: '/' })
+    //             console.log("di response nonops")
+    //         }
+    //     }
+    //     else Cookies.remove('__filt')
 
-    //     this.setState({
-    //         years: Cookies.get('year'),
-    //         type: Cookies.get('type'),
-    //         quarter: Cookies.get('quarter'),
-    //         month: Cookies.get('month'),
-    //         daily: Cookies.get('daily')
-    //     })
     // }
 
 
@@ -95,20 +101,29 @@ class HeaderLinks extends Component {
                 console.log(error);
             });
 
-            if(window.parent.location.href === "http://localhost:3000/dashboard")
+        if (window.parent.location.href === "http://localhost:3000/dashboard") {
             this.props.history.push("/");
-            if(window.parent.location.href === "http://localhost:3000/NonOps_Form_Response")
-            this.props.history.push("/NonOps_Form_Response");
-            if(window.parent.location.href === "http://localhost:3000/Ops_Form_Response")
-            this.props.history.push("/Ops_Form_Response");
-            // window.parent.location = window.parent.location.href;
-            // this.setState({
-            //     years: Cookies.get('year'),
-            //     type: Cookies.get('type'),
-            //     daily: Cookies.get('quarter'),
-            //     quarter: Cookies.get('month'),
-            //     month: Cookies.get('daily')
-            // })
+        }
+        if (window.parent.location.href === "http://localhost:3000/NonOps_Form_Response") {
+            {
+                this.props.history.push('/NonOps_Form_Response')
+                Cookies.set('__filt', 'NonOps_Form_Response', { expires: 1, path: '/' })
+            }
+        }
+        if (window.parent.location.href === "http://localhost:3000/Ops_Form_Response") {
+            {
+                this.props.history.push("/Ops_Form_Response");
+                Cookies.set('__filt', 'Ops_Form_Response', { expires: 1, path: '/' })
+            }
+        }
+        // window.parent.location = window.parent.location.href;
+        // this.setState({
+        //     years: Cookies.get('year'),
+        //     type: Cookies.get('type'),
+        //     daily: Cookies.get('quarter'),
+        //     quarter: Cookies.get('month'),
+        //     month: Cookies.get('daily')
+        // })
 
         // window.location.href = "/dashboard"
 
@@ -247,11 +262,27 @@ class HeaderLinks extends Component {
                 month: "all"
             });
         }
+        if (this.state.daily != "all") {
+            this.setState({
+                month: "all"
+            });
+        }
+    }
+
+    resetY() {
+        if (this.state.years != "all") {
+            this.setState({
+                quarter: "all",
+                month: "all"
+            });
+        }
     }
 
 
 
     render() {
+        // var id = this.props.match.params.id
+        // console.log(id)
         const notification = (
             <div>
                 <i className="fa fa-globe"></i>
@@ -276,21 +307,28 @@ class HeaderLinks extends Component {
                     </NavDropdown> */}
                     <NavItem eventKey={2} id="navitem">
                         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverYear}>
-                            <select name="years" id="navbarYear" onChange={e => this.change(e)}>
+                            <select name="years" id="navbarYear" onChange={e => this.change(e)} onClick={this.resetY.bind(this)}>
                                 <option value="all">All</option>
                                 {this.yearly()}
                             </select>
                         </OverlayTrigger>
                     </NavItem>
-                    <NavItem eventKey={3} id="navitem">
+                    <NavItem eventKey={3} id="navitem"
+                        // style={{
+                        //     display: window.parent.location.href === "http://localhost:3000/NonOps_Form_Response"
+                        //         || window.parent.location.href === "http://localhost:3000/Ops_Form_Response" ?
+                        //         "none" : "block"
+                        // }}
+                        >
                         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverType}>
                             <select name="type" id="navbarType" onChange={e => this.change(e)}>
-                                <option value="all">All</option>
+                                <option value="all" >All</option>
                                 <option value="Non Operational Form">Nonops</option>
                                 <option value="Operational Form">Ops</option>
                             </select>
                         </OverlayTrigger>
                     </NavItem>
+
                     <NavItem eventKey={4} id="navitem">
                         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverW}>
                             <select name="daily" id="navbarType" onChange={e => this.change(e)} onClick={this.resetQ}>
@@ -304,8 +342,8 @@ class HeaderLinks extends Component {
                     <NavItem eventKey={5} id="navItemQ">
                         <div style={{ display: this.state.daily != "quarter" ? "none" : "block" }}>
                             <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverQ}>
-                                <select name="quarter" id="navbarQ" onChange={e => this.change(e)}>
-                                    <option value="all">All</option>
+                                <select name="quarter" value= {this.state.quarter} id="navbarQ" onChange={e => this.change(e)} onClick={this.resetQ}>
+                                    <option value="all" >All</option>
                                     {this.quarterly()}
                                 </select>
                             </OverlayTrigger>
@@ -332,7 +370,7 @@ class HeaderLinks extends Component {
                             </OverlayTrigger>
                         </div>
                     </NavItem> */}
-                    <NavItem eventKey={7} style={{
+                    <NavItem eventKey={6} style={{
                         position: "relative",
                         right: this.state.daily != "quarter" ? 240 : this.state.daily != "quarter" ? 110 : this.state.quarter === "all" ? 100 : 0
                     }}>

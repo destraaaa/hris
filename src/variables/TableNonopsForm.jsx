@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import Cookies from 'js-cookie';
 const $ = require('jquery')
 $.DataTable = require('datatables.net')
+const $el = $(this.el)
 
 export default class Table extends Component {
-    componentDidMount() {
-        console.log(this.el)
+    data(check) {
         this.$el = $(this.el)
         this.$el.DataTable(
             {
+                destroy: check,
                 "ajax": {
                     "url": "http://0.0.0.0:8080/nonopsform/view",
                     "dataSrc": ""
@@ -35,21 +37,34 @@ export default class Table extends Component {
                         "render": function (data) {
                             var date = new Date(data);
                             var month = date.getMonth() + 1;
-                            return   date.getDate()+ "/"  +(month.length > 1 ? month : "0" + month)+ "/" + date.getFullYear();
+                            return date.getDate() + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
                         }
                     }
                 ]
-
             }
         )
     }
 
-    // componentWillUnmount() {
-    //     this.Sel.DataTable.destroy(true)
-    // }
+    componentDidUpdate() {
+        if (Cookies.get('__filt') === "NonOps_Form_Response") {
+            this.data(true)
+            Cookies.remove('__filt')
+        }
+    }
+
+    componentDidMount() {
+        this.data(false)
+    }
+
+    componentWillUnmount() {
+        this.$el.DataTable().destroy(true)
+    }
+
+
+
     render() {
         return (
-            <div style={{ width: 1010, paddingLeft: 50, overflowX: "auto" }}>
+            <div style={{ minWidth: 720, paddingLeft: 40,marginRight:40, overflowX: "auto" }}>
                 <table className="display" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>

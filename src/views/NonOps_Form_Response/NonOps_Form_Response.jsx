@@ -5,7 +5,7 @@ import Card from 'components/Card/Card.jsx';
 // import Table from 'variables/Table.jsx';
 // import {dataSetNonopsForm} from 'variables/Variables.jsx';
 
-class TableList extends Component {
+class NonOps_Form_Response extends Component {
 
     render() {
         return (
@@ -31,4 +31,4 @@ class TableList extends Component {
     }
 }
 
-export default TableList;
+export default NonOps_Form_Response;

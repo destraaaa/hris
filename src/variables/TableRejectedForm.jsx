@@ -48,7 +48,7 @@ export default class Table extends Component {
     // }
     render() {
         return (
-            <div style={{ width: 1010, paddingLeft: 50, overflowX: "auto" }}>
+            <div style={{ minWidth: 720, paddingLeft: 40, marginRight: 40, overflowX: "auto" }}>
                 <table className="display" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
