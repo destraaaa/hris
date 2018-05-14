@@ -30,6 +30,7 @@ class FormValid extends Component {
         };
         this.change = this.change.bind(this);
         this.next1 = this.next1.bind(this);
+        this.next2 = this.next2.bind(this);
     }
 
     change(e) {
@@ -80,7 +81,7 @@ class FormValid extends Component {
         if(this.state.formType ==="")
         {
             isError = true;
-            error.errEmpty = "choose one first!!";
+            error.errEmpty = "choose one Form first!!";
         }
         window.scroll(0,0)
         this.setState(error);
@@ -100,6 +101,7 @@ class FormValid extends Component {
            })
        
            if(check){
+                check = false
                 console.log("sudah pernah interview")
            }
            else
@@ -114,25 +116,6 @@ class FormValid extends Component {
             }
            }
        }
-
-        // if (this.state.interview === "first") {
-        //     this.setState({
-        //         main: false,
-        //         timeFirst: true,
-        //         buttonFirst: false,
-        //         buttonSecond: true
-        //     });
-        // }
-        // else if (this.state.interview === "second") {
-        //     this.setState({
-        //         main: false,
-        //         timeSecond: true,
-        //         buttonFirst: false,
-        //         buttonSecond: true
-        //     });
-        // }
-
-        // this.setState({ err: "" })
     
 
     next2(e) {
@@ -140,22 +123,8 @@ class FormValid extends Component {
         const err = this.validate2();
         if(!err){
            Cookies.set('__intvw', this.state.formType, { expires: 0.3, path: "/" });
+           Cookies.set('__email', this.state.email, { expires: 0.3, path: "/" });           
            window.location.href = "/register/form"
-        // else if (this.state.interview === "second") {
-        //     if (this.state.email === "") {
-        //         this.state.err = "the column is empty, please fill the column first!!!"
-        //         console.log(this.state.err)
-        //     }
-        //     else
-        //         this.setState({
-        //             main: true,
-        //             timeSecond: false,
-        //             buttonFirst: true,
-        //             buttonSecond: false
-        //         });
-        // }
-
-        // this.setState({ err: "" })
          }
     }
 
@@ -211,7 +180,6 @@ class FormValid extends Component {
                                 placeholder="Email"
                                 type="text"
                                 name="email"
-                                required
                                 value={this.state.email}
                                 onChange={e => this.change(e)}
                                 style={{ width: 400 }}

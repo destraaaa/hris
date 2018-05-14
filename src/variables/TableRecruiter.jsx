@@ -17,7 +17,14 @@ export default class Table extends Component {
                     { data: "id" },
                     { data: "name" },
                     { data: "email" },
-                    { data: "timestamps" }
+                    {
+                        data: "timestamps",
+                        "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return date.getDate() + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+                        }
+                    }
                 ]
 
             }
@@ -29,7 +36,7 @@ export default class Table extends Component {
     // }
     render() {
         return (
-            <div style={{ minWidth: 720, paddingLeft: 40, marginRight: 40, overflowX: "auto" }}>
+            <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40, overflowX: "auto" }}>
                 <table className="display" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>

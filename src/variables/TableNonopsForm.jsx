@@ -6,17 +6,42 @@ const $el = $(this.el)
 
 export default class Table extends Component {
     data(check) {
+        $.fn.DataTable.ext.pager.numbers_length = 6;
         this.$el = $(this.el)
         this.$el.DataTable(
             {
                 destroy: check,
+                scrollY: 400,
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
+                columnDefs: [
+                    {
+
+                        'targets': 0,
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+
+                select: {
+                    'style': 'multi'
+                },
                 "ajax": {
                     "url": "http://0.0.0.0:8080/nonopsform/view",
                     "dataSrc": ""
                 },
+                deferRender: true,
+                "language": {
+                    "zeroRecords": "No Data found",
+                    "emptyTable": "there is no record",
+                    "processing": "Processing...",
+                },
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 columns: [
                     { data: "id" },
-                    { data: "fullName" },
+                    { data: "fullName"},
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "email" },
@@ -43,6 +68,13 @@ export default class Table extends Component {
                 ]
             }
         )
+        this.$el.on('click', 'tr', function () {
+            $(this).toggleClass('selected');
+        });
+
+        $('#button').click(function () {
+            alert(this.$el.rows('.selected').data().length + ' row(s) selected');
+        });
     }
 
     componentDidUpdate() {
@@ -64,7 +96,7 @@ export default class Table extends Component {
 
     render() {
         return (
-            <div style={{ minWidth: 720, paddingLeft: 40,marginRight:40, overflowX: "auto" }}>
+            <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
                 <table className="display" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>

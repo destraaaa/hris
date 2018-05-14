@@ -25,7 +25,7 @@ pRegist {
 
 h4,
 h1 {
-  color: #7ed321;
+  color: #42b549;
   font-weight: bold;
   font-size: 30px;
   text-align: center;
@@ -55,11 +55,11 @@ input:focus {
 }
 
 input:focus+.input-icon i {
-  color: #7ed321;
+  color: #42b549;
 }
 
 input:focus+.input-icon:after {
-  border-right-color: #7ed321;
+  border-right-color: #42b549;
 }
 
 input[type="radio"] {
@@ -94,7 +94,7 @@ input[type="radio"]:checked+label,
 input:checked+label:before,
 select:focus,
 select:active {
-  background-color: #7ed321;
+  background-color: #42b549;
   color: #fff;
   border-color: #64ac15;
 }
@@ -156,7 +156,7 @@ select:active {
 }
 
 select option {
-  background-color: #7ed321;
+  background-color: #42b549;
   color: #fff;
 }
 
@@ -268,7 +268,7 @@ select option {
   padding: 15px;
   color: #fff;
   font-weight: bold;
-  background-color: #7ed321;
+  background-color: #42b549;
   float: right;
   width: 30%;
   margin-top: 45px;
@@ -357,7 +357,7 @@ input:checked {
 /* When the checkbox is checked, add a blue background */
 
 .checkB input:checked~.checkmark {
-  background-color: #7ed321;
+  background-color: #42b549;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -484,10 +484,12 @@ input:checked {
   border-radius: 3px;
   color: white;
   font-weight: bold;
-  background-color: #7fd31f;
+  background-color: #90EE02;
   border-color: rgb(212, 212, 212);
 }
 
+
+#phone[type=number] {-moz-appearance: textfield;}
 #phone::-webkit-inner-spin-button,
 #phone::-webkit-outer-spin-button {
   -webkit-appearance: none;

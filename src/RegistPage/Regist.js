@@ -5,6 +5,7 @@ import {
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+
 export default class Regist extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +17,7 @@ export default class Regist extends Component {
             fullName: "",
             nickName: "",
             phoneNumber: "",
-            email: "",
+            email: Cookies.get('__email'),
             school: "",
             major: "",
             GPA: "",
@@ -52,6 +53,17 @@ export default class Regist extends Component {
         };
     }
 
+    componentDidMount(){
+        var el = document.getElementById('phone');
+        if(el){
+        el.addEventListener('keydown', function(e) {
+            if (e.which === 38 || e.which === 40) {
+                e.preventDefault();
+            }
+        });
+    }
+}
+
     handleInputChange() {
         this.isGoing = !this.isGoing
     };
@@ -61,6 +73,7 @@ export default class Regist extends Component {
             [e.target.name]: e.target.value
         });
     };
+
     back() {
         Cookies.remove('__intvw');
         window.location.href = "/register/welcome"
@@ -331,7 +344,7 @@ export default class Regist extends Component {
                         <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
                             <div className="input-group input-group-icon">
                                 <input
-                                    placeholder="University / School"
+                                    placeholder="University / School*"
                                     type="text" name="school"
                                     value={this.state.school}
                                     onChange={e => this.change(e)}

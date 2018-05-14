@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ChartistGraph from 'react-chartist';
 import { Pie, HorizontalBar } from 'react-chartjs-2';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Card } from 'components/Card/Card.jsx';
@@ -20,13 +19,24 @@ import {
     legendBar
 } from 'variables/Variables.jsx';
 
-// var cookie = {
-//     year: Cookies.get('year'),
-//     type: Cookies.get('type'),
-//     quarter: Cookies.get('quarter'),
-//     month: Cookies.get('month'),
-//     daily: Cookies.get('daily')
-// }
+// HorizontalBar.pluginService.register({
+//     afterDraw: function (chart) {
+//         if (chart.data.datasets.length === 0) {
+//             // No data is present
+//             var ctx = chart.chart.ctx;
+//             var width = chart.chart.width;
+//             var height = chart.chart.height
+//             chart.clear();
+
+//             ctx.save();
+//             ctx.textAlign = 'center';
+//             ctx.textBaseline = 'middle';
+//             ctx.font = "16px normal 'Helvetica Nueue'";
+//             ctx.fillText('No data to display', width / 2, height / 2);
+//             ctx.restore();
+//         }
+//     }
+// });
 
 const Bcolor = [
     '#FF598F', '#FD8A5E', '#E0E300', '#01DDDD', '#00BFAF',
@@ -45,6 +55,7 @@ const HBcolor = [
     '#FFC3A0', '#BCCFAD', '#02C9A9', '#3333A3', '#0000A0',
     '#FF53AB', '#0215A2', '#0241A2', '#AAAAAA', '#3F00A2',
     '#DFE0AB', '#FF66AC', '#0000A0', '#F7F9A0']
+
 
 const option = {
     scales: {
@@ -448,6 +459,7 @@ class Dashboard extends Component {
                                             data={this.state.datapieJob}
                                             width={150}
                                             height={100}
+
                                         />
                                     </div>
                                 }
