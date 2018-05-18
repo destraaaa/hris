@@ -39,19 +39,11 @@ const responseGoogle = (response) => {
 class Main extends Component {
     render() {
         document.title = "PT.Tokopedia - Admin HR Page"
-        const styles = {
-            image: {
-                padding: 10,
-                width: 600,
-                height: 200
-            }
-        }
-
-
+        
         return (
             <div>
                 <div id="logo1">
-                    <img src={require('../assets/img/logo1.png')} alt="logo" style={styles.image} />
+                    <img src={require('../assets/img/logo1.png')} alt="logo" id="logoIn" />
                  </div>
             <div className="containerRegist">
                 <div className="row1">

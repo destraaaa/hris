@@ -6,7 +6,7 @@ class Footer extends Component {
 		return (
             <footer className="footer" style={{paddingLeft:20 }}>
                 <Grid>
-                    <nav className="pull-left">
+                    {/* <nav className="pull-left">
                         <ul>
                             <li>
                                 <a href="#pablo">
@@ -31,9 +31,9 @@ class Footer extends Component {
                             
                         </ul>
                         
-                    </nav>
+                    </nav> */}
                     <p className="copyright pull-right">
-                        &copy; {(new Date()).getFullYear()} <a  style={{color:"#7ed321"}} href="http://www.tokopedia.com">PT.Tokopedia</a>, made with love for a better web
+                        &copy; {(new Date()).getFullYear()} <a  style={{color:"rgba(0, 255, 0, 0.651)"}} href="http://www.tokopedia.com">PT.Tokopedia</a>, made with love for Registration
                     </p>
                    
                 </Grid>

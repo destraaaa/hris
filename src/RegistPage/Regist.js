@@ -5,7 +5,6 @@ import {
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-
 export default class Regist extends Component {
     constructor(props) {
         super(props);
@@ -84,6 +83,8 @@ export default class Regist extends Component {
         let isError = false;
         let check = /^\d?[0-9]\.\d\d$/;
         let checkPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+        let checkHH  = /^(0[1-9]|1[0-2])$/
+        let checkMM = /^([0-5]?[0-9])$/
         const errors = {
             fullNameErr: "",
             phoneNumberErr: "",
@@ -180,6 +181,12 @@ export default class Regist extends Component {
             isError = true;
             errors.timeErr = "the time is invalid";
         }
+        if(!checkHH.test(this.state.timeHH.toString()) || !checkMM   .test(parseInt(this.state.timeMM))){
+            isError = true;
+            errors.timeErr = "the time is wrong";
+            console.log((this.state.timeHH.toString()), " HH");
+            console.log(!checkMM.test(parseInt(this.state.timeMM))," MM");            
+        }
         if (this.state.temp === "" && this.state.relationship === "Other") {
             isError = true;
             errors.relationshipErr = "the relationship column is empty.";
@@ -270,8 +277,10 @@ export default class Regist extends Component {
                 <form onSubmit={e => this.onSubmit(e)}>
                     <div className="row">
                         <h4>{this.state.formType} Registration Form  PT.Tokopedia</h4>
-                        <h5>*required</h5>
-
+                        <div id = "HeaderText">
+                        <span>Welcome ! This is a registration form for employee Candidate at PT. Tokopedia. </span>
+                        <h5> you must fill asterisk column (required*)</h5> 
+                        </div>
                         <p className="pRegist" id="validate" >{this.state.fullNameErr}</p>
                         <div className="input-group input-group-icon">
                             <input
@@ -389,6 +398,7 @@ export default class Regist extends Component {
                                     type="text" name="school"
                                     value={this.state.school}
                                     onChange={e => this.change(e)}
+                                    style = {{border:this.state.schoolErr!=""? "1.5px solid #ff1100ad":""}}                                    
                                 />
                                 <pre id="example">example: SMA IPA, SMK Multimedia, S1 Informatika</pre>
                                 <div className="input-icon"><i className="fa fa-building" /></div>
@@ -580,6 +590,7 @@ export default class Regist extends Component {
                                     <option value="Campus Career Center" >Campus Career Center</option>
                                     <option value="LinkedIn" >LinkedIn</option>
                                     <option value="Friend Referral" >Friends Referral</option>
+                                    <option value="Other" >Other</option>                                    
                                 </select>
                             </div>
                         </div>
@@ -691,7 +702,7 @@ export default class Regist extends Component {
                                     </select>
                                 </div>
                             </div>
-                            <pre id="example" style={{ width: 320, position: "relative", left: 165 }}>example: 7:30 AM || 12:30 PM</pre>
+                            <pre id="example" style={{ width: 320, position: "relative", left: 165 }}>example: 07:00 AM || 12:30 PM</pre>
 
                         </div>
                     </div>

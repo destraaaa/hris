@@ -411,6 +411,30 @@ table.dataTable td {
   clear: both;
   height: 0; }
 
+  #big-col{
+    background-color: #FFFFFF;
+    width: 140px !important;
+    text-align: center;
+  }
+  #id-col{
+    background-color: #FFFFFF;
+  }
+  #big-table{
+    table-Layout: fixed;
+    text-align: center;
+  }
+
+  .DTFC_LeftHeadWrapper, .DTFC_RightHeadWrapper {
+    position: relative !important;
+    top: -1px !important;
+}
+
+.DTFC_LeftBodyWrapper, .DTFC_RightBodyWrapper :hover{
+  background-color:  black;
+  position: relative !important;
+  top: -1px !important;
+}
+
 
 @media screen and (max-width: 767px) {
   .dataTables_wrapper .dataTables_info,

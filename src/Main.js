@@ -9,6 +9,9 @@ import Welcome from './RegistPage/Welcome';
 import Form from "./RegistPage/Regist";
 import notUser from './RegistPage/notUser';
 import FormValid from './RegistPage/FormValid';
+import HomePic from './assets/img/Tokopedia-Regist.jpg';
+import Card1 from './assets/img/cardWelcome.png';
+import Card2 from './assets/img/cardRegist.png';
 
 
 const NoMatch = ({ location }) => (
@@ -22,21 +25,17 @@ const NoMatch = ({ location }) => (
 
 class Main extends Component {
     render() {
-        document.title = "PT.Tokopedia - Registration Form"
-        const styles = {
-            image: {
-                padding: 10,
-                width: 600,
-                height: 200
-            }
-        }
-        return (
-            <div>
 
+        document.title = "PT.Tokopedia - Registration Form"
+        return (
+            <div style={{
+                backgroundImage: window.parent.location.href === "http://localhost:3000/register/form"?`url(${HomePic})`:""
+            }}>
+            
                 <div id="logo1">
-                    <img src={require('./assets/img/logo1.png')} alt="logo" style={styles.image} />
+                    <img src={require('./assets/img/logo1.png')} alt="logo" id="logoIn"/>
                 </div>
-                <div className="containerRegist">
+                <div className="containerRegist" style={{backgroundImage: window.parent.location.href === "http://localhost:3000/register/form"?`url(${Card2})`:`url(${Card1})`}}>
                     <Switch>
                         <Route exact path="/register" component={Welcome} />
                         <Route path="/register/form" component={Form} />

@@ -17,9 +17,17 @@ export default class Table extends Component {
                 columns: [
                     { data: "id" },
                     { data: "fullName" },
+                    { data: "email" },
+                    {
+                        data: "timestamp",
+                        "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return   date.getDate()+ "/"  +month+ "/" + date.getFullYear();
+                        }
+                    },
                     { data: "nickName" },
                     { data: "phoneNumber" },
-                    { data: "email" },
                     { data: "school" },
                     { data: "major" },
                     { data: "GPA" },
@@ -31,14 +39,6 @@ export default class Table extends Component {
                     { data: "acquaintanceName" },
                     { data: "relationship" },
                     { data: "referralName" },
-                    {
-                        data: "timestamp",
-                        "render": function (data) {
-                            var date = new Date(data);
-                            var month = date.getMonth() + 1;
-                            return   date.getDate()+ "/"  +(month.length > 1 ? month : "0" + month)+ "/" + date.getFullYear();
-                        }
-                    }
                 ]
 
             }
@@ -51,27 +51,26 @@ export default class Table extends Component {
     render() {
         return (
             <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40}}>
-                <table className="display" width="100%" ref={el => this.el = el}>
+                <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Fullname</th>
-                            <th>Nickname</th>
-                            <th>PhoneNumber</th>
-                            <th>Email</th>
-                            <th>School</th>
-                            <th>Major</th>
-                            <th>GPA</th>
-                            <th>Purpose</th>
-                            <th>ContactPerson</th>
-                            <th>Position</th>
-                            <th>TimeSchedule</th>
-                            <th>JobInfo</th>
-                            <th>Acquaintance</th>
-                            <th>Relationship</th>
-                            <th>ReferralName</th>
-                            <th>Timestamp</th>
-
+                            <th id="big-col">Fullname</th>
+                            <th id="big-col">Email</th>                            
+                            <th id="big-col">Timestamp</th>                            
+                            <th id="big-col">Nickname</th>
+                            <th id="big-col">PhoneNumber</th>
+                            <th id="big-col">School</th>
+                            <th id="big-col">Major</th>
+                            <th id="big-col">GPA</th>
+                            <th id="big-col">Purpose</th>
+                            <th id="big-col">ContactPerson</th>
+                            <th id="big-col">Position</th>
+                            <th id="big-col">TimeSchedule</th>
+                            <th id="big-col">JobInfo</th>
+                            <th id="big-col">Acquaintance</th>
+                            <th id="big-col">Relationship</th>
+                            <th id="big-col">ReferralName</th>
                         </tr>
                     </thead>
                 </table>

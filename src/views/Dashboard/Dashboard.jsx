@@ -3,6 +3,7 @@ import { Pie, HorizontalBar } from 'react-chartjs-2';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Card } from 'components/Card/Card.jsx';
 import { StatsCard } from 'components/StatsCard/StatsCard.jsx';
+import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {
@@ -89,7 +90,10 @@ const option = {
 class Dashboard extends Component {
     constructor() {
         super();
+        this.change = this.change.bind(this);
         this.state = {
+            schoolF: "all",
+            positionF: "all",
             totalCandidate: null,
             successCandidate: null,
             rejectCandidate: null,
@@ -379,6 +383,62 @@ class Dashboard extends Component {
 
     }
 
+    change(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+
+        if ([e.target.name] == "schoolF") {
+            console.log("school enter", e.target.value)
+            let filter = {
+                type: "school",
+                value: e.target.value
+            }
+            var authOptions = {
+                method: 'POST',
+                url: 'http://0.0.0.0:8080/nonopsform/filterChart',
+                data: JSON.stringify(filter),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                json: true
+            };
+            axios(authOptions)
+                .then(function (response) {
+                    console.log(response.data);
+                    console.log(response.status);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+        else if ([e.target.name] == "positionF") {
+            console.log("position enter")
+            let filter = {
+                type: "position",
+                value: e.target.value
+            }
+            var authOptions = {
+                method: 'POST',
+                url: 'http://0.0.0.0:8080/nonopsform/filterChart',
+                data: JSON.stringify(filter),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                json: true
+            };
+            axios(authOptions)
+                .then(function (response) {
+                    console.log(response.data);
+                    console.log(response.status);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        this.props.history.push("/");
+    };
 
     render() {
         return (
@@ -434,13 +494,23 @@ class Dashboard extends Component {
                                 category="percentage candidate School"
                                 stats="School Statistics candidate School Data"
                                 content={
+
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        {/* <ChartistGraph data={datapie.chartpie} options={optionsPie} responsiveOptions={responsiveOptionsPie} type="Pie"/> */}
+                                        <span>&nbsp; School Show</span>
+                                        <select name="schoolF" id="schoolDash" value={this.state.schoolF} onChange={e => this.change(e)}>
+                                            <option value="all" disabled>-</option>
+                                            <option value="all">All</option>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                        </select>
                                         <Pie
                                             data={this.state.datapieSchool}
                                             width={150}
                                             height={100}
+                                            respoinsive={true}
                                         />
+
                                     </div>
                                 }
                             />
@@ -477,6 +547,14 @@ class Dashboard extends Component {
                                 stats="Position Selection Data"
                                 content={
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                                        <span>&nbsp; Position Show</span>
+                                        <select name="positionF" id="schoolDash" value={this.state.positionF} onChange={e => this.change(e)}>
+                                            <option value="all" disabled>-</option>
+                                            <option value="all">All</option>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                        </select>
                                         <HorizontalBar
                                             data={this.state.databarPos}
                                             width={150}
@@ -569,4 +647,4 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);

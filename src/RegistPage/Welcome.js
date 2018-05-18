@@ -5,26 +5,17 @@ import {
 
 class Main extends Component {
     render() {
-        const styles = {
-            image: {
-                padding: 10,
-                width: 600,
-                height: 200
-            }
-        }
-
-
         return (
             <div>
                 <div className="row1">
                     <h1>WELCOME TO PT.TOKOPEDIA</h1>
                     <div>
-                        <h2 style={{ color: "red", textAlign: "center" }}>please press continue button to enter the form</h2>
+                        <h2 style={{ color: "red", textAlign: "center", fontFamily:"Comic Sans MS" }}>please press continue button to enter the form of Registration</h2>
                             <Link to="/register/welcome">
                             <button
                                 type="button"
                                 className="btn"
-                                style={{ position: "relative", right: 215, bottom: 25 }}
+                                id= "btnWelcome"
                             >continue</button></Link>
                     </div>
 

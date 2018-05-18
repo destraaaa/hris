@@ -10,6 +10,18 @@ const popoverE = (
         Input your <strong>Valid Email</strong> to Registration
     </Popover>
 );
+const popoverN = (
+    <Popover id="popover-positioned-left" >
+        <strong>NonOps </strong> 
+         It's such like Software Engineering, Business Finance, Intern, etc
+    </Popover>
+);
+const popoverO = (
+    <Popover id="popover-positioned-right" >
+        <strong>Ops </strong> 
+         It's such like Call Center Office, Customer Care, etc
+    </Popover>
+);
 
 var emailCheck = []
 var check = false
@@ -169,7 +181,6 @@ class FormValid extends Component {
                             <label id="interviewFirst" htmlFor="interview-no">I have done interview before</label>
                         </div>
                     </div> */}
-                    <form>
                     <div id="emailWelcome"  style={{ display: this.state.main ? 'block' : 'none' }}>
                       
                         <p className="pRegist" style={{color: "#ff0019"}} >{this.state.err}</p>
@@ -180,9 +191,9 @@ class FormValid extends Component {
                                 placeholder="Email"
                                 type="text"
                                 name="email"
+                                id="emailWelcomeIn"
                                 value={this.state.email}
                                 onChange={e => this.change(e)}
-                                style={{ width: 400 }}
                             />
                     </OverlayTrigger>                            
                             <pre id="example">example: example@tokopedia.com</pre>
@@ -200,8 +211,10 @@ class FormValid extends Component {
                                 id="formType-yes"
                                 type="radio"
                                 onChange={e => this.change(e)}
-                            />
+                            />  
+                        <OverlayTrigger  trigger={['hover', 'focus']} placement="left" overlay={popoverN}>                               
                             <label id="interviewFirst" htmlFor="formType-yes">Non Operational Form</label>
+                        </OverlayTrigger>  
                             <input
                                 name="formType"
                                 value="Operational Form"
@@ -209,7 +222,10 @@ class FormValid extends Component {
                                 type="radio"
                                 onChange={e => this.change(e)}
                             />
+                        <OverlayTrigger  trigger={['hover', 'focus']} placement="right" overlay={popoverO}>                                                           
                             <label id="interviewFirst" htmlFor="formType-no">Operational Form</label>
+                        </OverlayTrigger>                                
+                        
                         </div>
                     </div>
 
@@ -239,7 +255,6 @@ class FormValid extends Component {
                             onClick={this.back2.bind(this)}
                         >back</button>
                     </div>
-                    </form>
                 </div>
             </div>
 

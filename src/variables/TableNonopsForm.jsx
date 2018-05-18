@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-const $ = require('jquery')
-$.DataTable = require('datatables.net')
-const $el = $(this.el)
+
+
+const $ = require('jquery');
+require( 'datatables.net-fixedcolumns');
+require('datatables.net-scroller');
+$.DataTable = require('datatables.net');
+const $el = $(this.el);
 
 export default class Table extends Component {
     data(check) {
         $.fn.DataTable.ext.pager.numbers_length = 6;
+        
         this.$el = $(this.el)
         this.$el.DataTable(
             {
                 destroy: check,
+                // pagingType: "input",
                 scrollY: 400,
                 scrollX: true,
                 scrollCollapse: true,
                 autoWidth: true,
+                fixedColumns: {
+                    leftColumns: 4
+                },
                 columnDefs: [
                     {
 
@@ -33,6 +42,7 @@ export default class Table extends Component {
                     "dataSrc": ""
                 },
                 deferRender: true,
+                scroller: $.fn.dataTable.ext.selector.numbers_length === -1? true:false,
                 "language": {
                     "zeroRecords": "No Data found",
                     "emptyTable": "there is no record",
@@ -41,11 +51,19 @@ export default class Table extends Component {
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 columns: [
                     { data: "id" },
-                    { data: "fullName"},
+                    { data: "fullName" },
+                    { data: "email" },
+                    {
+                        data: "timestamp",
+                        "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        }
+                    },
+                    { data: "statProgress" },
                     { data: "nickName" },
                     { data: "phoneNumber" },
-                    { data: "email" },
-                    { data: "statProgress" },
                     { data: "school" },
                     { data: "major" },
                     { data: "GPA" },
@@ -56,15 +74,7 @@ export default class Table extends Component {
                     { data: "infoJob" },
                     { data: "acquaintanceName" },
                     { data: "relationship" },
-                    { data: "referralName" },
-                    {
-                        data: "timestamp",
-                        "render": function (data) {
-                            var date = new Date(data);
-                            var month = date.getMonth() + 1;
-                            return date.getDate() + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
-                        }
-                    }
+                    { data: "referralName" }
                 ]
             }
         )
@@ -97,28 +107,27 @@ export default class Table extends Component {
     render() {
         return (
             <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
-                <table className="display" width="100%" ref={el => this.el = el}>
+                <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Fullname</th>
-                            <th>Nickname</th>
-                            <th>PhoneNumber</th>
-                            <th>Email</th>
-                            <th>Progress</th>
-                            <th>School</th>
-                            <th>Major</th>
-                            <th>GPA</th>
-                            <th>Purpose</th>
-                            <th>ContactPerson</th>
-                            <th>Position</th>
-                            <th>TimeSchedule</th>
-                            <th>JobInfo</th>
-                            <th>Acquaintance</th>
-                            <th>Relationship</th>
-                            <th>ReferralName</th>
-                            <th>Timestamp</th>
-
+                            <th id="id-col">Id</th>
+                            <th id="big-col">Fullname</th>
+                            <th id="big-col">Email</th>
+                            <th id="big-col">Timestamp</th>
+                            <th id="big-col">Progress</th>
+                            <th id="big-col">Nickname</th>
+                            <th id="big-col">PhoneNumber</th>
+                            <th id="big-col">School</th>
+                            <th id="big-col">Major</th>
+                            <th id="big-col">GPA</th>
+                            <th id="big-col">Purpose</th>
+                            <th id="big-col">ContactPerson</th>
+                            <th id="big-col">Position</th>
+                            <th id="big-col">TimeSchedule</th>
+                            <th id="big-col">JobInfo</th>
+                            <th id="big-col">Acquaintance</th>
+                            <th id="big-col">Relationship</th>
+                            <th id="big-col">ReferralName</th>
                         </tr>
                     </thead>
                 </table>

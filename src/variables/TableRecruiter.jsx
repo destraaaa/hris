@@ -8,6 +8,9 @@ export default class Table extends Component {
         this.$el = $(this.el)
         this.$el.DataTable(
             {
+                scrollX:true,
+                searching:false,
+                paging:false,
                 "ajax": {
                     "url": "http://0.0.0.0:8080/authLogin/user",
                     "dataSrc": ""
@@ -17,6 +20,7 @@ export default class Table extends Component {
                     { data: "id" },
                     { data: "name" },
                     { data: "email" },
+                    {data: "pic"},
                     {
                         data: "timestamps",
                         "render": function (data) {
@@ -36,13 +40,14 @@ export default class Table extends Component {
     // }
     render() {
         return (
-            <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40, overflowX: "auto" }}>
+            <div style={{ paddingLeft: 40, marginRight: 40}}>
                 <table className="display" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Pic</th>
                             <th>Join Time</th>
                         </tr>
                     </thead>

@@ -1,4 +1,3 @@
-/* global gapi */
 import React, { Component } from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem, Popover, OverlayTrigger } from 'react-bootstrap';
 import Cookies from 'js-cookie';
@@ -182,7 +181,7 @@ class HeaderLinks extends Component {
 
     yearly() {
         var arr = []
-        for (let i = 2018; i <= year; i++) {
+        for (let i = 2017; i <= year; i++) {
             arr.push(<option key={i} value={i}>{i}</option>)
         }
 
@@ -380,8 +379,10 @@ class HeaderLinks extends Component {
 
                 </Nav>
                 {/* this is the icon Header ..............................................*/}
-                <Nav pullRight>
-                    <NavItem eventKey={1}>{name.userName}</NavItem>
+                <Nav pullRight className="navRight">
+                    <NavItem eventKey={1} className="nameRight">{name.userName}</NavItem>
+                    <NavItem eventKey={2} onClick={this.logOut}>Log out</NavItem>
+                </Nav>
                     {/* <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown-right">
                         <MenuItem eventKey={2.1}>Action</MenuItem>
                         <MenuItem eventKey={2.2}>Another action</MenuItem>
@@ -400,9 +401,7 @@ class HeaderLinks extends Component {
                             onLogoutSuccess={logout}>
                         </GoogleLogout>
                     </NavItem> */}
-                    <NavItem eventKey={2} onClick={this.logOut}>Log out</NavItem>
-                </Nav>
-                {console.log(this.state)}
+
             </div >
         );
     }

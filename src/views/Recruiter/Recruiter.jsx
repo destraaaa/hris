@@ -16,7 +16,7 @@ class Recruiter extends Component {
                 <Grid fluid>
 
                     <Row>
-                        <Col md={12}>
+                        <Col md={4}>
                             <Card
                                 title="Recruiters"
                                 ctTableFullWidth ctTableResponsive
@@ -25,7 +25,7 @@ class Recruiter extends Component {
                                 }
                             />
                         </Col>
-                        <Col md={12}>
+                        <Col md={8}>
                             <Card
                                 category="data of Recruiters"
                                 ctTableFullWidth ctTableResponsive
