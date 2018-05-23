@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 
 const $ = require('jquery');
-require( 'datatables.net-fixedcolumns');
+require('datatables.net-fixedcolumns');
 require('datatables.net-scroller');
 $.DataTable = require('datatables.net');
 const $el = $(this.el);
@@ -11,19 +11,22 @@ const $el = $(this.el);
 export default class Table extends Component {
     data(check) {
         $.fn.DataTable.ext.pager.numbers_length = 6;
-        
+
         this.$el = $(this.el)
         this.$el.DataTable(
             {
+                dom: '<"buttons" B>lTfgitp',
+                buttons: [{ extend: 'excel', className: 'csvButton' },
+                { extend: 'csv', className: 'csvButton' }],
                 destroy: check,
                 // pagingType: "input",
                 scrollY: 400,
                 scrollX: true,
                 scrollCollapse: true,
                 autoWidth: true,
-                fixedColumns: {
-                    leftColumns: 4
-                },
+                // fixedColumns: {
+                //     leftColumns: 4
+                // },
                 columnDefs: [
                     {
 
@@ -33,7 +36,19 @@ export default class Table extends Component {
                         }
                     }
                 ],
-
+                createdRow(row, data, dataIndex) {
+                    if (data.statProgress == "REJECT") {
+                        console.log(data)
+                        $(row).addClass('REJECTcolor');
+                    }
+                    else if (data.statProgress == "APPROVED") {
+                        $(row).addClass('APPROVEDcolor');
+                    }
+                    else if (data.statProgress == "ON PROGRESS") {
+                        $(row).addClass('PROGRESScolor');
+                    }
+                    else  $(row).addClass('');
+                },
                 select: {
                     'style': 'multi'
                 },
@@ -42,7 +57,10 @@ export default class Table extends Component {
                     "dataSrc": ""
                 },
                 deferRender: true,
-                scroller: $.fn.dataTable.ext.selector.numbers_length === -1? true:false,
+                scroller: {
+                    displayBuffer: 10
+                },
+                scroller: false,
                 "language": {
                     "zeroRecords": "No Data found",
                     "emptyTable": "there is no record",
@@ -77,14 +95,16 @@ export default class Table extends Component {
                     { data: "referralName" }
                 ]
             }
+            
         )
+      
         this.$el.on('click', 'tr', function () {
             $(this).toggleClass('selected');
         });
 
-        $('#button').click(function () {
-            alert(this.$el.rows('.selected').data().length + ' row(s) selected');
-        });
+        // $('#button').click(function () {
+        //     alert(this.$el.rows('.selected').data().length + ' row(s) selected');
+        // });
     }
 
     componentDidUpdate() {

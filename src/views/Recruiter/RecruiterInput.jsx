@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+import {rowData} from '../../variables/TableRecruiter'
 
 export default class RecruiterInput extends Component {
     constructor() {
@@ -25,6 +26,7 @@ export default class RecruiterInput extends Component {
         if (this.state.name === "") {
             isError = true;
             error.nameErr = "name is empty."
+            console.log(rowData)
         }
         if (this.state.email === "") {
             isError = true;
@@ -42,7 +44,8 @@ export default class RecruiterInput extends Component {
             const users = {
                 name: this.state.name,
                 email: this.state.email + "@tokopedia.com",
-                pic: Cookies.get("__hrnu")
+                pic: Cookies.get("__hrnu"),
+                status: true
             }
 
             var authOptions = {
@@ -68,38 +71,39 @@ export default class RecruiterInput extends Component {
     }
 
     
-    onDelete(e) {
-        e.preventDefault();
-        const err = this.validate();
-        if (!err) {
-            const users = {
-                name: this.state.name,
-                email: this.state.email + "@tokopedia.com",
-            }
-            var authOptions = {
-                method: 'POST',
-                url: 'http://0.0.0.0:8080/authLogin/delete',
-                data: JSON.stringify(users),
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                json: true
-            };
-            axios(authOptions)
-                .then(function (response) {
-                    console.log(response.data);
-                    console.log(response.status);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+    // onDelete(e) {
+    //     e.preventDefault();
+    //     const err = this.validate();
+    //     if (!err) {
+    //         const users = {
+    //             // name: this.state.name,
+    //             // email: this.state.email + "@tokopedia.com",
+    //             email: rowData.email
+                
+    //         }
+    //         var authOptions = {
+    //             method: 'POST',
+    //             url: 'http://0.0.0.0:8080/authLogin/delete',
+    //             data: JSON.stringify(users),
+    //             headers: {
+    //                 'Content-Type': 'application/x-www-form-urlencoded'
+    //             },
+    //             json: true
+    //         };
+    //         axios(authOptions)
+    //             .then(function (response) {
+    //                 console.log(response.data);
+    //                 console.log(response.status);
+    //             })
+    //             .catch(function (error) {
+    //                 console.log(error);
+    //             });
 
-            window.location.href = "/Recruiter"
-        }
-    }
+    //         window.location.href = "/Recruiter"
+    //     }
+    // }
 
     render() {
-        console.log(this.state.nameErr)
         return (
             <div>
 

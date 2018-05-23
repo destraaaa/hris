@@ -48,7 +48,7 @@ class Main extends Component {
             <div className="containerRegist">
                 <div className="row1">
                     <h1>WELCOME TO PT.TOKOPEDIA</h1>
-                        <h2 style={{ color: "red", textAlign: "center" }}>please press Sign In button to enter the Dashboard</h2>
+                        <h3 style={{ color: "red", textAlign: "center",  fontWeight:"bold" }}>please press Sign In button to enter the Dashboard</h3>
                             <div style= {{paddingBottom: 40}}>
                                 <GoogleLogin
                                     clientId="667718253087-qeek1sjq841eo473bi8sqq64evqo16ss.apps.googleusercontent.com"

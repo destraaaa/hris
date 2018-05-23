@@ -152,7 +152,7 @@ export default class Regist extends Component {
             isError = true;
             errors.infoJobErr = "the Job Info column is empty";
         }
-        else if (this.state.acquaintances === "yes") {
+        if (this.state.acquaintances === "yes") {
             if (this.state.acquaintanceName === "") {
                 isError = true;
                 errors.acquaintanceNameErr = "the acquaintance Name column is empty.";

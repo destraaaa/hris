@@ -5,7 +5,6 @@ import { Card } from 'components/Card/Card.jsx';
 import { StatsCard } from 'components/StatsCard/StatsCard.jsx';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import {
 
     optionsSales,
@@ -152,7 +151,7 @@ class Dashboard extends Component {
             },
             databarStat:
                 {
-                    labels: ["No Status", "Reject", "Approved", "On Progress"],
+                    labels: ["NO STATUS", "REJECT", "APPROVED", "ON PROGRESS", "OFFERING - ACCEPTED","OFFERING - DECLINED","OFFERING - CANCEL","HOLD","HOLD-REJECT","CLOSED"],
                     datasets: [{
                         data: [],
                         backgroundColor: Bcolor,
@@ -253,6 +252,12 @@ class Dashboard extends Component {
             var reject = [];
             var Approved = [];
             var onProgress = [];
+            var offeringAccept = [];
+            var offeringDecline = [];
+            var offeringCancel = [];
+            var holds =[];
+            var holdRejected = [];
+            var closed = []
 
 
 
@@ -262,23 +267,16 @@ class Dashboard extends Component {
                 reject.push(item.reject)
                 Approved.push(item.approved)
                 onProgress.push(item.onprogress)
-
+                offeringAccept.push(item.offeringAccepted)
+                offeringDecline.push(item.offeringDeclined)
+                offeringCancel.push(item.offeringCancel)
+                holds.push(item.holds)
+                holdRejected.push(item.holdsReject)
+                closed.push(item.closed)
             })
             this.setState({
                 databarCP: {
                     labels: Labels,
-                    // datasets: [{
-                    //     data: noStatus
-                    // },
-                    // {
-                    //     data: reject
-                    // },
-                    // {
-                    //     data: Approved
-                    // },
-                    // {
-                    //     data: onProgress
-                    // }]
                     datasets: [{
                         label: "No Status",
                         data: noStatus,
@@ -301,6 +299,42 @@ class Dashboard extends Component {
                         label: "On Progress",
                         data: onProgress,
                         backgroundColor: "#03A9F4",
+                        stack: 1
+                    },
+                    {
+                        label: "Offering-Accept",
+                        data: offeringAccept,
+                        backgroundColor: "#098700",
+                        stack: 1
+                    },
+                    {
+                        label: "Offering-Decline",
+                        data: offeringDecline,
+                        backgroundColor: "#f46e07",
+                        stack: 1
+                    },
+                    {
+                        label: "Offering-Cancel",
+                        data: offeringCancel,
+                        backgroundColor: "#8e3926",
+                        stack: 1
+                    },
+                    {
+                        label: "Hold",
+                        data: holds,
+                        backgroundColor: "#e5cf09",
+                        stack: 1
+                    },
+                    {
+                        label: "Hold-Rejected",
+                        data: holdRejected,
+                        backgroundColor: "#875306",
+                        stack: 1
+                    },
+                    {
+                        label: "Closed",
+                        data: closed,
+                        backgroundColor: "#160d00",
                         stack: 1
                     }
                     ]

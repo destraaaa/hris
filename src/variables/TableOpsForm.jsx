@@ -13,10 +13,24 @@ export default class Table extends Component {
         this.$el = $(this.el)
         this.$el.DataTable(
             {
+                dom: '<"buttons">lTfgitp',
                 destroy: check,
-                fixedColumns: {
-                    leftColumns: 4
+                // fixedColumns: {
+                //     leftColumns: 4
+                // },
+                createdRow(row, data, dataIndex) {
+                    if (data.statProgress == "REJECT") {
+                        console.log(data)
+                        $(row).addClass('REJECTcolor');
+                    }
+                    else if (data.statProgress == "APPROVED") {
+                        $(row).addClass('APPROVEDcolor');
+                    }
+                    else  $(row).addClass('');
                 },
+                dom: '<"buttons" B>lTfgitp',
+                buttons: [{ extend: 'excel', className: 'csvButton' },
+                { extend: 'csv', className: 'csvButton' }],
                 scrollX: true,
                 scrollCollapse: true,
                 scrollY: 400,
@@ -44,7 +58,7 @@ export default class Table extends Component {
                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                         }
                     },
-                    { data: "statProgress" },                    
+                    { data: "statProgress" },
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "school" },
@@ -95,7 +109,7 @@ export default class Table extends Component {
                             <th id="big-col">Fullname</th>
                             <th id="big-col">Email</th>
                             <th id="big-col">Timestamp</th>
-                            <th id="big-col">Progress</th>                            
+                            <th id="big-col">Progress</th>
                             <th id="big-col">Nickname</th>
                             <th id="big-col">PhoneNumber</th>
                             <th id="big-col">School</th>

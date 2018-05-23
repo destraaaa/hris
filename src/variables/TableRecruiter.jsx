@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 const $ = require('jquery')
 $.DataTable = require('datatables.net')
+export var rowData = {
+    email :"",
+    name : ""
+}
 
 export default class Table extends Component {
+
+    
     componentDidMount() {
         console.log(this.el)
         this.$el = $(this.el)
-        this.$el.DataTable(
+        var table = this.$el.DataTable(
             {
                 scrollX:true,
                 searching:false,
@@ -33,6 +39,25 @@ export default class Table extends Component {
 
             }
         )
+        this.$el.on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+            $(this).toggleClass('selected');
+            let pos = table.row(this).index();
+            let row =table.row(pos).data();
+            // console.log(row);
+            rowData.email = row.email
+            rowData.name = row.name
+            }
+            else{
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                let pos = table.row(this).index();
+                let row =table.row(pos).data();
+                // console.log(row);
+                rowData.email = row.email
+                rowData.name = row.name
+            }
+        } );
     }
 
     // componentWillUnmount() {

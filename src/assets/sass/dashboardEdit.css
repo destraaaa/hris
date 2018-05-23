@@ -1,5 +1,16 @@
  /*     General overwrite     */
 
+ .REJECTcolor{
+  background-color: rgba(184, 10, 10, 0.377)!important;
+}
+
+.APPROVEDcolor{
+  background-color: rgba(0, 255, 76, 0.397)!important;
+}
+
+.PROGRESScolor{
+  background-color: rgba(0, 238, 255, 0.397)!important;
+}
  .sidebar {
    display: block;
    width: 260px;
@@ -163,6 +174,7 @@
    margin-top: 45px;
    position: relative;
    right: 100px;
+   bottom:64px;
  }
 
  .navbar-default {
@@ -195,6 +207,22 @@
  .footer {
    width: 100%;
  }
+
+ #modalBtn{
+   background-color: rgba(255, 0, 0, 0.651)
+ }
+ #modalBtn:hover{
+  background-color: transparent
+   
+ }
+ .modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
+
+
 
  @media only screen and (max-width:3200px) {
    .card .ct-chart {
@@ -290,6 +318,42 @@
 
  }
 
+ .csvButton{
+  width: 60px;
+  height: 30px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(0, 255, 0, 0.651);
+  border-color: rgb(212, 212, 212);
+  margin-bottom: 20px;
+  /* position: relative; */
+  /* top:595px; */
+ }
+ .csvButton:hover{
+   background-color: transparent;
+   color: rgb(212, 212, 212);
+ }
+
+ /* .RcsvButton{
+  width: 60px;
+  height: 30px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(0, 255, 0, 0.651);
+  border-color: rgb(212, 212, 212);
+  margin-bottom: 20px;
+  position: relative;
+  top:765px;
+  left: 40%;
+ }
+ .RcsvButton:hover{
+
+  color: rgba(0, 255, 0, 0.651);   
+ } */
+
+
  @media only screen and (max-width:900px) {
    .navbar-header {
      width: 800px;
@@ -317,8 +381,8 @@
    }
    #btnDelete {
      position: absolute;
-     bottom: -10px;
-     left: 310px;
+     bottom: 15px;
+     left:75%;
    }
    #nameRecruiter {
      width: 310px;
@@ -335,6 +399,16 @@
  @media only screen and (max-width:660px) {
    .navbar-header {
      width: 550px;
+   }
+   .csvButton{
+    position: relative;
+    top:0;
+    left: 30%;
+   }
+   .RcsvButton{
+    position: relative;
+    top:0;
+    left: 30%;
    }
  }
 
@@ -358,6 +432,11 @@
    .navbar-header {
      width: 350px;
    }
+   #btnDelete {
+    position: absolute;
+    bottom: -8px;
+    left:35%;
+  }
  }
 
  @media only screen and (max-width:320px) {
