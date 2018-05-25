@@ -8,19 +8,19 @@ export default class Table extends Component {
         this.$el = $(this.el)
         this.$el.DataTable(
             {
-                data: this.props.data,
-                columns: [
-                    { title: "Name" },
-                    { title: "Position" },
-                    { title: "Office" },
-                    { title: "Extn." },
-                    { title: "Start date" },
-                    { title: "Salary" },
-                    { title: "Start date" },
-                    { title: "Salary" }
+                // data: this.props.data,
+                // columns: [
+                //     { title: "Name" },
+                //     { title: "Position" },
+                //     { title: "Office" },
+                //     { title: "Extn." },
+                //     { title: "Start date" },
+                //     { title: "Salary" },
+                //     { title: "Start date" },
+                //     { title: "Salary" }
 
 
-                ]
+                // ]
             }
         )
     }
@@ -31,7 +31,24 @@ export default class Table extends Component {
     render() {
         return (
             <div style={{ width: 1000, paddingLeft: 50 }}>
-                <table className="display" width="100%" ref={el => this.el = el}></table>
+                <table className="display" width="100%" ref={el => this.el = el}>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>lalalaalal</td>
+                        <td>lalalaalal</td>
+                        <td>lalalaalal</td>
+                        <td>lalalaalal</td>
+                    </tr>
+                </tbody>
+                </table>
             </div>
         )
     }

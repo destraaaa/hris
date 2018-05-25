@@ -1,36 +1,99 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-
+import axios from 'axios';
 
 const $ = require('jquery');
 // const dt = require( 'datatables.net-fixedcolumns');
 $.DataTable = require('datatables.net');
 const $el = $(this.el);
 
+var dataRow = {
+    progress: null,
+    id: null
+}
 export default class Table extends Component {
     data(check) {
         $.fn.DataTable.ext.pager.numbers_length = 6;
         this.$el = $(this.el)
-        this.$el.DataTable(
+        var table = this.$el.DataTable(
             {
                 dom: '<"buttons">lTfgitp',
                 destroy: check,
                 // fixedColumns: {
                 //     leftColumns: 4
                 // },
+                columnDefs: [
+                    {
+                        'targets': 4,
+                        'data': 'statProgress',
+                        'render': function (data, type, row, meta) {
+                            // console.log("data = "+row);
+                            // return '<input type="checkbox" name="user_id[]" value="' + $('<div/>').text(row.statProgress).html() + '">';
+                            // progress = name.value
+                            // console.log(progress)
+                            return '<select name= "progress" id="opsTableProgressBtn">' +
+                                '<option style = "color:#8e8e8e" selected disabled>' + row.statProgress + '</option>' +
+                                '<option value=3>APPROVED</option>' +
+                                '<option value=2>REJECT</option>' +
+                                '</select>';
+
+                        }
+                    }
+                ],
+                'rowCallback': function (row, data, index) {
+                    $('#opsTableProgressBtn', row).click(function () {
+                        dataRow.progress = parseInt($('select', row).val());
+                    });
+
+                    // this.$el.on('click', 'tr', function () {
+                    //     let pos = table.row(this).index();
+                    //     let row = table.row(pos).data();
+                    //     dataRow.id = row.id
+                    //     console.log(dataRow)
+                    // });
+
+
+                },
                 createdRow(row, data, dataIndex) {
                     if (data.statProgress == "REJECT") {
-                        console.log(data)
                         $(row).addClass('REJECTcolor');
                     }
                     else if (data.statProgress == "APPROVED") {
                         $(row).addClass('APPROVEDcolor');
                     }
-                    else  $(row).addClass('');
+                    else $(row).addClass('');
                 },
                 dom: '<"buttons" B>lTfgitp',
-                buttons: [{ extend: 'excel', className: 'csvButton' },
-                { extend: 'csv', className: 'csvButton' }],
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        text: 'Show',
+                        className: 'RcsvButton',
+                        columns: ':gt(0)',
+                        columns: ':gt(1)',
+                    },
+                    {
+                        extend: 'excel', className: 'RcsvButton', text: 'excel<i class="fa fa-file-excel-o"></i>',
+                        exportOptions: {
+                            format: {
+                                body: function (data, row, col, node) {
+                                    if (col == 4) {
+                                        return table
+                                            .cell({ row: row, column: col })
+                                            .nodes()
+                                            .to$()
+                                            .find(':selected')
+                                            .text()
+                                    } else {
+                                        return data;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    { extend: 'csv', className: 'RcsvButton' },
+                    //   'selectNone'
+                ],
                 scrollX: true,
                 scrollCollapse: true,
                 scrollY: 400,
@@ -58,7 +121,7 @@ export default class Table extends Component {
                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                         }
                     },
-                    { data: "statProgress" },
+                    { data: "statProgress", targets: 4 },
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "school" },
@@ -74,13 +137,52 @@ export default class Table extends Component {
 
             }
         )
+
+        // this.$el.on('click', 'tr', function () {
+        //     $(this).toggleClass('selected');
+        // });
+
         this.$el.on('click', 'tr', function () {
-            $(this).toggleClass('selected');
+            if ($(this).hasClass('selected')) {
+                $(this).toggleClass('selected');
+                let pos = table.row(this).index();
+                let row = table.row(pos).data();
+                console.log(dataRow);
+                dataRow.id = row.id
+
+                var authOptions = {
+                    method: 'POST',
+                    url: 'http://0.0.0.0:8080/opsform/update',
+                    data: JSON.stringify(dataRow),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    json: true
+                };
+                axios(authOptions)
+                    .then(function (response) {
+                        console.log(response.data);
+                        console.log(response.status);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+        
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                let pos = table.row(this).index();
+                let row = table.row(pos).data();
+                console.log(dataRow);
+                dataRow.id = row.id
+            }
         });
 
-        $('#button').click(function () {
-            alert(this.$el.rows('.selected').data().length + ' row(s) selected');
-        });
+       
+        // $('#button').click(function () {
+        //     alert(this.$el.rows('.selected').data().length + ' row(s) selected');
+        // });
     }
 
 
@@ -109,7 +211,7 @@ export default class Table extends Component {
                             <th id="big-col">Fullname</th>
                             <th id="big-col">Email</th>
                             <th id="big-col">Timestamp</th>
-                            <th id="big-col">Progress</th>
+                            <th id="nonTableProgressBtn">Progress</th>
                             <th id="big-col">Nickname</th>
                             <th id="big-col">PhoneNumber</th>
                             <th id="big-col">School</th>

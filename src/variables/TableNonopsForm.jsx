@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-
+import axios from 'axios';
 
 const $ = require('jquery');
 require('datatables.net-fixedcolumns');
@@ -8,16 +8,32 @@ require('datatables.net-scroller');
 $.DataTable = require('datatables.net');
 const $el = $(this.el);
 
+
+var dataRow = {
+    progress: null,
+    id: null
+}
+
 export default class Table extends Component {
     data(check) {
         $.fn.DataTable.ext.pager.numbers_length = 6;
 
         this.$el = $(this.el)
-        this.$el.DataTable(
+        var table = this.$el.DataTable(
             {
                 dom: '<"buttons" B>lTfgitp',
-                buttons: [{ extend: 'excel', className: 'csvButton' },
-                { extend: 'csv', className: 'csvButton' }],
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        text: 'Show',
+                        className: 'RcsvButton',
+                        columns: ':gt(0)',
+                        columns: ':gt(1)',
+                    },
+                    { extend: 'excel', className: 'RcsvButton' },
+                    { extend: 'csv', className: 'RcsvButton' },
+                    // 'selectNone'
+                ],
                 destroy: check,
                 // pagingType: "input",
                 scrollY: 400,
@@ -27,12 +43,33 @@ export default class Table extends Component {
                 // fixedColumns: {
                 //     leftColumns: 4
                 // },
+                // columnDefs: [
+                //     {
+
+                //         'targets': 0,
+                //         'checkboxes': {
+                //             'selectRow': true
+                //         }
+                //     }
+                // ],
+                'rowCallback': function (row, data, index) {
+                    $('#nonTableProgressBtn', row).click(function () {
+                        dataRow.progress = parseInt($('select', row).val());
+                    });
+                },
                 columnDefs: [
                     {
 
-                        'targets': 0,
-                        'checkboxes': {
-                            'selectRow': true
+                        'targets': 4,
+                        'data': 'statProgress',
+                        'render': function (data, type, row, meta) {
+                            // return '<input type="checkbox" name="user_id[]" value="' + $('<div/>').text(row.statProgress).html() + '">';
+                            return '<select id="nonTableProgressBtn">' +
+                                '<option value="' + row.statProgress + '" selected disabled>' + row.statProgress + '</option>' +
+                                '<option value = 3 >APPROVED</option>' +
+                                '<option value = 2 >REJECT</option>' +
+                                '</select>';
+
                         }
                     }
                 ],
@@ -47,7 +84,7 @@ export default class Table extends Component {
                     else if (data.statProgress == "ON PROGRESS") {
                         $(row).addClass('PROGRESScolor');
                     }
-                    else  $(row).addClass('');
+                    else $(row).addClass('');
                 },
                 select: {
                     'style': 'multi'
@@ -95,16 +132,46 @@ export default class Table extends Component {
                     { data: "referralName" }
                 ]
             }
-            
+
         )
-      
+
         this.$el.on('click', 'tr', function () {
-            $(this).toggleClass('selected');
+            if ($(this).hasClass('selected')) {
+                $(this).toggleClass('selected');
+                let pos = table.row(this).index();
+                let row = table.row(pos).data();
+                console.log(dataRow);
+                dataRow.id = row.id
+
+                var authOptions = {
+                    method: 'POST',
+                    url: 'http://0.0.0.0:8080/opsform/update',
+                    data: JSON.stringify(dataRow),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    json: true
+                };
+                axios(authOptions)
+                    .then(function (response) {
+                        console.log(response.data);
+                        console.log(response.status);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                let pos = table.row(this).index();
+                let row = table.row(pos).data();
+                console.log(dataRow);
+                dataRow.id = row.id
+            }
         });
 
-        // $('#button').click(function () {
-        //     alert(this.$el.rows('.selected').data().length + ' row(s) selected');
-        // });
     }
 
     componentDidUpdate() {
@@ -134,7 +201,7 @@ export default class Table extends Component {
                             <th id="big-col">Fullname</th>
                             <th id="big-col">Email</th>
                             <th id="big-col">Timestamp</th>
-                            <th id="big-col">Progress</th>
+                            <th id="progressTable">Progress</th>
                             <th id="big-col">Nickname</th>
                             <th id="big-col">PhoneNumber</th>
                             <th id="big-col">School</th>

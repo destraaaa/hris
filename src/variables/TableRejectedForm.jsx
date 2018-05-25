@@ -20,29 +20,29 @@ var dt = require('datatables.net');
 var buttons = require('datatables.net-buttons');
 var flash = require('datatables.net-buttons/js/buttons.flash.js');
 var html = require('datatables.net-buttons/js/buttons.html5.js');
-var colVis = require( 'datatables.net-buttons/js/buttons.colVis.js' );
+var colVis = require('datatables.net-buttons/js/buttons.colVis.js');
+// var select = require( 'datatables.net-select-dt' );
 
-    
 
 export default class Table extends Component {
 
-    
+
     componentDidMount() {
         this.$el = $(this.el)
         this.$el.DataTable(
             {
                 dom: '<"buttons" B>lTfgitp',
-                buttons: [{ extend: 'excel', className: 'RcsvButton'},
-                          { extend: 'csv', className: 'RcsvButton' }, 
-                          {
+                buttons: [
+                        {
                             extend: 'colvis',
                             text: 'Show',
-                            className: 'RcsvButton' ,
+                            className: 'RcsvButton',
                             columns: ':gt(0)',
                             columns: ':gt(1)',
-                          },
-                        //   'selectNone'
-                        ],                          
+                        },
+                        { extend: 'excel', className: 'RcsvButton' },
+                        { extend: 'csv', className: 'RcsvButton' },
+                ],
                 scrollX: true,
                 deferRender: true,
                 "ajax": {
@@ -85,7 +85,7 @@ export default class Table extends Component {
     // }
     render() {
         return (
-            <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
+            <div style={{ minWidth: 700, paddingLeft: 50, marginRight: 40 }}>
                 <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
