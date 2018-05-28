@@ -4,7 +4,6 @@ $.DataTable = require('datatables.net')
 
 export default class Table extends Component {
     componentDidMount() {
-        console.log(this.el)
         this.$el = $(this.el)
         this.$el.DataTable(
             {

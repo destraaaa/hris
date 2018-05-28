@@ -33,15 +33,11 @@ class Sidebar extends Component{
             <div id="sidebar" className="sidebar" data-color="black" data-image={imagine}>
                 <div className="sidebar-background" style={sidebarBackground}></div>
                     <div className="logo" style={{paddingBottom:75,backgroundColor:"rgba(100, 100, 100,0.5)"}}>
-                        <a href="https://www.tokopedia.com" target="_blank" className="simple-text logo-mini" >
+                        <a href="https://www.tokopedia.com" target="_blank" rel="noopener noreferrer" className="simple-text logo-mini" >
                             <div className="logo-img"style={{position:"relative", bottom:15}} >
                                 <img src={logo} alt="logo_image" style={{height:80, width:205}}/>
                             </div>
-
                         </a>
-                        {/* <a href="https://www.tokopedia.com" target="_blank" className="simple-text logo-normal">
-                           PT. Tokopedia
-                        </a> */}
                     </div>
                 <div className="sidebar-wrapper">
                     <ul className="nav">

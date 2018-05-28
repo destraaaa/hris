@@ -2,31 +2,14 @@ import React, { Component } from 'react';
 import { fonts } from 'pdfmake/build/pdfmake';
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
-// require('jszip');
-// require( 'pdfmake');
-// require( 'datatables.net-buttons-dt')();
-// require( 'datatables.net-buttons/js/buttons.flash.js');
-// require( 'datatables.net-buttons/js/buttons.html5.js');
-
-
-// require( 'pdfmake');
-// require('datatables.net-buttons');
-// require('datatables.net-buttons/js/buttons.flash.js');
-// require('datatables.net-buttons/js/buttons.html5.js');
-
-
 var jzip = require('jszip');
 var dt = require('datatables.net');
 var buttons = require('datatables.net-buttons');
 var flash = require('datatables.net-buttons/js/buttons.flash.js');
 var html = require('datatables.net-buttons/js/buttons.html5.js');
 var colVis = require('datatables.net-buttons/js/buttons.colVis.js');
-// var select = require( 'datatables.net-select-dt' );
-
 
 export default class Table extends Component {
-
-
     componentDidMount() {
         this.$el = $(this.el)
         this.$el.DataTable(
@@ -75,14 +58,10 @@ export default class Table extends Component {
                     { data: "relationship" },
                     { data: "referralName" },
                 ]
-
             }
         )
     }
 
-    // componentWillUnmount() {
-    //     this.Sel.DataTable.destroy(true)
-    // }
     render() {
         return (
             <div style={{ minWidth: 700, paddingLeft: 50, marginRight: 40 }}>
@@ -112,5 +91,4 @@ export default class Table extends Component {
             </div>
         )
     }
-
 }

@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import {
-    Link
-} from 'react-router-dom';
-
 
 class notUser extends Component {
     direct(){
@@ -14,17 +10,14 @@ class notUser extends Component {
                     <div className="row1">
                         <h1>WELCOME TO PT.TOKOPEDIA</h1>
                         <h2 style={{color:"red", textAlign:"center"}}>We are sorry you're not a user please use your valid email</h2>
-                    
 
                     <button 
                         type="button" 
                         className="btn"
                         onClick={this.direct}
                         >Back</button>
-                    
                     </div>
                 </div>
-          
         )
     }
 }

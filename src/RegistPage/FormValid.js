@@ -57,8 +57,6 @@ class FormValid extends Component {
             res.data.forEach(item => {
                 emailCheck.push(item.email)
             });
-        }).catch(function (error) {
-            console.log(error);
         })
     }
 

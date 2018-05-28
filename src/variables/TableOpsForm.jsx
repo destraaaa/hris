@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-
 const $ = require('jquery');
 // const dt = require( 'datatables.net-fixedcolumns');
-$.DataTable = require('datatables.net');
-const $el = $(this.el);
-
 var dataRow = {
     progress: null,
     id: null,
@@ -20,7 +16,6 @@ export default class Table extends Component {
         this.$el = $(this.el)
         var table = this.$el.DataTable(
             {
-                dom: '<"buttons">lTfgitp',
                 destroy: check,
                 // fixedColumns: {
                 //     leftColumns: 4
@@ -30,10 +25,6 @@ export default class Table extends Component {
                         'targets': 4,
                         'data': 'statProgress',
                         'render': function (data, type, row, meta) {
-                            // console.log("data = "+row);
-                            // return '<input type="checkbox" name="user_id[]" value="' + $('<div/>').text(row.statProgress).html() + '">';
-                            // progress = name.value
-                            // console.log(progress)
                             return '<select name= "progress" id="opsTableProgressBtn">' +
                                 '<option style = "color:#8e8e8e" selected disabled>' + row.statProgress + '</option>' +
                                 '<option value=3>APPROVED</option>' +
@@ -45,23 +36,14 @@ export default class Table extends Component {
                 ],
                 'rowCallback': function (row, data, index) {
                     $('#opsTableProgressBtn', row).click(function () {
-                        dataRow.progress = parseInt($('select', row).val());
+                        dataRow.progress = parseInt(($('select', row).val()),0);
                     });
-
-                    // this.$el.on('click', 'tr', function () {
-                    //     let pos = table.row(this).index();
-                    //     let row = table.row(pos).data();
-                    //     dataRow.id = row.id
-                    //     console.log(dataRow)
-                    // });
-
-
                 },
                 createdRow(row, data, dataIndex) {
-                    if (data.statProgress == "REJECT") {
+                    if (data.statProgress === "REJECT") {
                         $(row).addClass('REJECTcolor');
                     }
-                    else if (data.statProgress == "APPROVED") {
+                    else if (data.statProgress === "APPROVED") {
                         $(row).addClass('APPROVEDcolor');
                     }
                     else $(row).addClass('');
@@ -72,15 +54,14 @@ export default class Table extends Component {
                         extend: 'colvis',
                         text: 'Show',
                         className: 'RcsvButton',
-                        columns: ':gt(0)',
-                        columns: ':gt(1)',
+                        columns: ':gt(0)'
                     },
                     {
                         extend: 'excel', className: 'RcsvButton', text: 'excel<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
                             format: {
                                 body: function (data, row, col, node) {
-                                    if (col == 4) {
+                                    if (col === 4) {
                                         return table
                                             .cell({ row: row, column: col })
                                             .nodes()
@@ -95,7 +76,6 @@ export default class Table extends Component {
                         }
                     },
                     { extend: 'csv', className: 'RcsvButton' },
-                    //   'selectNone'
                 ],
                 scrollX: true,
                 scrollCollapse: true,
@@ -153,11 +133,6 @@ export default class Table extends Component {
 
             }
         )
-
-        // this.$el.on('click', 'tr', function () {
-        //     $(this).toggleClass('selected');
-        // });
-
         this.$el.on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).toggleClass('selected');
@@ -167,7 +142,6 @@ export default class Table extends Component {
                 dataRow.id = row.id;
                 dataRow.updatedDate = time;
                 dataRow.pic = parseInt(Cookies.get('__hrni'));
-                console.log(dataRow);
                 var authOptions = {
                     method: 'POST',
                     url: 'http://0.0.0.0:8080/form/update',
@@ -178,31 +152,15 @@ export default class Table extends Component {
                     json: true
                 };
                 axios(authOptions)
-                    .then(function (response) {
-                        console.log(response.data);
-                        console.log(response.status);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
 
             }
             else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                let pos = table.row(this).index();
-                let row = table.row(pos).data();
                 dataRow.id = null
-                console.log(dataRow);
             }
         });
-
-
-        // $('#button').click(function () {
-        //     alert(this.$el.rows('.selected').data().length + ' row(s) selected');
-        // });
     }
-
 
     componentDidUpdate() {
         if (Cookies.get('__filt') === "Ops_Form_Response") {
@@ -248,5 +206,4 @@ export default class Table extends Component {
             </div>
         )
     }
-
 }

@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { Grid, Row, Col} from 'react-bootstrap';
 import Card from 'components/Card/Card.jsx';
  import Table from 'variables/TableOpsForm.jsx';
-// import Table from 'variables/Table.jsx';
-// import {dataSetNonopsForm} from 'variables/Variables.jsx';
 
 class OpsFormResponse extends Component {
-
     render() {
         return (
             <div className="content">
@@ -22,8 +19,6 @@ class OpsFormResponse extends Component {
                                 }
                             />
                         </Col>
-
-
                     </Row>
                 </Grid>
             </div>

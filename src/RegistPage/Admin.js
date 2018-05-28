@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import {
-    Link,
-    Redirect
-} from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import Cookies from 'js-cookie';

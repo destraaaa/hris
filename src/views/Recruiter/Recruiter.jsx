@@ -4,8 +4,9 @@ import Card from 'components/Card/Card.jsx';
 import Table from 'variables/TableRecruiter';
 import Input from './RecruiterInput';
 import axios from 'axios';
-import Cookies from 'js-cookie'; 
+import Cookies from 'js-cookie';
 import { rowData } from '../../variables/TableRecruiter';
+
 class Recruiter extends Component {
     constructor() {
         super();
@@ -26,7 +27,6 @@ class Recruiter extends Component {
         if (rowData.email === "") {
             isError = true;
             error.nameErr = "there is no data select"
-            console.log(rowData)
         }
         this.setState(error)
         return isError
@@ -64,13 +64,6 @@ class Recruiter extends Component {
             json: true
         };
         axios(authOptions)
-            .then(function (response) {
-                console.log(response.data);
-                console.log(response.status);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
 
         window.location.href = "/Recruiter"
     }
@@ -82,28 +75,27 @@ class Recruiter extends Component {
                     show={this.state.show}
                     onHide={this.handleHide}
                     container={this}
-                    aria-labelledby="contained-modal-title"
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title">
-                            Are you sure want to Delete?
-            </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        When you click delete the user  <strong>{rowData.name}</strong>  cannot be enter this dashboard anymore
-          </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.handleHide}>Cancel</Button>
-                        <button
-                            id="modalBtn"
-                            type="button"
-                            className="btn"
-                            onClick={this.Delete}>Delete</button>
-                    </Modal.Footer>
+                    aria-labelledby="contained-modal-title" >
+                        <Modal.Header closeButton>
+                            <Modal.Title id="contained-modal-title">
+                                Are you sure want to Delete?
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            When you click delete the user  <strong>{rowData.name}</strong>  cannot be enter this dashboard anymore
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.handleHide}>Cancel</Button>
+                            <button
+                                id="modalBtn"
+                                type="button"
+                                className="btn"
+                                onClick={this.Delete}>Delete</button>
+                        </Modal.Footer>
                 </Modal>
 
-                <Grid fluid>
 
+                <Grid fluid>
                     <Row>
                         <Col md={4}>
                             <Card
@@ -132,10 +124,8 @@ class Recruiter extends Component {
                                 }
                             />
                         </Col>
-
                     </Row>
                 </Grid>
-
             </div>
         );
     }

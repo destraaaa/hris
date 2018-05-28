@@ -5,24 +5,16 @@ import {
     Redirect
 } from 'react-router-dom';
 import NotificationSystem from 'react-notification-system';
-
 import Header from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
-
 import { style } from "variables/Variables.jsx";
-// import Welcome from '../../RegistPage/Welcome';
-// import Form from "../../RegistPage/Regist";
-// import notUser from '../../RegistPage/notUser';
 import appRoutes from 'routes/app.jsx';
 import Cookies from 'js-cookie';
 
 var name = {
     username: Cookies.get("__hrnu")
 }
-// const Auth = {
-//     isAuthenticated: localStorage.getItem("auth")
-// };
 
 class App extends Component {
     constructor(props) {
@@ -136,9 +128,7 @@ class App extends Component {
                                         <Route path={prop.path} component={prop.component} key={key} />
                                     );
                                 })
-
                             }
-                          
                         </Switch>
                         <Footer />
                         </div>
