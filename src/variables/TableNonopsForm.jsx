@@ -11,7 +11,9 @@ const $el = $(this.el);
 
 var dataRow = {
     progress: null,
-    id: null
+    id: null,
+    updatedDate: null,
+    pic: "",
 }
 
 export default class Table extends Component {
@@ -117,6 +119,19 @@ export default class Table extends Component {
                         }
                     },
                     { data: "statProgress" },
+                    {
+                        data: "updatedDate",
+                        "render": function (data) {
+                            if (data === "0001-01-01T00:00:00Z") {
+                                return ""
+                            }
+                            else {
+                                var date = new Date(data);
+                                var month = date.getMonth() + 1;
+                                return date.getDate() + "/" + month + "/" + date.getFullYear();
+                            }
+                        }
+                    },
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "school" },
@@ -140,12 +155,14 @@ export default class Table extends Component {
                 $(this).toggleClass('selected');
                 let pos = table.row(this).index();
                 let row = table.row(pos).data();
+                let time = new Date()
+                dataRow.id = row.id;
+                dataRow.updatedDate = time;
+                dataRow.pic = parseInt(Cookies.get('__hrni'));
                 console.log(dataRow);
-                dataRow.id = row.id
-
                 var authOptions = {
                     method: 'POST',
-                    url: 'http://0.0.0.0:8080/opsform/update',
+                    url: 'http://0.0.0.0:8080/form/update',
                     data: JSON.stringify(dataRow),
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -167,8 +184,8 @@ export default class Table extends Component {
                 $(this).addClass('selected');
                 let pos = table.row(this).index();
                 let row = table.row(pos).data();
+                dataRow.id = null
                 console.log(dataRow);
-                dataRow.id = row.id
             }
         });
 
@@ -202,6 +219,7 @@ export default class Table extends Component {
                             <th id="big-col">Email</th>
                             <th id="big-col">Timestamp</th>
                             <th id="progressTable">Progress</th>
+                            <th id="big-col">LastUpdated</th>
                             <th id="big-col">Nickname</th>
                             <th id="big-col">PhoneNumber</th>
                             <th id="big-col">School</th>

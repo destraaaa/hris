@@ -10,25 +10,50 @@ import Cookies from 'js-cookie';
 const responseGoogle = (response) => {
     console.log(response);
     axios.get('http://0.0.0.0:8080/authLogin/validate').then(res => {
-        var user = []
+        var user = {
+            email : [],
+            id : []
+        }
+
         let token = response.Zi.access_token
         
         res.data.forEach(function (item) {
-            user.push(item.email)
+            user.email.push(item.email)
+            user.id.push(item.id)
         })
+        console.log(user)
 
-        user.forEach(function (item) {
-            if (response.w3.U3 === item) {
-                //redirect to dashboard
+        for(let i=0 ; i< user.email.length;i++)
+        {
+            if(response.w3.U3 === user.email[i])
+            {
+                let inputId = user.id[i]
                 Cookies.set('__hrid', token, {expires: 1, path:'/'})
-                Cookies.set('__hrnu', response.profileObj.name, {expires: 1, path: '/'})                
+                Cookies.set('__hrnu', response.profileObj.name, {expires: 1, path: '/'})   
+                Cookies.set('__hrni', inputId, {expires: 1, path: '/'})  
+                
                 window.location.href = '/dashboard';
-                console.log(token);
+                // console.log(inputId)
+                // console.log(response.profileObj.name)   
+                   
             }
-        })
+        }
+        // user.forEach(function (item) {
+        //     if (response.w3.U3 === item) {
+        //         //redirect to dashboard
+        //         // id = res.data.id
+
+        //         Cookies.set('__hrid', token, {expires: 1, path:'/'})
+        //         Cookies.set('__hrnu', response.profileObj.name, {expires: 1, path: '/'})   
+        //         Cookies.set('__hrni', response.profileObj.name, {expires: 1, path: '/'})                                             
+        //         // window.location.href = '/dashboard';
+        //         console.log(token);
+        //         console.log(res.data[0]);                
+        //     }
+        // })
        
             //redirect to register
-            window.location.href = "/register/error"
+            // window.location.href = "/register/error"
 
     })
         .catch(function (error) {

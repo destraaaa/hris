@@ -149,6 +149,7 @@ class HeaderLinks extends Component {
 
         Cookies.remove('__hrid', { path: '/' })
         Cookies.remove('__hrnu', { path: '/' })
+        Cookies.remove('__hrni', { path: '/' })        
         // window.location.href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register"
         var filter = {
             year: "all",
