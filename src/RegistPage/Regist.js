@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     Link
 } from 'react-router-dom';
-import { rowData } from '../variables/TableRecruiter';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -22,7 +21,7 @@ export default class Regist extends Component {
             major: "",
             GPA: "",
             purpose: "",
-            meet: rowData.name,
+            meet: "",
             position: "",
             acquaintances: "",
             time: "",
