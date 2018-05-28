@@ -48,11 +48,24 @@ export default class Regist extends Component {
             acquaintancesErr: "",
             infoJobErr :"",
             schoolErr:"",
+            interviewers:[],
             formType: Cookies.get('__intvw')
         };
     }
 
     componentDidMount(){
+        axios.get(`http://0.0.0.0:8080/authLogin/user`).then(res => {
+            var Interviewer = [];
+            res.data.forEach(function (item) {
+                Interviewer.push(item.name)
+            })
+            this.setState({
+                interviewers : Interviewer
+            })
+        }).catch(function (error) {
+            console.log(error);
+        })
+        
         var el = document.getElementById('phone');
         if(el){
         el.addEventListener('keydown', function(e) {
@@ -266,7 +279,6 @@ export default class Regist extends Component {
                 relationshipErr: "",
                 referralNameErr: ""
             });
-            
             window.location.href = '/register';
         }
     };
@@ -430,16 +442,9 @@ export default class Regist extends Component {
                             </div>
                             <select id="selectCur" name="meet" value={this.state.meet} onChange={e => this.change(e)}  style = {{border:this.state.meetErr!=""?"1.5px solid #ff1100ad": ""}}>
                                 <option hidden>You would to see*</option>
-                                <option value="Ms. Amanda" >Ms. Amanda</option>
-                                <option value="Ms. Clarissa" >Ms. Clarissa</option>
-                                <option value="Ms. Destiny" >Ms. Destiny</option>
-                                <option value="Ms. Dyah Ayu" >Ms. Dyah Ayu</option>
-                                <option value="Ms. Fitri Naviati" >Ms. Fitri Naviati</option>
-                                <option value="Ms. Fitria Umami" >Ms. Fitria Umami</option>
-                                <option value="Ms. Nadya" >Ms. Nadya</option>
-                                <option value="Ms. Ruthnaomi" >Ms. Ruthnaomi</option>
-                                <option value="Ms. Steffanie" >Ms. Steffanie</option>
-                                <option value="Mr. Yoga" >Mr. Yoga</option>
+                               {
+                                   this.state.interviewers.map(el => <option value={el}> {el} </option>)
+                               }
                             </select>
                         </div>
                         <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
