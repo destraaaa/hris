@@ -55,16 +55,13 @@ export default class Regist extends Component {
 
     componentDidMount(){
         axios.get(`http://0.0.0.0:8080/authLogin/user`).then(res => {
-
             var Interviewer = [];
-
             res.data.forEach(function (item) {
                 Interviewer.push(item.name)
             })
             this.setState({
                 interviewers : Interviewer
             })
-
         }).catch(function (error) {
             console.log(error);
         })
