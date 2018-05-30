@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import Card from 'components/Card/Card.jsx';
 import Table from 'variables/TableRejectedForm.jsx';
-import {dataSet} from 'variables/Variables.jsx';
 
 class TableList extends Component {
 
@@ -17,7 +16,7 @@ class TableList extends Component {
                                 category="Data Rejected Candidates"
                                 ctTableFullWidth ctTableResponsive
                                 content={
-                                    <Table data={dataSet}/>
+                                    <Table />
                                 }
                             />
                         </Col>

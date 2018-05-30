@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
     Route,
-    Link,
     Switch
 
 } from 'react-router-dom';
@@ -12,7 +11,6 @@ import FormValid from './RegistPage/FormValid';
 import HomePic from './assets/img/Tokopedia-Regist.jpg';
 import Card1 from './assets/img/cardWelcome.png';
 import Card2 from './assets/img/cardRegist.png';
-
 
 const NoMatch = ({ location }) => (
     <div>

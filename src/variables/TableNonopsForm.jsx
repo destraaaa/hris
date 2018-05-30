@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-
-
+import axios from 'axios';
 const $ = require('jquery');
-require('datatables.net-fixedcolumns');
-require('datatables.net-scroller');
-$.DataTable = require('datatables.net');
-const $el = $(this.el);
+// require('datatables.net-scroller');
+
+var dataRow = {
+    progress: null,
+    id: null,
+    updatedDate: null,
+    pic: "",
+}
 
 export default class Table extends Component {
     data(check) {
         $.fn.DataTable.ext.pager.numbers_length = 6;
 
         this.$el = $(this.el)
-        this.$el.DataTable(
+        var table = this.$el.DataTable(
             {
                 dom: '<"buttons" B>lTfgitp',
-                buttons: [{ extend: 'excel', className: 'csvButton' },
-                { extend: 'csv', className: 'csvButton' }],
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        text: 'Show',
+                        className: 'RcsvButton',
+                        columns: ':gt(0)',
+                    },
+                    { extend: 'excel', className: 'RcsvButton', text: 'excel<i class="fa fa-file-excel-o"></i>'},
+                    { extend: 'csv', className: 'RcsvButton' },
+                    // 'selectNone'
+                ],
                 destroy: check,
                 // pagingType: "input",
                 scrollY: 400,
@@ -27,27 +39,36 @@ export default class Table extends Component {
                 // fixedColumns: {
                 //     leftColumns: 4
                 // },
+                'rowCallback': function (row, data, index) {
+                    $('#nonTableProgressBtn', row).click(function () {
+                        dataRow.progress = parseInt(($('select', row).val()),0);
+                    });
+                },
                 columnDefs: [
                     {
 
-                        'targets': 0,
-                        'checkboxes': {
-                            'selectRow': true
+                        'targets': 4,
+                        'data': 'statProgress',
+                        'render': function (data, type, row, meta) {
+                            return '<select id="nonTableProgressBtn">' +
+                                '<option value="' + row.statProgress + '" selected disabled>' + row.statProgress + '</option>' +
+                                '<option value = 3 >APPROVED</option>' +
+                                '<option value = 2 >REJECT</option>' +
+                                '</select>';
                         }
                     }
                 ],
                 createdRow(row, data, dataIndex) {
-                    if (data.statProgress == "REJECT") {
-                        console.log(data)
+                    if (data.statProgress === "REJECT") {
                         $(row).addClass('REJECTcolor');
                     }
-                    else if (data.statProgress == "APPROVED") {
+                    else if (data.statProgress === "APPROVED") {
                         $(row).addClass('APPROVEDcolor');
                     }
-                    else if (data.statProgress == "ON PROGRESS") {
+                    else if (data.statProgress === "ON PROGRESS") {
                         $(row).addClass('PROGRESScolor');
                     }
-                    else  $(row).addClass('');
+                    else $(row).addClass('');
                 },
                 select: {
                     'style': 'multi'
@@ -57,10 +78,10 @@ export default class Table extends Component {
                     "dataSrc": ""
                 },
                 deferRender: true,
-                scroller: {
-                    displayBuffer: 10
-                },
-                scroller: false,
+                // scroller: {
+                //     displayBuffer: 10
+                // },
+                // scroller: false,
                 "language": {
                     "zeroRecords": "No Data found",
                     "emptyTable": "there is no record",
@@ -80,6 +101,19 @@ export default class Table extends Component {
                         }
                     },
                     { data: "statProgress" },
+                    {
+                        data: "updatedDate",
+                        "render": function (data) {
+                            if (data === "0001-01-01T00:00:00Z") {
+                                return ""
+                            }
+                            else {
+                                var date = new Date(data);
+                                var month = date.getMonth() + 1;
+                                return date.getDate() + "/" + month + "/" + date.getFullYear();
+                            }
+                        }
+                    },
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "school" },
@@ -95,16 +129,37 @@ export default class Table extends Component {
                     { data: "referralName" }
                 ]
             }
-            
+
         )
-      
+
         this.$el.on('click', 'tr', function () {
-            $(this).toggleClass('selected');
+            if ($(this).hasClass('selected')) {
+                $(this).toggleClass('selected');
+                let pos = table.row(this).index();
+                let row = table.row(pos).data();
+                let time = new Date()
+                dataRow.id = row.id;
+                dataRow.updatedDate = time;
+                dataRow.pic = parseInt((Cookies.get('__hrni')),0);
+                var authOptions = {
+                    method: 'POST',
+                    url: 'http://0.0.0.0:8080/form/update',
+                    data: JSON.stringify(dataRow),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    json: true
+                };
+                axios(authOptions)
+
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                dataRow.id = null
+            }
         });
 
-        // $('#button').click(function () {
-        //     alert(this.$el.rows('.selected').data().length + ' row(s) selected');
-        // });
     }
 
     componentDidUpdate() {
@@ -122,8 +177,6 @@ export default class Table extends Component {
         this.$el.DataTable().destroy(true)
     }
 
-
-
     render() {
         return (
             <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
@@ -134,7 +187,8 @@ export default class Table extends Component {
                             <th id="big-col">Fullname</th>
                             <th id="big-col">Email</th>
                             <th id="big-col">Timestamp</th>
-                            <th id="big-col">Progress</th>
+                            <th id="progressTable">Progress</th>
+                            <th id="big-col">LastUpdated</th>
                             <th id="big-col">Nickname</th>
                             <th id="big-col">PhoneNumber</th>
                             <th id="big-col">School</th>
@@ -154,5 +208,4 @@ export default class Table extends Component {
             </div>
         )
     }
-
 }

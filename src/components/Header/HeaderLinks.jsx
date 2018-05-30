@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavItem, Nav, NavDropdown, MenuItem, Popover, OverlayTrigger } from 'react-bootstrap';
+import { NavItem, Nav, Popover, OverlayTrigger } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
@@ -53,25 +53,6 @@ class HeaderLinks extends Component {
         this.resetQ = this.resetQ.bind(this);
     }
 
-    // start() {
-    //     if (window.parent.location.href === "http://localhost:3000/Ops_Form_Response") {
-    //         {
-    //             Cookies.set('__filt', 'Ops_Form_Response', { expires: 1, path: '/' })
-    //             console.log("di response ops")
-    //         }
-    //     }
-    //     else Cookies.remove('__filt')
-    //     if (window.parent.location.href === "http://localhost:3000/NonOps_Form_Response") {
-    //         {
-    //             Cookies.set('__filt', 'Ops_Form_Response', { expires: 1, path: '/' })
-    //             console.log("di response nonops")
-    //         }
-    //     }
-    //     else Cookies.remove('__filt')
-
-    // }
-
-
     submit(e) {
         e.preventDefault();
         let filter = {
@@ -92,64 +73,25 @@ class HeaderLinks extends Component {
             json: true
         };
         axios(authOptions)
-            .then(function (response) {
-                console.log(response.data);
-                console.log(response.status);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
 
         if (window.parent.location.href === "http://localhost:3000/dashboard") {
             this.props.history.push("/");
         }
         if (window.parent.location.href === "http://localhost:3000/NonOps_Form_Response") {
-            {
                 this.props.history.push('/NonOps_Form_Response')
                 Cookies.set('__filt', 'NonOps_Form_Response', { expires: 1, path: '/' })
-            }
         }
         if (window.parent.location.href === "http://localhost:3000/Ops_Form_Response") {
-            {
                 this.props.history.push("/Ops_Form_Response");
                 Cookies.set('__filt', 'Ops_Form_Response', { expires: 1, path: '/' })
-            }
         }
-        // window.parent.location = window.parent.location.href;
-        // this.setState({
-        //     years: Cookies.get('year'),
-        //     type: Cookies.get('type'),
-        //     daily: Cookies.get('quarter'),
-        //     quarter: Cookies.get('month'),
-        //     month: Cookies.get('daily')
-        // })
-
-        // window.location.href = "/dashboard"
-
-
-        // years: Cookies.get('year'),
-        // type:   Cookies.get('type'),
-        // daily:  Cookies.get('quarter'),
-        // quarter: Cookies.get('month'),
-        // month:   Cookies.get('daily')
-        // year: Cookies.set('year',this.state.years,{ expires: 1 }),
-        // type: Cookies.set('type',this.state.type,{ expires: 1 }),
-        // quarter:  Cookies.set('quarter',this.state.quarter,{ expires: 1 }),
-        // month: Cookies.set('month',this.state.month,{ expires: 1 }),
-        // daily:  Cookies.set('daily',this.state.daily,{ expires: 1 }), 
-
-
-
-
-
     }
 
-
     logOut() {
-
         Cookies.remove('__hrid', { path: '/' })
         Cookies.remove('__hrnu', { path: '/' })
-        // window.location.href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register"
+        Cookies.remove('__hrni', { path: '/' })        
+    
         var filter = {
             year: "all",
             type: "all",
@@ -167,16 +109,8 @@ class HeaderLinks extends Component {
             json: true
         };
         axios(authOptions)
-            .then(function (response) {
-                console.log(response.data);
-                console.log(response.status);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
 
         window.location.href = "/register"
-
     }
 
     yearly() {
@@ -193,7 +127,7 @@ class HeaderLinks extends Component {
         let today = new Date();
         let quarter = Math.floor((today.getMonth() + 3) / 3);
         var date = ["(Jan-Mar)", "(Apr-Jun)", "(Jul-Sep)", "(Oct-Des)"]
-        if (this.state.years === "all" || this.state.years != year.toString()) {
+        if (this.state.years === "all" || this.state.years !== year.toString()) {
             for (let i = 1; i <= 4; i++) {
                 arr.push(<option key={i} value={i}>
                     Q{i} {date[i - 1]}</option>)
@@ -217,27 +151,27 @@ class HeaderLinks extends Component {
         let check = null;
 
         if (this.state.quarter === "1")
-            check = this.state.quarter === quarter && this.state.years != "all" ? (day + 1) : 3
+            check = this.state.quarter === quarter && this.state.years !== "all" ? (day + 1) : 3
         for (let i = 1; i <= check; i++) {
             arr.push(<option key={i} value={i}>
                 {date[i - 1]}</option>)
         }
         if (this.state.quarter === "2") {
-            check = this.state.quarter === quarter && this.state.years != "all" ? (day + 1) : 6
+            check = this.state.quarter === quarter && this.state.years !== "all" ? (day + 1) : 6
             for (let i = 4; i <= check; i++) {
                 arr.push(<option key={i} value={i}>
                     {date[i - 1]}</option>)
             }
         }
         if (this.state.quarter === "3") {
-            check = this.state.quarter === quarter && this.state.years != "all" ? (day + 1) : 9
+            check = this.state.quarter === quarter && this.state.years !== "all" ? (day + 1) : 9
             for (let i = 7; i <= check; i++) {
                 arr.push(<option key={i} value={i}>
                     {date[i - 1]}</option>)
             }
         }
         if (this.state.quarter === "4") {
-            check = this.state.quarter === quarter && this.state.years != "all" ? (day + 1) : 12
+            check = this.state.quarter === quarter && this.state.years !== "all" ? (day + 1) : 12
             for (let i = 10; i <= check; i++) {
                 arr.push(<option key={i} value={i}>
                     {date[i - 1]}</option>)
@@ -246,8 +180,6 @@ class HeaderLinks extends Component {
         return arr;
     }
 
-
-
     change(e) {
         this.setState({
             [e.target.name]: e.target.value
@@ -255,13 +187,13 @@ class HeaderLinks extends Component {
     }
 
     resetQ() {
-        if (this.state.daily != "quarter") {
+        if (this.state.daily !== "quarter") {
             this.setState({
                 quarter: "all",
                 month: "all"
             });
         }
-        if (this.state.daily != "all") {
+        if (this.state.daily !== "all") {
             this.setState({
                 month: "all"
             });
@@ -269,7 +201,7 @@ class HeaderLinks extends Component {
     }
 
     resetY() {
-        if (this.state.years != "all") {
+        if (this.state.years !== "all") {
             this.setState({
                 quarter: "all",
                 month: "all"
@@ -277,11 +209,7 @@ class HeaderLinks extends Component {
         }
     }
 
-
-
     render() {
-        // var id = this.props.match.params.id
-        // console.log(id)
         const notification = (
             <div>
                 <i className="fa fa-globe"></i>
@@ -290,20 +218,12 @@ class HeaderLinks extends Component {
                 <p className="hidden-lg hidden-md">Notification</p>
             </div>
         );
-        console.log(...this.props)
+
+        
         return (
-
-
             <div>
                 {/* this is the icon Header ..............................................*/}
                 <Nav>
-                    {/* <NavDropdown eventKey={1} title={notification} noCaret id="basic-nav-dropdown">
-                        <MenuItem eventKey={1.1}>Notification 1</MenuItem>
-                        <MenuItem eventKey={1.2}>Notification 2</MenuItem>
-                        <MenuItem eventKey={1.3}>Notification 3</MenuItem>
-                        <MenuItem eventKey={1.4}>Notification 4</MenuItem>
-                        <MenuItem eventKey={1.5}>Another notifications</MenuItem>
-                    </NavDropdown> */}
                     <NavItem eventKey={2} id="navitem">
                         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverYear}>
                             <select name="years" id="navbarYear" onChange={e => this.change(e)} onClick={this.resetY.bind(this)}>
@@ -312,13 +232,7 @@ class HeaderLinks extends Component {
                             </select>
                         </OverlayTrigger>
                     </NavItem>
-                    <NavItem eventKey={3} id="navitem"
-                        // style={{
-                        //     display: window.parent.location.href === "http://localhost:3000/NonOps_Form_Response"
-                        //         || window.parent.location.href === "http://localhost:3000/Ops_Form_Response" ?
-                        //         "none" : "block"
-                        // }}
-                        >
+                    <NavItem eventKey={3} id="navitem">
                         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverType}>
                             <select name="type" id="navbarType" onChange={e => this.change(e)}>
                                 <option value="all" >All</option>
@@ -339,7 +253,7 @@ class HeaderLinks extends Component {
                         </OverlayTrigger>
                     </NavItem>
                     <NavItem eventKey={5} id="navItemQ">
-                        <div style={{ display: this.state.daily != "quarter" ? "none" : "block" }}>
+                        <div style={{ display: this.state.daily !== "quarter" ? "none" : "block" }}>
                             <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverQ}>
                                 <select name="quarter" value= {this.state.quarter} id="navbarQ" onChange={e => this.change(e)} onClick={this.resetQ}>
                                     <option value="all" >All</option>
@@ -349,7 +263,7 @@ class HeaderLinks extends Component {
                         </div>
                     </NavItem>
                     <NavItem eventKey={5} id="navitem">
-                        <div style={{ display: this.state.quarter != "all" ? this.state.daily != "quarter" ? "none" : "block" : "none" }}>
+                        <div style={{ display: this.state.quarter !== "all" ? this.state.daily !== "quarter" ? "none" : "block" : "none" }}>
                             <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverD}>
                                 <select name="month" id="navbarM" onChange={e => this.change(e)}>
                                     <option value="all">All</option>
@@ -358,20 +272,9 @@ class HeaderLinks extends Component {
                             </OverlayTrigger>
                         </div>
                     </NavItem>
-                    {/* <NavItem eventKey={6} id="navitem">
-                        <div style={{ display: this.state.month === "all" || this.state.quarter === "all" ? "none" : "block" }}>
-                            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverW}>
-                                <select name="daily" id="navbarYear" value={this.state.purpose} onChange={e => this.change(e)}>
-                                    <option value="month">Month</option>
-                                    <option value="week">Weeks</option>
-                                    <option value="day">Today</option>
-                                </select>
-                            </OverlayTrigger>
-                        </div>
-                    </NavItem> */}
                     <NavItem eventKey={6} style={{
                         position: "relative",
-                        right: this.state.daily != "quarter" ? 240 : this.state.daily != "quarter" ? 110 : this.state.quarter === "all" ? 100 : 0
+                        right: this.state.daily !== "quarter" ? 240 : this.state.daily !== "quarter" ? 110 : this.state.quarter === "all" ? 100 : 0
                     }}>
                         <button type="button" onClick={e => this.submit(e)} className="btn" id="navbutton">Filter</button>
                     </NavItem>
@@ -383,25 +286,6 @@ class HeaderLinks extends Component {
                     <NavItem eventKey={1} className="nameRight">{name.userName}</NavItem>
                     <NavItem eventKey={2} onClick={this.logOut}>Log out</NavItem>
                 </Nav>
-                    {/* <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown-right">
-                        <MenuItem eventKey={2.1}>Action</MenuItem>
-                        <MenuItem eventKey={2.2}>Another action</MenuItem>
-                        <MenuItem eventKey={2.3}>Something</MenuItem>
-                        <MenuItem eventKey={2.4}>Another action</MenuItem>
-                        <MenuItem eventKey={2.5}>Something</MenuItem>
-                        <MenuItem divider />
-                        <MenuItem eventKey={2.5}>Separated link</MenuItem>
-                    </NavDropdown> */}
-                    {/* <NavItem eventKey={3} 
-                    href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/register">Log out</NavItem> */}
-
-                    {/* <NavItem eventKey={3}>
-                        <GoogleLogout 
-                            buttonText="Log out"
-                            onLogoutSuccess={logout}>
-                        </GoogleLogout>
-                    </NavItem> */}
-
             </div >
         );
     }

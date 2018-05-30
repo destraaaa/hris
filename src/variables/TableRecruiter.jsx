@@ -1,32 +1,27 @@
 import React, { Component } from 'react';
 const $ = require('jquery')
-$.DataTable = require('datatables.net')
 export var rowData = {
-    email :"",
-    name : ""
+    email: "",
+    name: ""
 }
 
 export default class Table extends Component {
-
-    
     componentDidMount() {
-        console.log(this.el)
         this.$el = $(this.el)
         var table = this.$el.DataTable(
             {
-                scrollX:true,
-                searching:false,
-                paging:false,
+                scrollX: true,
+                searching: false,
+                paging: false,
                 "ajax": {
                     "url": "http://0.0.0.0:8080/authLogin/user",
                     "dataSrc": ""
                 },
-                // data: this.props.data,
                 columns: [
                     { data: "id" },
                     { data: "name" },
                     { data: "email" },
-                    {data: "pic"},
+                    { data: "pic" },
                     {
                         data: "timestamps",
                         "render": function (data) {
@@ -39,33 +34,30 @@ export default class Table extends Component {
 
             }
         )
-        this.$el.on( 'click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-            $(this).toggleClass('selected');
-            let pos = table.row(this).index();
-            let row =table.row(pos).data();
-            // console.log(row);
-            rowData.email = row.email
-            rowData.name = row.name
+        this.$el.on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).toggleClass('selected');
+                let pos = table.row(this).index();
+                let row = table.row(pos).data();
+                rowData.email = ""
+                rowData.name = ""
             }
-            else{
+            else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
                 let pos = table.row(this).index();
-                let row =table.row(pos).data();
-                // console.log(row);
+                let row = table.row(pos).data();
                 rowData.email = row.email
                 rowData.name = row.name
             }
-        } );
+        });
     }
-
     // componentWillUnmount() {
     //     this.Sel.DataTable.destroy(true)
     // }
     render() {
         return (
-            <div style={{ paddingLeft: 40, marginRight: 40}}>
+            <div style={{ paddingLeft: 40, marginRight: 40 }}>
                 <table className="display" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
@@ -80,5 +72,4 @@ export default class Table extends Component {
             </div>
         )
     }
-
 }

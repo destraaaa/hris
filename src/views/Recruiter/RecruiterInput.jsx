@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
 import {rowData} from '../../variables/TableRecruiter'
 
 export default class RecruiterInput extends Component {
@@ -11,6 +10,7 @@ export default class RecruiterInput extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.state = { name: "", email: "", nameErr: "", emailErr: "" }
     }
+
     change(e) {
         this.setState({
             [e.target.name]: e.target.value
@@ -26,7 +26,6 @@ export default class RecruiterInput extends Component {
         if (this.state.name === "") {
             isError = true;
             error.nameErr = "name is empty."
-            console.log(rowData)
         }
         if (this.state.email === "") {
             isError = true;
@@ -58,62 +57,19 @@ export default class RecruiterInput extends Component {
                 json: true
             };
             axios(authOptions)
-                .then(function (response) {
-                    console.log(response.data);
-                    console.log(response.status);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
 
             window.location.href = "/Recruiter"
         }
     }
 
     
-    // onDelete(e) {
-    //     e.preventDefault();
-    //     const err = this.validate();
-    //     if (!err) {
-    //         const users = {
-    //             // name: this.state.name,
-    //             // email: this.state.email + "@tokopedia.com",
-    //             email: rowData.email
-                
-    //         }
-    //         var authOptions = {
-    //             method: 'POST',
-    //             url: 'http://0.0.0.0:8080/authLogin/delete',
-    //             data: JSON.stringify(users),
-    //             headers: {
-    //                 'Content-Type': 'application/x-www-form-urlencoded'
-    //             },
-    //             json: true
-    //         };
-    //         axios(authOptions)
-    //             .then(function (response) {
-    //                 console.log(response.data);
-    //                 console.log(response.status);
-    //             })
-    //             .catch(function (error) {
-    //                 console.log(error);
-    //             });
-
-    //         window.location.href = "/Recruiter"
-    //     }
-    // }
-
     render() {
         return (
             <div>
-
                 <div className="row1" id="recruiter">
-
                     <p id="inputEmail" >Add email that will become new user</p>
                     <p id="inputEmail" style={{ color: "#ff0019" }} >{this.state.nameErr} {this.state.emailErr}</p>
-                    
                     <div className="input-group input-group-icon" style={{ left: 75 }}>
-
                         <div style={{ position: "relative", right: 65 }} >
                             <input
                                 placeholder="Email"
@@ -125,6 +81,7 @@ export default class RecruiterInput extends Component {
                             <span id="inputRecruiter">@tokopedia.com</span>
                             <div className="input-icon"><i className="fa fa-envelope" /></div>
 
+
                             <input
                                 placeholder="Name"
                                 name="name"
@@ -132,7 +89,6 @@ export default class RecruiterInput extends Component {
                                 onChange={e => this.change(e)}
                                 id = "nameRecruiter"
                             />
-                            {/* <pre id="example">Rembember!!! User that have been add can access this dashboard</pre> */}
                             <div className="input-icon" id="iconRecruiter"><i className="fa fa-user" /></div>
                         </div>
                         <div id="recruiterBtn">
@@ -142,18 +98,9 @@ export default class RecruiterInput extends Component {
                             className="btn"
                             onClick={e => this.onSubmit(e)}
                         >ADD</button>
-                        {/* <button
-                            id="btnDelete"
-                            type="button"
-                            className="btn"
-                            onClick={e => this.onDelete(e)}
-                        >Delete</button> */}
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         )
     }

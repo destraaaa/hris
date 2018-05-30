@@ -111,10 +111,6 @@ select:active {
   border-color: #64ac15;
 }
 
-/* input[type="checkbox"] {
-  display: none;
-} */
-
 input[type="checkbox"]+label {
   position: relative;
   display: block;
@@ -237,7 +233,6 @@ select option {
   padding: 2em 3em 2em 3em;
   margin: 0em auto;
   margin-bottom: 3em;
-  /* background: url('../img/card1.png'); */
   background-size: 700px 380px;
   background-color: #fff;
   border-radius: 4.2px;
@@ -308,19 +303,6 @@ label {
   color: #ff0019;
   text-align: center;
 }
-
-/* #checked{
-  position: absolute;
-  top: -5px;
-  left: -40px;
-   width:30px;
-  height: 40px;
-
-}
-
-input:checked {
-  background: #7ed321;
-} */
 
 /* The container */
 
@@ -573,11 +555,9 @@ input:checked {
     width: 65%;
   }
   .containerRegist {
-    /* width: 70%; */
     padding: 2em 3em 2em 3em;
     margin: 0em auto;
     margin-bottom: 3em;
-    /* background: url('../img/card1.png'); */
     background-size: 700px 380px;
     background-color: #fff;
     border-radius: 4.2px;
@@ -671,7 +651,6 @@ input:checked {
     padding: 2em 3em 2em 3em;
     margin: 0em auto;
     margin-bottom: 3em;
-    /* background: url('../img/card1.png'); */
     background-size: 700px 380px;
     background-color: #fff;
     border-radius: 4.2px;

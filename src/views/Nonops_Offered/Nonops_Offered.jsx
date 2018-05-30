@@ -4,7 +4,6 @@ import Card from 'components/Card/Card.jsx';
 import Table from 'variables/TableNonopsOffered.jsx';
 import {dataSetNonopsOffered} from 'variables/Variables.jsx';
 
-
 class TableList extends Component {
 
     render() {
@@ -22,8 +21,6 @@ class TableList extends Component {
                                 }
                             />
                         </Col>
-
-
                     </Row>
                 </Grid>
             </div>

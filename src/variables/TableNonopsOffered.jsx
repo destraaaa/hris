@@ -1,26 +1,12 @@
 import React, { Component } from 'react';
 const $ = require('jquery')
-$.DataTable = require('datatables.net')
 
 export default class Table extends Component {
     componentDidMount() {
-        console.log(this.el)
         this.$el = $(this.el)
         this.$el.DataTable(
             {
-                data: this.props.data,
-                columns: [
-                    { title: "Name" },
-                    { title: "Position" },
-                    { title: "Office" },
-                    { title: "Extn." },
-                    { title: "Start date" },
-                    { title: "Salary" },
-                    { title: "Start date" },
-                    { title: "Salary" }
-
-
-                ]
+                //data belum ada
             }
         )
     }
@@ -31,7 +17,16 @@ export default class Table extends Component {
     render() {
         return (
             <div style={{ width: 1000, paddingLeft: 50 }}>
-                <table className="display" width="100%" ref={el => this.el = el}></table>
+                <table className="display" width="100%" ref={el => this.el = el}>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         )
     }

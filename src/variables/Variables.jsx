@@ -1,13 +1,22 @@
-// import Axios from "axios";
-
-//
-// //
-// // // For notifications
-// //
-//
-
-// var axios = require('axios');
 var defaultWidth = window.screen.width > 768 ? window.screen.width * 1 / 3 : window.screen.width;
+
+const Bcolor = [
+    '#FF598F', '#FD8A5E', '#E0E300', '#01DDDD', '#00BFAF',
+    '#B0A472', '#F5DF65', '#2B9464', '#59C8DF', '#28BE9B',
+    '#92DCE0', '#609194', '#EF9950', '#CD1719', '#442D65',
+    '#775BA3', '#91C5A9', '#F8E1B4', '#F98A5F', '#E8A0B8',
+    '#FFC300', '#BCCF3D', '#02C9C9', '#333333', '#000000',
+    '#FF534B', '#021542', '#0241E2', '#AAAAAA', '#3F0082',
+    '#DFE0DB', '#FF66CC', '#000000', '#F7F960']
+
+const HBcolor = [
+    '#FF59AD', '#FD8A5E', '#e0E3A0', '#01DDAD', '#00BFAF',
+    '#B0A4A2', '#F5DFA5', '#2B94A4', '#59C8AF', '#28BEAB',
+    '#92DCA0', '#6091A4', '#EF99A0', '#CD17A9', '#442DA5',
+    '#775BA3', '#91C5A9', '#F8E1A4', '#F98AAF', '#E8A0A8',
+    '#FFC3A0', '#BCCFAD', '#02C9A9', '#3333A3', '#0000A0',
+    '#FF53AB', '#0215A2', '#0241A2', '#AAAAAA', '#3F00A2',
+    '#DFE0AB', '#FF66AC', '#0000A0', '#F7F9A0']
 
 var style = {
     Wrapper: {},
@@ -248,27 +257,6 @@ var style = {
     }
 }
 
-//
-// //
-// // // For tables
-// //
-//
-// const thArray = ["ID","Name","Salary","Country","City","School","GPA","Address","Phone","School","GPA","Address","Phone","School","GPA","Address","Phone"];
-// const tdArray = [
-//     [ "1" , "Dakota Rice" , "$36,738" , "Niger" , "Oud-Turnhout","UI","4","Kakatua","123123123123","School","GPA","Address","Phone" ,"School","GPA","Address","Phone"] ,
-//     [ "2" , "Minerva Hooper" , "$23,789" , "Curaçao" , "Sinaai-Waas","ITB","3","Kenari","123123123123","School","GPA","Address","Phone" ,"School","GPA","Address","Phone"] ,
-//     [ "3" , "Sage Rodriguez" , "$56,142" , "Netherlands" , "Baileux","BINUS","4","Gajah","123123123123" ,"School","GPA","Address","Phone","School","GPA","Address","Phone"] ,
-//     [ "4" , "Philip Chaney" , "$38,735" , "Korea, South" , "Overland Park","ITS","3","Buaya","123123123123" ,"School","GPA","Address","Phone","School","GPA","Address","Phone"] ,
-//     [ "5" , "Doris Greene" , "$63,542" , "Malawi" , "Feldkirchen in Kärnten","UNM","2","Kuda Nil","123123123123","School","GPA","Address","Phone","School","GPA","Address","Phone" ] ,
-//     [ "6" , "Mason Porter" , "$78,615" , "Chile" , "Gloucester","4","UNPAD","lalalalalaalalaasdasdsadsadasdlal","123123123123","School","GPA","Address","Phone","School","GPA","Address","Phone"]
-// ];
-
-
-//
-// //
-// // // For icons
-// //
-//
 const iconsArray = [
     "pe-7s-album",
     "pe-7s-arc",
@@ -474,23 +462,6 @@ const iconsArray = [
     "pe-7s-airplay"
 ];
 
-//
-// //
-// // // // For dashboard's charts
-// //
-//
-// Data for Pie Chart
-var dataPie = {
-    // labels: ['Open 40%',' Bounce 5%','Unsubscribe 5%','subscribe 5%','Open 5%','Unsubscribe 20%','subscribe 20%'],
-    // series: [2, 5,5,5,5, 10,20]
-
-    // names: ["Open","Bounce","Unsubscribe","subscribe","Open","Bounce","Unsubscribe","subscribe"],
-    // types: ["success","danger","warning"]
-};
-// var legendPie = {
-//     names: ["Open","Bounce","Unsubscribe"],
-//     types: ["info","danger","warning"]
-// };
 
 var optionsPie = {
     labelInterpolationFnc: function (value) {
@@ -512,80 +483,6 @@ var responsiveOptionsPie = [
         chartPadding: 20
     }]
 ];
-
-
-// const colorPallet = {
-   
-// }
-
-// Data for Line Chart
-var dataSales = {
-    labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
-    series: [
-        [287, 385, 490, 492, 554, 586, 698, 695],
-        [67, 152, 143, 240, 287, 335, 435, 437],
-        [23, 113, 67, 108, 190, 239, 307, 308]
-    ]
-};
-var optionsSales = {
-    low: 0,
-    high: 900,
-    showArea: false,
-    height: "245px",
-    axisX: {
-        showGrid: false,
-    },
-    lineSmooth: true,
-    showLine: true,
-    showPoint: true,
-    fullWidth: true,
-    chartPadding: {
-        right: 50
-    }
-};
-var responsiveSales = [
-    ['screen and (max-width: 640px)', {
-        axisX: {
-            labelInterpolationFnc: function (value) {
-                return value[0];
-            }
-        }
-    }]
-];
-var legendSales = {
-    names: ["Open", "Click", "Click Second Time"],
-    types: ["info", "danger", "warning"]
-};
-
-// Data for Bar Chart
-var dataBar = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    series: [
-        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-    ]
-};
-var optionsBar = {
-    seriesBarDistance: 10,
-    axisX: {
-        showGrid: false
-    },
-    height: "245px"
-};
-var responsiveBar = [
-    ['screen and (max-width: 640px)', {
-        seriesBarDistance: 5,
-        axisX: {
-            labelInterpolationFnc: function (value) {
-                return value[0];
-            }
-        }
-    }]
-];
-var legendBar = {
-    names: ["Tesla Model S", "BMW 5 Series"],
-    types: ["info", "danger"]
-};
 
 const dataSet = [
     ["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800"],
@@ -667,12 +564,11 @@ const dataSetNonopsOffered = [
 ];
 
 module.exports = {
-    style, // For notifications (App container and Notifications view)
-    // thArray, tdArray, // For tables (TableList view)
+    style,
     dataSet,
-    //dataSetNonopsForm,
     dataSetNonopsOffered,
-    iconsArray, // For icons (Icons view)
+    HBcolor,
+    Bcolor,
+    iconsArray,
     optionsPie, responsiveOptionsPie,
-    dataPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
 };

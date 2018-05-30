@@ -7,12 +7,7 @@ table.dataTable {
   clear: both;
   border-collapse: separate;
   border-spacing: 0;
-  /*
-     * Header and footer styles
-     */
-  /*
-     * Body styles
-     */ }
+ }
 
 
 
@@ -413,7 +408,7 @@ table.dataTable td {
 
   #big-col{
     background-color: #FFFFFF;
-    width: 140px !important;
+    width: 160px !important;
     text-align: center;
   }
   #id-col{
@@ -421,6 +416,23 @@ table.dataTable td {
   }
   #big-table{
     table-Layout: fixed;
+    text-align: center;
+  }
+
+  #opsTableProgressBtn{
+    width: 130px;
+  }
+
+  .RcsvButton{
+    position: relative;
+    top: 4px !important;
+  }
+  
+  #nonTableProgressBtn{
+    width: 195px;
+  }
+
+  #progressTable{
     text-align: center;
   }
 

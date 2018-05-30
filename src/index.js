@@ -20,10 +20,8 @@ import './assets/css/datatable.css';
 import Cookies from 'js-cookie';
 import Main from './Main';
 import Admin from './RegistPage/Admin';
-import notUser from './RegistPage/notUser';
 
 const Auth = {
-    // isAuthenticated: localStorage.getItem("auth")
     isAuthenticated: Cookies.get("__hrid")
 
 };
