@@ -19,44 +19,11 @@ var name = {
 class App extends Component {
     constructor(props) {
         super(props);
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.handleNotificationClick = this.handleNotificationClick.bind(this);
         this.state = {
             _notificationSystem: null
         };
     }
 
-    handleNotificationClick(position) {
-        var color = Math.floor((Math.random() * 4) + 1);
-        var level;
-        switch (color) {
-            case 1:
-                level = 'success';
-                break;
-            case 2:
-                level = 'warning';
-                break;
-            case 3:
-                level = 'error';
-                break;
-            case 4:
-                level = 'info';
-                break;
-            default:
-                break;
-        }
-        this.state._notificationSystem.addNotification({
-            title: (<span data-notify="icon" className="pe-7s-smile"></span>),
-            message: (
-                <div>
-                    Welcome back <b>{name.username}</b> to HR Registration Form PT.Tokopedia
-                </div>
-            ),
-            level: level,
-            position: position,
-            autoDismiss: 3,
-        });
-    }
     componentDidMount() {
         this.setState({ _notificationSystem: this.refs.notificationSystem });
         var _notificationSystem = this.refs.notificationSystem;
@@ -108,18 +75,6 @@ class App extends Component {
                         <Switch>
                             {
                                 appRoutes.map((prop, key) => {
-                                    if (prop.name === "Notifications")
-                                        return (
-                                            <Route
-                                                path={prop.path}
-                                                key={key}
-                                                render={routeProps =>
-                                                    <prop.component
-                                                        {...routeProps}
-                                                        handleClick={this.handleNotificationClick}
-                                                    />}
-                                            />
-                                        );
                                     if (prop.redirect)
                                         return (
                                             <Redirect from={prop.path} to={prop.to} key={key} />

@@ -37,8 +37,6 @@ export default class Table extends Component {
         this.$el.on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).toggleClass('selected');
-                let pos = table.row(this).index();
-                let row = table.row(pos).data();
                 rowData.email = ""
                 rowData.name = ""
             }

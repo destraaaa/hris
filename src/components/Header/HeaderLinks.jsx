@@ -35,7 +35,7 @@ const popoverW = (
     </Popover>
 )
 
-const year = parseInt(new Date().getFullYear());
+const year = parseInt((new Date().getFullYear()), 10);
 
 
 class HeaderLinks extends Component {
@@ -72,26 +72,31 @@ class HeaderLinks extends Component {
             },
             json: true
         };
-        axios(authOptions)
+        axios(authOptions).then(function (response) {
+            console.log(response.status, "success");
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
 
         if (window.parent.location.href === "http://localhost:3000/dashboard") {
             this.props.history.push("/");
         }
         if (window.parent.location.href === "http://localhost:3000/NonOps_Form_Response") {
-                this.props.history.push('/NonOps_Form_Response')
-                Cookies.set('__filt', 'NonOps_Form_Response', { expires: 1, path: '/' })
+            this.props.history.push('/NonOps_Form_Response')
+            Cookies.set('__filt', 'NonOps_Form_Response', { expires: 1, path: '/' })
         }
         if (window.parent.location.href === "http://localhost:3000/Ops_Form_Response") {
-                this.props.history.push("/Ops_Form_Response");
-                Cookies.set('__filt', 'Ops_Form_Response', { expires: 1, path: '/' })
+            this.props.history.push("/Ops_Form_Response");
+            Cookies.set('__filt', 'Ops_Form_Response', { expires: 1, path: '/' })
         }
     }
 
     logOut() {
         Cookies.remove('__hrid', { path: '/' })
         Cookies.remove('__hrnu', { path: '/' })
-        Cookies.remove('__hrni', { path: '/' })        
-    
+        Cookies.remove('__hrni', { path: '/' })
+
         var filter = {
             year: "all",
             type: "all",
@@ -109,6 +114,12 @@ class HeaderLinks extends Component {
             json: true
         };
         axios(authOptions)
+            .then(function (response) {
+                console.log(response.status, "success");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
         window.location.href = "/register"
     }
@@ -126,16 +137,16 @@ class HeaderLinks extends Component {
         var arr = [];
         let today = new Date();
         let quarter = Math.floor((today.getMonth() + 3) / 3);
-        var date = ["(Jan-Mar)", "(Apr-Jun)", "(Jul-Sep)", "(Oct-Des)"]
+        var quarterly = ["(Jan-Mar)", "(Apr-Jun)", "(Jul-Sep)", "(Oct-Des)"]
         if (this.state.years === "all" || this.state.years !== year.toString()) {
             for (let i = 1; i <= 4; i++) {
                 arr.push(<option key={i} value={i}>
-                    Q{i} {date[i - 1]}</option>)
+                    Q{i} {quarterly[i - 1]}</option>)
             }
         }
         else
             for (let i = 1; i <= quarter; i++) {
-                arr.push(<option key={i} value={i}>Q{i} {date[i - 1]}</option>)
+                arr.push(<option key={i} value={i}>Q{i} {quarterly[i - 1]}</option>)
             }
 
         return arr;
@@ -145,8 +156,8 @@ class HeaderLinks extends Component {
         var arr = [];
         let today = new Date();
         let quarter = (Math.floor((today.getMonth() + 3) / 3)).toString();
-        const day = parseInt(new Date().getMonth());
-        var date = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+        const day = parseInt((new Date().getMonth()), 10);
+        var monthly = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Des"]
         let check = null;
 
@@ -154,27 +165,27 @@ class HeaderLinks extends Component {
             check = this.state.quarter === quarter && this.state.years !== "all" ? (day + 1) : 3
         for (let i = 1; i <= check; i++) {
             arr.push(<option key={i} value={i}>
-                {date[i - 1]}</option>)
+                {monthly[i - 1]}</option>)
         }
         if (this.state.quarter === "2") {
             check = this.state.quarter === quarter && this.state.years !== "all" ? (day + 1) : 6
             for (let i = 4; i <= check; i++) {
                 arr.push(<option key={i} value={i}>
-                    {date[i - 1]}</option>)
+                    {monthly[i - 1]}</option>)
             }
         }
         if (this.state.quarter === "3") {
             check = this.state.quarter === quarter && this.state.years !== "all" ? (day + 1) : 9
             for (let i = 7; i <= check; i++) {
                 arr.push(<option key={i} value={i}>
-                    {date[i - 1]}</option>)
+                    {monthly[i - 1]}</option>)
             }
         }
         if (this.state.quarter === "4") {
             check = this.state.quarter === quarter && this.state.years !== "all" ? (day + 1) : 12
             for (let i = 10; i <= check; i++) {
                 arr.push(<option key={i} value={i}>
-                    {date[i - 1]}</option>)
+                    {monthly[i - 1]}</option>)
             }
         }
         return arr;
@@ -210,16 +221,6 @@ class HeaderLinks extends Component {
     }
 
     render() {
-        const notification = (
-            <div>
-                <i className="fa fa-globe"></i>
-                <b className="caret"></b>
-                <span className="notification">5</span>
-                <p className="hidden-lg hidden-md">Notification</p>
-            </div>
-        );
-
-        
         return (
             <div>
                 {/* this is the icon Header ..............................................*/}
@@ -255,7 +256,7 @@ class HeaderLinks extends Component {
                     <NavItem eventKey={5} id="navItemQ">
                         <div style={{ display: this.state.daily !== "quarter" ? "none" : "block" }}>
                             <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popoverQ}>
-                                <select name="quarter" value= {this.state.quarter} id="navbarQ" onChange={e => this.change(e)} onClick={this.resetQ}>
+                                <select name="quarter" value={this.state.quarter} id="navbarQ" onChange={e => this.change(e)} onClick={this.resetQ}>
                                     <option value="all" >All</option>
                                     {this.quarterly()}
                                 </select>

@@ -64,7 +64,7 @@ class FormValid extends Component {
 
     validate(){
         let isError = false;
-        let check = /^.+\@.+\..+$/
+        let check = /^.+@.+\..+$/
         const error = {
             err:""
         };
@@ -106,17 +106,14 @@ class FormValid extends Component {
             if(this.state.email === item)
             {
                  check = true
-                 console.log("check",check)
             }
            })
        
            if(check){
                 check = false
-                console.log("sudah pernah interview")
            }
            else
            {
-               console.log("pertama kali")
             this.setState({
                         main: false,
                         timeFirst: true,
@@ -157,28 +154,6 @@ class FormValid extends Component {
             <div>
                 <div className="row1">
                     <h4>Registration Form  PT.Tokopedia</h4>
-                    {/* <div className="input-group" id="interviewCard" style={{ display: this.state.main ? 'block' : 'none' }}>
-                        <p className="pRegist" id="validate" >{this.state.err}</p>
-                        <p style={{ paddingBottom: 10 }}>Whether this is you first time interview with Tokopedia?</p>
-                        <div id="interview">
-                            <input
-                                name="interview"
-                                value="first"
-                                id="interview-yes"
-                                type="radio"
-                                onChange={e => this.change(e)}
-                            />
-                            <label id="interviewFirst" htmlFor="interview-yes">My First time Interview</label>
-                            <input
-                                name="interview"
-                                value="second"
-                                id="interview-no"
-                                type="radio"
-                                onChange={e => this.change(e)}
-                            />
-                            <label id="interviewFirst" htmlFor="interview-no">I have done interview before</label>
-                        </div>
-                    </div> */}
                     <div id="emailWelcome"  style={{ display: this.state.main ? 'block' : 'none' }}>
                       
                         <p className="pRegist" style={{color: "#ff0019"}} >{this.state.err}</p>
@@ -259,5 +234,4 @@ class FormValid extends Component {
         )
     }
 }
-
 export default withRouter(FormValid);

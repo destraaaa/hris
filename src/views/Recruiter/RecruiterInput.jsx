@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import {rowData} from '../../variables/TableRecruiter'
 
 export default class RecruiterInput extends Component {
     constructor() {
@@ -57,6 +56,12 @@ export default class RecruiterInput extends Component {
                 json: true
             };
             axios(authOptions)
+            .then(function (response) {
+                console.log(response.status, "success");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
             window.location.href = "/Recruiter"
         }
