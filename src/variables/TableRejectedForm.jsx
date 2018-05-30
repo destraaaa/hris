@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { fonts } from 'pdfmake/build/pdfmake';
+// import { fonts } from 'pdfmake/build/pdfmake';
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
-var jzip = require('jszip');
-var dt = require('datatables.net');
-var buttons = require('datatables.net-buttons');
-var flash = require('datatables.net-buttons/js/buttons.flash.js');
-var html = require('datatables.net-buttons/js/buttons.html5.js');
-var colVis = require('datatables.net-buttons/js/buttons.colVis.js');
+require('jszip');
+require('datatables.net');
+require('datatables.net-buttons');
+require('datatables.net-buttons/js/buttons.flash.js');
+require('datatables.net-buttons/js/buttons.html5.js');
+require('datatables.net-buttons/js/buttons.colVis.js');
 
 export default class Table extends Component {
     componentDidMount() {
@@ -16,15 +16,14 @@ export default class Table extends Component {
             {
                 dom: '<"buttons" B>lTfgitp',
                 buttons: [
-                        {
-                            extend: 'colvis',
-                            text: 'Show',
-                            className: 'RcsvButton',
-                            columns: ':gt(0)',
-                            columns: ':gt(1)',
-                        },
-                        { extend: 'excel', className: 'RcsvButton' },
-                        { extend: 'csv', className: 'RcsvButton' },
+                    {
+                        extend: 'colvis',
+                        text: 'Show',
+                        className: 'RcsvButton',
+                        columns: ':gt(0)'
+                    },
+                    { extend: 'excel', className: 'RcsvButton', text: 'excel<i class="fa fa-file-excel-o"></i>' },
+                    { extend: 'csv', className: 'RcsvButton' },
                 ],
                 scrollX: true,
                 deferRender: true,

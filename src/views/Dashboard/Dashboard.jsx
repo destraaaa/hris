@@ -1,3 +1,4 @@
+/*eslint eqeqeq: 0*/
 import React, { Component } from 'react';
 import { Pie, HorizontalBar } from 'react-chartjs-2';
 import { Grid, Row, Col } from 'react-bootstrap';
@@ -130,10 +131,10 @@ class Dashboard extends Component {
             var Reject = []
             var Progress = []
             res.data.forEach(function (item) {
-                Total.push(item.total),
-                    Success.push(item.approved),
-                    Reject.push(item.reject),
-                    Progress.push(item.onprogress)
+                Total.push(item.total)
+                    Success.push(item.approved);
+                    Reject.push(item.reject);
+                    Progress.push(item.onprogress);
             })
             this.setState({
                 totalCandidate: Total,
@@ -365,7 +366,7 @@ class Dashboard extends Component {
                 type: "school",
                 value: e.target.value
             }
-            var authOptions = {
+            var schoolF = {
                 method: 'POST',
                 url: 'http://0.0.0.0:8080/nonopsform/filterChart',
                 data: JSON.stringify(filter),
@@ -374,7 +375,7 @@ class Dashboard extends Component {
                 },
                 json: true
             };
-            axios(authOptions)
+            axios(schoolF)
         }
 
         else if ([e.target.name] == "positionF") {
@@ -382,7 +383,7 @@ class Dashboard extends Component {
                 type: "position",
                 value: e.target.value
             }
-            var authOptions = {
+            var positionF = {
                 method: 'POST',
                 url: 'http://0.0.0.0:8080/nonopsform/filterChart',
                 data: JSON.stringify(filter),
@@ -391,7 +392,7 @@ class Dashboard extends Component {
                 },
                 json: true
             };
-            axios(authOptions)
+            axios(positionF)
         }
 
         this.props.history.push("/");

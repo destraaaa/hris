@@ -59,8 +59,6 @@ export default class Regist extends Component {
             this.setState({
                 interviewers : Interviewer
             })
-        }).catch(function (error) {
-            console.log(error);
         })
         
         var el = document.getElementById('phone');
@@ -92,7 +90,7 @@ export default class Regist extends Component {
     validate() {
         let isError = false;
         let check = /^\d?[0-9]\.\d\d$/;
-        let checkPhone = /^[/\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+        let checkPhone = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
         let checkHH  = /^(0[1-9]|1[0-2])$/;
         let checkMM = /^([0-5]?[0-9])$/;
         const errors = {
@@ -183,19 +181,17 @@ export default class Regist extends Component {
             isError = true;
             errors.timeErr = "the time column is empty.";
         }
-        if (parseInt(this.state.timeHH) < 0 || parseInt(this.state.timeHH) > 24) {
+        if (parseInt((this.state.timeHH),0) < 0 || parseInt((this.state.timeHH),0) > 24) {
             isError = true;
             errors.timeErr = "the time is invalid";
         }
-        if (parseInt(this.state.timeMM) < 0 || parseInt(this.state.timeMM) > 59) {
+        if (parseInt((this.state.timeMM),0) < 0 || parseInt((this.state.timeMM),0) > 59) {
             isError = true;
             errors.timeErr = "the time is invalid";
         }
-        if(!checkHH.test(this.state.timeHH.toString()) || !checkMM   .test(parseInt(this.state.timeMM))){
+        if(!checkHH.test(this.state.timeHH.toString()) || !checkMM.test(parseInt((this.state.timeMM),0))){
             isError = true;
-            errors.timeErr = "the time is wrong";
-            console.log((this.state.timeHH.toString()), " HH");
-            console.log(!checkMM.test(parseInt(this.state.timeMM))," MM");            
+            errors.timeErr = "the time is wrong"; 
         }
         if (this.state.temp === "" && this.state.relationship === "Other") {
             isError = true;
@@ -217,9 +213,13 @@ export default class Regist extends Component {
         const err = this.validate();
         if (!err) {
             if (this.state.temp === "")
-                this.state.relationship = this.state.relationship;
+                this.setState({
+                    relationship : this.state.relationship
+                })
             else
-                this.state.relationship = this.state.temp;
+                this.setState({
+                    relationship : this.state.temp
+                })
 
             Cookies.remove('__intvw');
 
@@ -254,13 +254,6 @@ export default class Regist extends Component {
                 json: true
             };
             axios(authOptions)
-                .then(function (response) {
-                    console.log(response.data);
-                    console.log(response.status);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
 
             this.setState({
                 fullNameErr: "",
@@ -440,7 +433,7 @@ export default class Regist extends Component {
                             <select id="selectCur" name="meet" value={this.state.meet} onChange={e => this.change(e)}  style = {{border:this.state.meetErr!==""?"1.5px solid #ff1100ad": ""}}>
                                 <option hidden>You would to see*</option>
                                {
-                                   this.state.interviewers.map(el => <option value={el}> {el} </option>)
+                                   this.state.interviewers.map(el => <option value={el} key = {el}> {el} </option>)
                                }
                             </select>
                         </div>
@@ -677,9 +670,8 @@ export default class Regist extends Component {
                                         type="number"
                                         min="0"
                                         max="12"
-                                        style={{ width: 72 }}
                                         value={this.state.timeHH}
-                                        style = {{border:this.state.timeErr!==""?"1.5px solid #ff1100ad": ""}}
+                                        style = {{border:this.state.timeErr!==""?"1.5px solid #ff1100ad": "", width: 72}}
                                         onChange={e => this.change(e)}
                                     />
                                 </div>
@@ -691,9 +683,8 @@ export default class Regist extends Component {
                                         type="number"
                                         min="0"
                                         max="59"
-                                        style={{ width: 72 }}
                                         value={this.state.timeMM}
-                                        style = {{border:this.state.timeErr!==""?"1.5px solid #ff1100ad": ""}}
+                                        style = {{border:this.state.timeErr!==""?"1.5px solid #ff1100ad": "", width: 72}}
                                         onChange={e => this.change(e)}
                                     />
                                 </div>
@@ -721,7 +712,7 @@ export default class Regist extends Component {
 
                                     onClick={this.handleInputChange.bind(this)}
                                 />
-                                <span style={{ cursor: "pointer" }} className="checkmark"  style = {{border:this.state.statErr!==""?"1.5px solid #ff1100ad": ""}}></span>
+                                <span className="checkmark"  style = {{border:this.state.statErr!==""?"1.5px solid #ff1100ad": "" ,  cursor: "pointer"}}></span>
                                 I hereby declare that this information I have made in truth and can be justified as it should</label>
                         </div>
 
@@ -730,12 +721,7 @@ export default class Regist extends Component {
                             <button type="button" className="btn" onClick={this.back}>Back</button>
                         </div>
                     </div>
-
-
-
                 </form>
-
-
             </div>
         );
     }

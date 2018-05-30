@@ -18,14 +18,8 @@ class Main extends Component {
                                 id= "btnWelcome"
                             >continue</button></Link>
                     </div>
-
-                    
-
-                    <div>
-                    </div>
                 </div>
             </div>
-
         )
     }
 }

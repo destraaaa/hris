@@ -35,7 +35,7 @@ const popoverW = (
     </Popover>
 )
 
-const year = parseInt(new Date().getFullYear());
+const year = parseInt((new Date().getFullYear()),0);
 
 
 class HeaderLinks extends Component {
@@ -145,7 +145,7 @@ class HeaderLinks extends Component {
         var arr = [];
         let today = new Date();
         let quarter = (Math.floor((today.getMonth() + 3) / 3)).toString();
-        const day = parseInt(new Date().getMonth());
+        const day = parseInt((new Date().getMonth()),0);
         var date = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Des"]
         let check = null;
@@ -210,16 +210,6 @@ class HeaderLinks extends Component {
     }
 
     render() {
-        const notification = (
-            <div>
-                <i className="fa fa-globe"></i>
-                <b className="caret"></b>
-                <span className="notification">5</span>
-                <p className="hidden-lg hidden-md">Notification</p>
-            </div>
-        );
-
-        
         return (
             <div>
                 {/* this is the icon Header ..............................................*/}

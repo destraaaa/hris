@@ -6,8 +6,8 @@ const $ = require('jquery');
 var dataRow = {
     progress: null,
     id: null,
-    updatedDate : null,
-    pic : "",
+    updatedDate: null,
+    pic: "",
 }
 
 export default class Table extends Component {
@@ -36,7 +36,7 @@ export default class Table extends Component {
                 ],
                 'rowCallback': function (row, data, index) {
                     $('#opsTableProgressBtn', row).click(function () {
-                        dataRow.progress = parseInt(($('select', row).val()),0);
+                        dataRow.progress = parseInt(($('select', row).val()), 0);
                     });
                 },
                 createdRow(row, data, dataIndex) {
@@ -141,7 +141,7 @@ export default class Table extends Component {
                 let time = new Date()
                 dataRow.id = row.id;
                 dataRow.updatedDate = time;
-                dataRow.pic = parseInt(Cookies.get('__hrni'));
+                dataRow.pic = parseInt((Cookies.get('__hrni')), 0);
                 var authOptions = {
                     method: 'POST',
                     url: 'http://0.0.0.0:8080/form/update',

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import {rowData} from '../../variables/TableRecruiter'
 
 export default class RecruiterInput extends Component {
     constructor() {
