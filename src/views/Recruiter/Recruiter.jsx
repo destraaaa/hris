@@ -64,6 +64,12 @@ class Recruiter extends Component {
             json: true
         };
         axios(authOptions)
+        .then(function (response) {
+            console.log(response.status, "success");
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
         window.location.href = "/Recruiter"
     }

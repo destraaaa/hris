@@ -376,6 +376,12 @@ class Dashboard extends Component {
                 json: true
             };
             axios(schoolF)
+            .then(function (response) {
+                console.log(response.status, "success");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         }
 
         else if ([e.target.name] == "positionF") {
@@ -393,6 +399,12 @@ class Dashboard extends Component {
                 json: true
             };
             axios(positionF)
+            .then(function (response) {
+                console.log(response.status, "success");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         }
 
         this.props.history.push("/");

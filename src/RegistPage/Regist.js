@@ -181,17 +181,17 @@ export default class Regist extends Component {
             isError = true;
             errors.timeErr = "the time column is empty.";
         }
-        if (parseInt((this.state.timeHH),0) < 0 || parseInt((this.state.timeHH),0) > 24) {
+        if (parseInt((this.state.timeHH),10) < 0 || parseInt((this.state.timeHH),10) > 24) {
             isError = true;
             errors.timeErr = "the time is invalid";
         }
-        if (parseInt((this.state.timeMM),0) < 0 || parseInt((this.state.timeMM),0) > 59) {
+        if (parseInt((this.state.timeMM),10) < 0 || parseInt((this.state.timeMM),10) > 59) {
             isError = true;
             errors.timeErr = "the time is invalid";
         }
-        if(!checkHH.test(this.state.timeHH.toString()) || !checkMM.test(parseInt((this.state.timeMM),0))){
+        if(!checkHH.test(this.state.timeHH.toString()) || !checkMM.test(parseInt((this.state.timeMM),10))){
             isError = true;
-            errors.timeErr = "the time is wrong"; 
+            errors.timeErr = "the time is format wrong"; 
         }
         if (this.state.temp === "" && this.state.relationship === "Other") {
             isError = true;
@@ -254,6 +254,12 @@ export default class Regist extends Component {
                 json: true
             };
             axios(authOptions)
+            .then(function (response) {
+                console.log(response.status, "success");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
             this.setState({
                 fullNameErr: "",
