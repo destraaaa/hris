@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 const $ = require('jquery');
@@ -154,7 +156,17 @@ export default class Table extends Component {
                 };
                 axios(authOptions)
                 .then(function (response) {
-                    console.log(response.status, "success");
+                    toast.success("Ops Form name "+row.fullName+" has been changed", {
+                        position: "top-right",
+                        autoClose: 4000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        className: "notif",
+                    });
+
+                    table.ajax.reload();
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -188,6 +200,15 @@ export default class Table extends Component {
     render() {
         return (
             <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
+               <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    draggable = {false}
+                />
                 <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
