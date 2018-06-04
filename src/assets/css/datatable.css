@@ -9,7 +9,10 @@ table.dataTable {
   border-spacing: 0;
  }
 
-
+.notif{
+  opacity: 0.85;
+  font-size: 15px;
+}
 
 table.dataTable thead th,
 table.dataTable tfoot th {

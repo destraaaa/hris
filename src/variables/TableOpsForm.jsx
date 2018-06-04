@@ -1,4 +1,7 @@
+
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 const $ = require('jquery');
@@ -30,7 +33,6 @@ export default class Table extends Component {
                                 '<option value=3>APPROVED</option>' +
                                 '<option value=2>REJECT</option>' +
                                 '</select>';
-
                         }
                     }
                 ],
@@ -133,6 +135,7 @@ export default class Table extends Component {
 
             }
         )
+
         this.$el.on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).toggleClass('selected');
@@ -142,7 +145,6 @@ export default class Table extends Component {
                 dataRow.id = row.id;
                 dataRow.updatedDate = time;
                 dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
-                console.log(dataRow)                
                 var authOptions = {
                     method: 'POST',
                     url: 'http://0.0.0.0:8080/form/update',
@@ -153,20 +155,29 @@ export default class Table extends Component {
                     json: true
                 };
                 axios(authOptions)
-                .then(function (response) {
-                    console.log(response.status, "success");
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    .then(function (response) {
+                        toast.success("Ops Form name "+row.fullName+" has been changed", {
+                            position: "top-right",
+                            autoClose: 4000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            className: "notif",
+                        });
+                        table.ajax.reload();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
             else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
                 dataRow.id = null
-                console.log(dataRow)
             }
         });
+
     }
 
     componentDidUpdate() {
@@ -187,6 +198,15 @@ export default class Table extends Component {
     render() {
         return (
             <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    draggable = {false}
+                />
                 <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
