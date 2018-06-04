@@ -28,10 +28,23 @@ export default class Table extends Component {
                         extend: 'colvis',
                         text: 'Show',
                         className: 'RcsvButton',
-                        columns: ':gt(0)',
+                        columns: [3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
                     },
-                    { extend: 'excel', className: 'RcsvButton', text: 'excel<i class="fa fa-file-excel-o"></i>'},
-                    { extend: 'csv', className: 'RcsvButton' },
+                    {
+                        extend: 'excel',
+                        className: 'RcsvButton',
+                        text: 'excel<i class="fa fa-file-excel-o"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+                        }
+                    },
+                    {
+                         extend: 'csv', 
+                         className: 'RcsvButton',
+                         exportOptions: {
+                            columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+                        }
+                    },
                     // 'selectNone'
                 ],
                 destroy: check,
@@ -45,7 +58,7 @@ export default class Table extends Component {
                 // },
                 'rowCallback': function (row, data, index) {
                     $('#nonTableProgressBtn', row).click(function () {
-                        dataRow.progress = parseInt(($('select', row).val()),10);
+                        dataRow.progress = parseInt(($('select', row).val()), 10);
                     });
                 },
                 columnDefs: [
@@ -60,6 +73,10 @@ export default class Table extends Component {
                                 '<option value = 2 >REJECT</option>' +
                                 '</select>';
                         }
+                    },
+                    {
+                        'targets': 5,
+                        visible: false
                     }
                 ],
                 createdRow(row, data, dataIndex) {
@@ -104,6 +121,7 @@ export default class Table extends Component {
                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                         }
                     },
+                    { data: "statProgress", targets: 4 },
                     { data: "statProgress" },
                     {
                         data: "updatedDate",
@@ -144,7 +162,7 @@ export default class Table extends Component {
                 let time = new Date()
                 dataRow.id = row.id;
                 dataRow.updatedDate = time;
-                dataRow.pic = parseInt((Cookies.get('__hrni')),10);
+                dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
                 var authOptions = {
                     method: 'POST',
                     url: 'http://0.0.0.0:8080/form/update',
@@ -155,22 +173,21 @@ export default class Table extends Component {
                     json: true
                 };
                 axios(authOptions)
-                .then(function (response) {
-                    toast.success("Ops Form name "+row.fullName+" has been changed", {
-                        position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        className: "notif",
-                    });
+                    .then(function (response) {
+                        toast.success("Ops Form name " + row.fullName + " has been changed", {
+                            position: "top-right",
+                            autoClose: 4000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            className: "notif",
+                        });
 
-                    table.ajax.reload();
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                        table.ajax.reload();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
 
             }
             else {
@@ -207,16 +224,16 @@ export default class Table extends Component {
                     newestOnTop={false}
                     closeOnClick
                     rtl={false}
-                    draggable = {false}
                 />
                 <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
                             <th id="id-col">Id</th>
                             <th id="big-col">Fullname</th>
-                            <th id="big-col">Email</th>
+                            <th id="email-col">Email</th>
                             <th id="big-col">Timestamp</th>
                             <th id="progressTable">Progress</th>
+                            <th id="progressTable">Progress</th>  
                             <th id="big-col">LastUpdated</th>
                             <th id="big-col">Nickname</th>
                             <th id="big-col">PhoneNumber</th>

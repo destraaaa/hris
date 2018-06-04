@@ -33,7 +33,12 @@ export default class Table extends Component {
                                 '<option value=3>APPROVED</option>' +
                                 '<option value=2>REJECT</option>' +
                                 '</select>';
-                        }
+                        },
+                    },
+                    {
+                        'targets': 5,
+                        visible: false
+
                     }
                 ],
                 'rowCallback': function (row, data, index) {
@@ -56,28 +61,23 @@ export default class Table extends Component {
                         extend: 'colvis',
                         text: 'Show',
                         className: 'RcsvButton',
-                        columns: ':gt(0)'
+                        columns: [3,4,6,7,8,9,10,11,12,13,14,15,16,17]
                     },
                     {
-                        extend: 'excel', className: 'RcsvButton', text: 'excel<i class="fa fa-file-excel-o"></i>',
+                        extend: 'excel',
+                        className: 'RcsvButton',
+                        text: 'excel<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
-                            format: {
-                                body: function (data, row, col, node) {
-                                    if (col === 4) {
-                                        return table
-                                            .cell({ row: row, column: col })
-                                            .nodes()
-                                            .to$()
-                                            .find(':selected')
-                                            .text()
-                                    } else {
-                                        return data;
-                                    }
-                                }
-                            }
+                            columns: [0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17]
                         }
                     },
-                    { extend: 'csv', className: 'RcsvButton' },
+                    { 
+                        extend: 'csv', 
+                        className: 'RcsvButton',
+                        exportOptions: {
+                            columns: [0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17]
+                        }
+                    },
                 ],
                 scrollX: true,
                 scrollCollapse: true,
@@ -107,6 +107,7 @@ export default class Table extends Component {
                         }
                     },
                     { data: "statProgress", targets: 4 },
+                    { data: "statProgress"},
                     {
                         data: "updatedDate",
                         "render": function (data) {
@@ -123,7 +124,7 @@ export default class Table extends Component {
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "school" },
-                    { data: "purpose" },
+                    { data: "purpose" },                  
                     { data: "meet" },
                     { data: "position" },
                     { data: "time" },
@@ -156,13 +157,13 @@ export default class Table extends Component {
                 };
                 axios(authOptions)
                     .then(function (response) {
+
                         toast.success("Ops Form name "+row.fullName+" has been changed", {
                             position: "top-right",
                             autoClose: 4000,
                             hideProgressBar: true,
                             closeOnClick: true,
                             pauseOnHover: true,
-                            draggable: true,
                             className: "notif",
                         });
                         table.ajax.reload();
@@ -212,9 +213,10 @@ export default class Table extends Component {
                         <tr>
                             <th id="id-col">Id</th>
                             <th id="big-col">Fullname</th>
-                            <th id="big-col">Email</th>
+                            <th id="email-col">Email</th>
                             <th id="big-col">Timestamp</th>
                             <th id="nonTableProgressBtn">Progress</th>
+                            <th id="nonTableProgressBtn">Progress</th>                            
                             <th id="big-col">LastUpdated</th>
                             <th id="big-col">Nickname</th>
                             <th id="big-col">PhoneNumber</th>

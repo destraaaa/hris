@@ -1,7 +1,7 @@
 /*
  * Table styles
  */
-table.dataTable {
+ table.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
@@ -416,6 +416,11 @@ table.dataTable td {
   }
   #id-col{
     background-color: #FFFFFF;
+  }
+  #email-col{
+    background-color: #FFFFFF;
+    width: 190px !important;
+    text-align: center;
   }
   #big-table{
     table-Layout: fixed;
