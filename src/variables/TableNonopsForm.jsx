@@ -217,7 +217,7 @@ export default class Table extends Component {
     render() {
         return (
             <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
-                <ToastContainer
+               <ToastContainer
                     position="top-right"
                     autoClose={3000}
                     hideProgressBar

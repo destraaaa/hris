@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,6 +38,7 @@ export default class Table extends Component {
                     {
                         'targets': 5,
                         visible: false
+
                     }
                 ],
                 'rowCallback': function (row, data, index) {
@@ -155,7 +157,8 @@ export default class Table extends Component {
                 };
                 axios(authOptions)
                     .then(function (response) {
-                        toast.success("Ops Form name " + row.fullName + " has been changed", {
+
+                        toast.success("Ops Form name "+row.fullName+" has been changed", {
                             position: "top-right",
                             autoClose: 4000,
                             hideProgressBar: true,
@@ -203,6 +206,7 @@ export default class Table extends Component {
                     newestOnTop={false}
                     closeOnClick
                     rtl={false}
+                    draggable = {false}
                 />
                 <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
                     <thead>
