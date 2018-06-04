@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 const $ = require('jquery');
@@ -30,8 +32,11 @@ export default class Table extends Component {
                                 '<option value=3>APPROVED</option>' +
                                 '<option value=2>REJECT</option>' +
                                 '</select>';
-
-                        }
+                        },
+                    },
+                    {
+                        'targets': 5,
+                        visible: false
                     }
                 ],
                 'rowCallback': function (row, data, index) {
@@ -54,28 +59,23 @@ export default class Table extends Component {
                         extend: 'colvis',
                         text: 'Show',
                         className: 'RcsvButton',
-                        columns: ':gt(0)'
+                        columns: [3,4,6,7,8,9,10,11,12,13,14,15,16,17]
                     },
                     {
-                        extend: 'excel', className: 'RcsvButton', text: 'excel<i class="fa fa-file-excel-o"></i>',
+                        extend: 'excel',
+                        className: 'RcsvButton',
+                        text: 'excel<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
-                            format: {
-                                body: function (data, row, col, node) {
-                                    if (col === 4) {
-                                        return table
-                                            .cell({ row: row, column: col })
-                                            .nodes()
-                                            .to$()
-                                            .find(':selected')
-                                            .text()
-                                    } else {
-                                        return data;
-                                    }
-                                }
-                            }
+                            columns: [0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17]
                         }
                     },
-                    { extend: 'csv', className: 'RcsvButton' },
+                    { 
+                        extend: 'csv', 
+                        className: 'RcsvButton',
+                        exportOptions: {
+                            columns: [0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17]
+                        }
+                    },
                 ],
                 scrollX: true,
                 scrollCollapse: true,
@@ -105,6 +105,7 @@ export default class Table extends Component {
                         }
                     },
                     { data: "statProgress", targets: 4 },
+                    { data: "statProgress"},
                     {
                         data: "updatedDate",
                         "render": function (data) {
@@ -121,7 +122,7 @@ export default class Table extends Component {
                     { data: "nickName" },
                     { data: "phoneNumber" },
                     { data: "school" },
-                    { data: "purpose" },
+                    { data: "purpose" },                  
                     { data: "meet" },
                     { data: "position" },
                     { data: "time" },
@@ -133,6 +134,7 @@ export default class Table extends Component {
 
             }
         )
+
         this.$el.on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).toggleClass('selected');
@@ -142,7 +144,6 @@ export default class Table extends Component {
                 dataRow.id = row.id;
                 dataRow.updatedDate = time;
                 dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
-                console.log(dataRow)                
                 var authOptions = {
                     method: 'POST',
                     url: 'http://0.0.0.0:8080/form/update',
@@ -153,20 +154,28 @@ export default class Table extends Component {
                     json: true
                 };
                 axios(authOptions)
-                .then(function (response) {
-                    console.log(response.status, "success");
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    .then(function (response) {
+                        toast.success("Ops Form name " + row.fullName + " has been changed", {
+                            position: "top-right",
+                            autoClose: 4000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            className: "notif",
+                        });
+                        table.ajax.reload();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
             else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
                 dataRow.id = null
-                console.log(dataRow)
             }
         });
+
     }
 
     componentDidUpdate() {
@@ -187,14 +196,23 @@ export default class Table extends Component {
     render() {
         return (
             <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                />
                 <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
                             <th id="id-col">Id</th>
                             <th id="big-col">Fullname</th>
-                            <th id="big-col">Email</th>
+                            <th id="email-col">Email</th>
                             <th id="big-col">Timestamp</th>
                             <th id="nonTableProgressBtn">Progress</th>
+                            <th id="nonTableProgressBtn">Progress</th>                            
                             <th id="big-col">LastUpdated</th>
                             <th id="big-col">Nickname</th>
                             <th id="big-col">PhoneNumber</th>
