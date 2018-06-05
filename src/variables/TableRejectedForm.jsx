@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import './timeFormat.js';
 // import { fonts } from 'pdfmake/build/pdfmake';
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
@@ -11,6 +13,8 @@ require('datatables.net-buttons/js/buttons.colVis.js');
 
 export default class Table extends Component {
     componentDidMount() {
+        $.fn.dataTable.moment('DD MMM YY');
+        
         this.$el = $(this.el)
         this.$el.DataTable(
             {
@@ -27,20 +31,25 @@ export default class Table extends Component {
                 ],
                 scrollX: true,
                 deferRender: true,
-                "ajax": {
-                    "url": "http://0.0.0.0:8080/rejected/view",
-                    "dataSrc": ""
+                ajax: {
+                    url: "http://0.0.0.0:8080/rejected/view",
+                    dataSrc: ""
                 },
+                language: {
+                    zeroRecords: "No Data found",
+                    emptyTable: "there is no record",
+                    processing: "Processing...",
+                },
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                order: [[ 0, "desc" ]],
                 columns: [
                     { data: "id" },
                     { data: "fullName" },
                     { data: "email" },
                     {
                         data: "timestamp",
-                        "render": function (data) {
-                            var date = new Date(data);
-                            var month = date.getMonth() + 1;
-                            return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        render(data) {
+                            return moment(data).format('DD MMM YY')
                         }
                     },
                     { data: "nickName" },

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import './timeFormat.js';
 const $ = require('jquery')
 export var rowData = {
     email: "",
@@ -7,6 +9,8 @@ export var rowData = {
 
 export default class Table extends Component {
     componentDidMount() {
+        $.fn.dataTable.moment('DD MMM YY');
+        
         this.$el = $(this.el)
         var table = this.$el.DataTable(
             {
@@ -25,9 +29,7 @@ export default class Table extends Component {
                     {
                         data: "timestamps",
                         "render": function (data) {
-                            var date = new Date(data);
-                            var month = date.getMonth() + 1;
-                            return date.getDate() + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+                            return moment(data).format('DD MMM YY')
                         }
                     }
                 ]

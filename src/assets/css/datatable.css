@@ -559,7 +559,22 @@ table.dataTable td {
 }
 
 button.dt-button.active {
- width: 100% !important;
+  width: 100% !important;
+}
+
+.REJECTcolor {
+  background-color: rgba(184, 10, 10, 0.377) !important;
+  background: linear-gradient(50deg, rgba(199, 20, 20, 0), rgba(212, 18, 18, 0.548))
+}
+
+.APPROVEDcolor {
+  background-color: rgba(0, 255, 76, 0.397) !important;
+  background: linear-gradient(50deg, rgba(199, 20, 20, 0), rgba(0, 255, 76, 0.397))
+}
+
+.PROGRESScolor {
+  background-color: rgba(0, 238, 255, 0.397) !important;
+  background: linear-gradient(50deg, rgba(199, 20, 20, 0), rgba(0, 238, 255, 0.397))
 }
 
 #nonTableProgressBtn {
