@@ -30,8 +30,9 @@ export default class Table extends Component {
                         'render': function (data, type, row, meta) {
                             return '<select name= "progress" id="opsTableProgressBtn">' +
                                 '<option style = "color:#8e8e8e" selected disabled>' + row.statProgress + '</option>' +
-                                '<option value=3>APPROVED</option>' +
                                 '<option value=2>REJECT</option>' +
+                                '<option value=3>APPROVED</option>' +
+                                '<option value=10>CLOSED</option>' +
                                 '</select>';
                         },
                     },
@@ -158,7 +159,7 @@ export default class Table extends Component {
                 axios(authOptions)
                     .then(function (response) {
 
-                        toast.success("Ops Form name "+row.fullName+" has been changed", {
+                        toast.success("Ops Form name "+row.fullName+" has been changed!!!", {
                             position: "top-right",
                             autoClose: 4000,
                             hideProgressBar: true,
@@ -206,29 +207,28 @@ export default class Table extends Component {
                     newestOnTop={false}
                     closeOnClick
                     rtl={false}
-                    draggable = {false}
                 />
                 <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
                     <thead>
                         <tr>
                             <th id="id-col">Id</th>
-                            <th id="big-col">Fullname</th>
+                            <th className="big-col">Fullname</th>
                             <th id="email-col">Email</th>
-                            <th id="big-col">Timestamp</th>
+                            <th className="big-col">Timestamp</th>
                             <th id="nonTableProgressBtn">Progress</th>
                             <th id="nonTableProgressBtn">Progress</th>                            
-                            <th id="big-col">LastUpdated</th>
-                            <th id="big-col">Nickname</th>
-                            <th id="big-col">PhoneNumber</th>
-                            <th id="big-col">School</th>
-                            <th id="big-col">PurposeCandidate</th>
-                            <th id="big-col">ContactPerson</th>
-                            <th id="big-col">Position</th>
-                            <th id="big-col">TimeSchedule</th>
-                            <th id="big-col">JobInfo</th>
-                            <th id="big-col">Acquaintance</th>
-                            <th id="big-col">Relationship</th>
-                            <th id="big-col">ReferralName</th>
+                            <th className="big-col">LastUpdated</th>
+                            <th className="big-col">Nickname</th>
+                            <th className="big-col">PhoneNumber</th>
+                            <th className="big-col">School</th>
+                            <th className="big-col">PurposeCandidate</th>
+                            <th className="big-col">ContactPerson</th>
+                            <th className="big-col">Position</th>
+                            <th className="big-col">TimeSchedule</th>
+                            <th className="big-col">JobInfo</th>
+                            <th className="big-col">Acquaintance</th>
+                            <th className="big-col">Relationship</th>
+                            <th className="big-col">ReferralName</th>
                         </tr>
                     </thead>
                 </table>

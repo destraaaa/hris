@@ -68,22 +68,22 @@ export default class Table extends Component {
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th id="big-col">Fullname</th>
-                            <th id="big-col">Email</th>
-                            <th id="big-col">Timestamp</th>
-                            <th id="big-col">Nickname</th>
-                            <th id="big-col">PhoneNumber</th>
-                            <th id="big-col">School</th>
-                            <th id="big-col">Major</th>
-                            <th id="big-col">GPA</th>
-                            <th id="big-col">Purpose</th>
-                            <th id="big-col">ContactPerson</th>
-                            <th id="big-col">Position</th>
-                            <th id="big-col">TimeSchedule</th>
-                            <th id="big-col">JobInfo</th>
-                            <th id="big-col">Acquaintance</th>
-                            <th id="big-col">Relationship</th>
-                            <th id="big-col">ReferralName</th>
+                            <th className="big-col">Fullname</th>
+                            <th className="big-col">Email</th>
+                            <th className="big-col">Timestamp</th>
+                            <th className="big-col">Nickname</th>
+                            <th className="big-col">PhoneNumber</th>
+                            <th className="big-col">School</th>
+                            <th className="big-col">Major</th>
+                            <th className="big-col">GPA</th>
+                            <th className="big-col">Purpose</th>
+                            <th className="big-col">ContactPerson</th>
+                            <th className="big-col">Position</th>
+                            <th className="big-col">TimeSchedule</th>
+                            <th className="big-col">JobInfo</th>
+                            <th className="big-col">Acquaintance</th>
+                            <th className="big-col">Relationship</th>
+                            <th className="big-col">ReferralName</th>
                         </tr>
                     </thead>
                 </table>
