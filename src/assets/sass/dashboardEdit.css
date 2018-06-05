@@ -1,17 +1,4 @@
  /*     General overwrite     */
-
- .REJECTcolor {
-   background-color: rgba(184, 10, 10, 0.377) !important;
- }
-
- .APPROVEDcolor {
-   background-color: rgba(0, 255, 76, 0.397) !important;
- }
-
- .PROGRESScolor {
-   background-color: rgba(0, 238, 255, 0.397) !important;
- }
-
  .sidebar {
    display: block;
    width: 260px;

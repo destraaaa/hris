@@ -3,9 +3,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import moment from 'moment';
+import './timeFormat.js';
 const $ = require('jquery');
 // require('datatables.net-scroller');
-
 var dataRow = {
     progress: null,
     id: null,
@@ -13,11 +14,11 @@ var dataRow = {
     pic: "",
 }
 
-
-
 export default class Table extends Component {
+
     data(check) {
         $.fn.DataTable.ext.pager.numbers_length = 6;
+        $.fn.dataTable.moment('DD MMM YY');
 
         this.$el = $(this.el)
         var table = this.$el.DataTable(
@@ -39,9 +40,9 @@ export default class Table extends Component {
                         }
                     },
                     {
-                         extend: 'csv', 
-                         className: 'RcsvButton',
-                         exportOptions: {
+                        extend: 'csv',
+                        className: 'RcsvButton',
+                        exportOptions: {
                             columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
                         }
                     },
@@ -56,7 +57,7 @@ export default class Table extends Component {
                 // fixedColumns: {
                 //     leftColumns: 4
                 // },
-                'rowCallback': function (row, data, index) {
+                rowCallback(row, data, index) {
                     $('#nonTableProgressBtn', row).click(function () {
                         dataRow.progress = parseInt(($('select', row).val()), 10);
                     });
@@ -64,9 +65,9 @@ export default class Table extends Component {
                 columnDefs: [
                     {
 
-                        'targets': 4,
-                        'data': 'statProgress',
-                        'render': function (data, type, row, meta) {
+                        targets: 4,
+                        data: 'statProgress',
+                        render(data, type, row, meta) {
                             return '<select id="nonTableProgressBtn">' +
                                 '<option value="' + row.statProgress + '" selected disabled>' + row.statProgress + '</option>' +
                                 '<option value = 10 >CLOSED</option>' +
@@ -82,10 +83,11 @@ export default class Table extends Component {
                         }
                     },
                     {
-                        'targets': 5,
+                        targets: 5,
                         visible: false
                     }
                 ],
+                order: [[0, "desc"]],
                 createdRow(row, data, dataIndex) {
                     if (data.statProgress === "REJECT") {
                         $(row).addClass('REJECTcolor');
@@ -111,47 +113,43 @@ export default class Table extends Component {
                     else $(row).addClass('');
                 },
                 select: {
-                    'style': 'multi'
+                    style: 'multi'
                 },
-                "ajax": {
-                    "url": "http://0.0.0.0:8080/nonopsform/view",
-                    "dataSrc": ""
+                ajax: {
+                    url: "http://0.0.0.0:8080/nonopsform/view",
+                    dataSrc: ""
                 },
                 deferRender: true,
-                // scroller: {
+                //scroller: {
                 //     displayBuffer: 10
                 // },
                 // scroller: false,
-                "language": {
-                    "zeroRecords": "No Data found",
-                    "emptyTable": "there is no record",
-                    "processing": "Processing...",
+                language: {
+                    zeroRecords: "No Data found",
+                    emptyTable: "there is no record",
+                    processing: "Processing...",
                 },
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 columns: [
                     { data: "id" },
                     { data: "fullName" },
                     { data: "email" },
                     {
                         data: "timestamp",
-                        "render": function (data) {
-                            var date = new Date(data);
-                            var month = date.getMonth() + 1;
-                            return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        render(data) {
+                            return moment(data).format('DD MMM YY')
                         }
                     },
                     { data: "statProgress", targets: 4 },
                     { data: "statProgress" },
                     {
                         data: "updatedDate",
-                        "render": function (data) {
+                        render(data) {
                             if (data === "0001-01-01T00:00:00Z") {
                                 return ""
                             }
                             else {
-                                var date = new Date(data);
-                                var month = date.getMonth() + 1;
-                                return date.getDate() + "/" + month + "/" + date.getFullYear();
+                                return moment(data).format('DD MMM YY')
                             }
                         }
                     },
@@ -207,7 +205,6 @@ export default class Table extends Component {
                     .catch(function (error) {
                         console.log(error);
                     });
-
             }
             else {
                 table.$('tr.selected').removeClass('selected');
@@ -252,7 +249,7 @@ export default class Table extends Component {
                             <th id="email-col">Email</th>
                             <th className="big-col">Timestamp</th>
                             <th className="progressTable">Progress</th>
-                            <th className="progressTable">Progress</th>  
+                            <th className="progressTable">Progress</th>
                             <th className="big-col">LastUpdated</th>
                             <th className="big-col">Nickname</th>
                             <th className="big-col">PhoneNumber</th>
