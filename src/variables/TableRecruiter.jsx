@@ -9,8 +9,6 @@ export var rowData = {
 
 export default class Table extends Component {
     componentDidMount() {
-        $.fn.dataTable.moment('DD MMM YY');
-        
         this.$el = $(this.el)
         var table = this.$el.DataTable(
             {
@@ -29,7 +27,7 @@ export default class Table extends Component {
                     {
                         data: "timestamps",
                         "render": function (data) {
-                            return moment(data).format('DD MMM YY')
+                            return moment(data).format('DD MMMM YYYY')
                         }
                     }
                 ]
