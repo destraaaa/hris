@@ -10,10 +10,21 @@ table.dataTable {
   border-spacing: 0;
 }
 
-.notif {
+.notifSuccess {
   opacity: 0.85;
-  font-size: 15px;
+  font-size: 13.5px;
   font-family: "Comic Sans MS", cursive, sans-serif;
+  border-radius: 6px;
+  padding: 10px 20px 10px 50px;  
+}
+
+.notifError {
+  opacity: 0.85;
+  font-size: 13.5px;
+  font-weight: bold;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  border-radius: 6px;
+  padding: 10px 20px 10px 50px;  
 }
 
 table.dataTable thead th,
