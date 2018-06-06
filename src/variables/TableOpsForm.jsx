@@ -73,14 +73,14 @@ export default class Table extends Component {
                         className: 'RcsvButton',
                         text: 'excel<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+                            columns: [0, 1, 2, 3, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
                         }
                     },
                     {
                         extend: 'csv',
                         className: 'RcsvButton',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+                            columns: [0, 1, 2, 3, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
                         }
                     },
                 ],
@@ -140,46 +140,65 @@ export default class Table extends Component {
         )
 
         this.$el.on('click', 'tr', function () {
+            let pos = table.row(this).index();
+            let row = table.row(pos).data();
             if ($(this).hasClass('selected')) {
                 $(this).toggleClass('selected');
-                let pos = table.row(this).index();
-                let row = table.row(pos).data();
-                let time = new Date()
-                dataRow.id = row.id;
-                dataRow.updatedDate = time;
-                dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
-                var authOptions = {
-                    method: 'POST',
-                    url: 'http://0.0.0.0:8080/form/update',
-                    data: JSON.stringify(dataRow),
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    json: true
-                };
-                axios(authOptions)
-                    .then(function (response) {
-                        toast.success("Ops Form name " + row.fullName + " has been changed!!!", {
-                            position: "top-right",
-                            autoClose: 4000,
-                            hideProgressBar: true,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            className: "notif",
+                if (dataRow.progress !== null) {
+                    dataRow.id = row.id;
+                    dataRow.updatedDate = moment();
+                    dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
+
+                    var authOptions = {
+                        method: 'POST',
+                        url: 'http://0.0.0.0:8080/form/update',
+                        data: JSON.stringify(dataRow),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        json: true
+                    };
+                    axios(authOptions)
+                        .then(function (response) {
+                            toast.success("Ops Form name " + row.fullName + " has been changed!!!", {
+                                position: "top-right",
+                                autoClose: 4000,
+                                hideProgressBar: true,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                className: "notifSuccess"
+                            });
+                            dataRow.progress = null;
+                            table.ajax.reload();
+                        })
+                        .catch(function (error) {
+                            toast.error("We're sorry something wrong data hasn't been changed!!!", {
+                                position: "top-right",
+                                autoClose: 6000,
+                                hideProgressBar: true,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                className: "notifError"
+                            });
                         });
-                        table.ajax.reload();
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                }
             }
             else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                dataRow.id = null
+                if (dataRow.progress !== null) {
+                    toast.error("Ops Form name " + row.fullName + " has not been changed!!!", {
+                        position: "top-right",
+                        autoClose: 6000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        className: "notifError"
+                    });
+                }
+                dataRow.progress = null;
             }
         });
-
     }
 
     componentDidUpdate() {
@@ -202,7 +221,6 @@ export default class Table extends Component {
             <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
                 <ToastContainer
                     position="top-right"
-                    autoClose={3000}
                     hideProgressBar
                     newestOnTop={false}
                     closeOnClick

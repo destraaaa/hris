@@ -36,14 +36,14 @@ export default class Table extends Component {
                         className: 'RcsvButton',
                         text: 'excel<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+                            columns: [0, 1, 2, 3, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
                         }
                     },
                     {
                         extend: 'csv',
                         className: 'RcsvButton',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+                            columns: [0, 1, 2, 3, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
                         }
                     },
                     // 'selectNone'
@@ -69,13 +69,13 @@ export default class Table extends Component {
                         data: 'statProgress',
                         render(data, type, row, meta) {
                             return '<select id="nonTableProgressBtn">' +
-                                '<option value="' + row.statProgress + '" selected disabled>' + row.statProgress + '</option>' +
+                                '<option style = "color:#8e8e8e" value="' + row.statProgress + '" selected disabled>' + row.statProgress + '</option>' +
                                 '<option value = 10 >CLOSED</option>' +
                                 '<option value = 9 >HOLD-REJECT</option>' +
                                 '<option value = 8 >HOLD</option>' +
-                                '<option value = 7 >OFFERING - ACCEPTED</option>' +
+                                '<option value = 5 >OFFERING - ACCEPTED</option>' +
                                 '<option value = 6 >OFFERING - DECLINED</option>' +
-                                '<option value = 5 >OFFERING - CANCEL</option>' +
+                                '<option value = 7 >OFFERING - CANCEL</option>' +
                                 '<option value = 4 >ON PROGRESS</option>' +
                                 '<option value = 3 >APPROVED</option>' +
                                 '<option value = 2 >REJECT</option>' +
@@ -92,13 +92,16 @@ export default class Table extends Component {
                     if (data.statProgress === "REJECT") {
                         $(row).addClass('REJECTcolor');
                     }
-                    else if (data.statProgress === "HOLD-REJECT") {
+                    else if (data.statProgress === "HOLD - REJECT") {
                         $(row).addClass('REJECTcolor');
                     }
                     else if (data.statProgress === "OFFERING - ACCEPTED") {
                         $(row).addClass('APPROVEDcolor');
                     }
                     else if (data.statProgress === "OFFERING - DECLINED") {
+                        $(row).addClass('REJECTcolor');
+                    }
+                    else if (data.statProgress === "OFFERING - CANCEL") {
                         $(row).addClass('REJECTcolor');
                     }
                     else if (data.statProgress === "APPROVED") {
@@ -170,46 +173,64 @@ export default class Table extends Component {
             }
 
         )
-
         this.$el.on('click', 'tr', function () {
+            let pos = table.row(this).index();
+            let row = table.row(pos).data();
             if ($(this).hasClass('selected')) {
                 $(this).toggleClass('selected');
-                let pos = table.row(this).index();
-                let row = table.row(pos).data();
-                let time = new Date()
-                dataRow.id = row.id;
-                dataRow.updatedDate = time;
-                dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
-                var authOptions = {
-                    method: 'POST',
-                    url: 'http://0.0.0.0:8080/form/update',
-                    data: JSON.stringify(dataRow),
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    json: true
-                };
-                axios(authOptions)
-                    .then(function (response) {
-                        toast.success("Ops Form name " + row.fullName + " has been changed!!!", {
-                            position: "top-right",
-                            autoClose: 4000,
-                            hideProgressBar: true,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            className: "notif",
-                        });
+                if (dataRow.progress !== null) {
+                    dataRow.id = row.id;
+                    dataRow.updatedDate = moment();
+                    dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
 
-                        table.ajax.reload();
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                    var authOptions = {
+                        method: 'POST',
+                        url: 'http://0.0.0.0:8080/form/update',
+                        data: JSON.stringify(dataRow),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        json: true
+                    };
+                    axios(authOptions)
+                        .then(function (response) {
+                            toast.success("NonOps Form name " + row.fullName + " has been changed!!!", {
+                                position: "top-right",
+                                autoClose: 4000,
+                                hideProgressBar: true,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                className: "notifSuccess"
+                            });
+                            dataRow.progress = null;
+                            table.ajax.reload();
+                        })
+                        .catch(function (error) {
+                            toast.error("We're sorry something wrong data hasn't been changed!!!", {
+                                position: "top-right",
+                                autoClose: 6000,
+                                hideProgressBar: true,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                className: "notifError"
+                            });
+                        });
+                }
             }
             else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                dataRow.id = null
+                if (dataRow.progress !== null) {
+                    toast.error("NonOps Form name " + row.fullName + " has not been changed!!!", {
+                        position: "top-right",
+                        autoClose: 6000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        className: "notifError"
+                    });
+                }
+                dataRow.progress = null;
             }
         });
 
@@ -235,7 +256,6 @@ export default class Table extends Component {
             <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
                 <ToastContainer
                     position="top-right"
-                    autoClose={3000}
                     hideProgressBar
                     newestOnTop={false}
                     closeOnClick
