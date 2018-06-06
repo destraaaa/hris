@@ -18,7 +18,7 @@ export default class Table extends Component {
 
     data(check) {
         $.fn.DataTable.ext.pager.numbers_length = 6;
-        $.fn.dataTable.moment('DD MMM YY');
+        $.fn.dataTable.moment('DD MMMM YYYY');
 
         this.$el = $(this.el)
         var table = this.$el.DataTable(
@@ -140,7 +140,7 @@ export default class Table extends Component {
                     {
                         data: "timestamp",
                         render(data) {
-                            return moment(data).format('DD MMM YY')
+                            return moment(data).format('DD MMMM YYYY')
                         }
                     },
                     { data: "statProgress", targets: 4 },
@@ -152,7 +152,7 @@ export default class Table extends Component {
                                 return ""
                             }
                             else {
-                                return moment(data).format('DD MMM YY')
+                                return moment(data).format('DD MMMM YYYY')
                             }
                         }
                     },

@@ -26,7 +26,7 @@ const Auth = {
 
 };
 
-const DPrivateRoute = ({ component: Component, ...rest }) => (
+const RPrivateRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
@@ -48,7 +48,8 @@ const DPrivateRoute = ({ component: Component, ...rest }) => (
     />
 
 );
-const RPrivateRoute = ({ component: Component, ...rest }) => (
+
+const DPrivateRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
@@ -67,14 +68,14 @@ const RPrivateRoute = ({ component: Component, ...rest }) => (
                 ))
         }
     />
-
 );
+
 ReactDOM.render((
     <BrowserRouter>
         <Switch>
-            <Route path="/adminHR" name="admin" component = {Admin} />
-            <RPrivateRoute path="/register" name="register" component={Main} />
-            <DPrivateRoute path="/" name="Home" component={App} />
+            <DPrivateRoute path="/adminHR" name="admin" component = {Admin} />
+            <DPrivateRoute path="/register" name="register" component={Main} />
+            <RPrivateRoute path="/" name="Home" component={App} />
         </Switch>
     </BrowserRouter>
 ), document.getElementById('root'));
