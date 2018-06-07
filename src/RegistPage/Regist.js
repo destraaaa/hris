@@ -46,6 +46,8 @@ export default class Regist extends Component {
             infoJobErr :"",
             schoolErr:"",
             interviewers:[],
+            schoolList:[],
+            majorList:[],            
             formType: Cookies.get('__intvw')
         };
     }
@@ -58,6 +60,24 @@ export default class Regist extends Component {
             })
             this.setState({
                 interviewers : Interviewer
+            })
+        })
+        axios.get(`http://0.0.0.0:8080/form/schoolRegist`).then(res => {
+            var SchoolList = [];
+            var MajorList = [];
+            res.data.forEach(function (item) {
+                if(item.major !== undefined)
+                {
+                    MajorList.push(item.major)
+                }
+                if(item.labels !==undefined)
+                {
+                    SchoolList.push(item.labels)
+                }
+            })
+            this.setState({
+                schoolList : SchoolList,
+                majorList : MajorList                
             })
         })
         
@@ -361,24 +381,36 @@ export default class Regist extends Component {
                         <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
                             <div className="input-group input-group-icon">
                                 <input
+                                    list="schoolList"
                                     placeholder="University / School*"
                                     type="text" name="school"
                                     value={this.state.school}
                                     onChange={e => this.change(e)}
                                     style = {{border:this.state.schoolErr!==""? "1.5px solid #ff1100ad":""}}
                                 />
+                            <datalist id="schoolList">
+                            {
+                                   this.state.schoolList.map(el => <option value={el} key = {el}> {el} </option>)
+                            }
+                            </datalist>
                                 <pre id="example">example: example University</pre>
                                 <div className="input-icon"><i className="fa fa-building" /></div>
                             </div>
 
                             <div className="input-group input-group-icon">
                                 <input
+                                    list= "majorList"
                                     placeholder="Major/ Specialization"
                                     type="text"
                                     name="major"
                                     value={this.state.major}
                                     onChange={e => this.change(e)}
                                 />
+                            <datalist id="majorList">
+                            {
+                                   this.state.majorList.map(el => <option value={el} key = {el}> {el} </option>)
+                            }
+                            </datalist>
                                 <pre id="example">example: Computer Science || industrial Engineering</pre>
                                 <div className="input-icon"><i className="fa fa-cogs" /></div>
                             </div>

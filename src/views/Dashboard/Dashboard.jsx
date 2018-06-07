@@ -1,6 +1,6 @@
 /*eslint eqeqeq: 0*/
 import React, { Component } from 'react';
-import { Pie, Bar,HorizontalBar } from 'react-chartjs-2';
+import { Pie, HorizontalBar } from 'react-chartjs-2';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Card } from 'components/Card/Card.jsx';
 import { StatsCard } from 'components/StatsCard/StatsCard.jsx';
@@ -470,10 +470,9 @@ class Dashboard extends Component {
                                         <span>&nbsp; School Show</span>
                                         <select name="schoolF" id="schoolDash" value={this.state.schoolF} onChange={e => this.change(e)}>
                                             <option value="all" disabled>-</option>
-                                            <option value="all">All</option>
-                                            <option value="5">5</option>
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
+                                            <option value="5">Top 5</option>
+                                            <option value="10">Top 10</option>
+                                            <option value="20">Top 20</option>
                                         </select>
                                         <Pie
                                             data={this.state.datapieSchool}
@@ -521,14 +520,14 @@ class Dashboard extends Component {
                                         <span>&nbsp; Position Show</span>
                                         <select name="positionF" id="schoolDash" value={this.state.positionF} onChange={e => this.change(e)}>
                                             <option value="all" disabled>-</option>
-                                            <option value="0">data 1</option>
-                                            <option value="25">data 2</option>
-                                            <option value="50">data 3</option>
-                                            <option value="75">data 4</option>
-                                            <option value="100">data 5</option>
-                                            <option value="125">data 6</option>
-                                            <option value="150">data 7</option>
-                                            <option value="175">data 8</option>                                            
+                                            <option value="0">A-C</option>
+                                            <option value="25">C-D</option>
+                                            <option value="50">D-F</option>
+                                            <option value="75">G-I</option>
+                                            <option value="100">I-M</option>
+                                            <option value="125">M-P</option>
+                                            <option value="150">R-S</option>
+                                            <option value="175">S-Z</option>                                            
                                         </select>
                                         <HorizontalBar
                                             data={this.state.databarPos}
