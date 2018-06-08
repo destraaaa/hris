@@ -519,7 +519,8 @@ class Dashboard extends Component {
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
                                         <span>&nbsp; Position Show</span>
                                         <select name="positionF" id="schoolDash" value={this.state.positionF} onChange={e => this.change(e)}>
-                                            <option value="all" disabled>-</option>
+                                            <option value="all" disabled>-</option>  
+                                            <option value="1">TOP 25</option>                                                                    
                                             <option value="0">A-C</option>
                                             <option value="25">C-D</option>
                                             <option value="50">D-F</option>
