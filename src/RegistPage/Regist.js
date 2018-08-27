@@ -882,7 +882,7 @@ export default class Regist extends Component {
                                 I hereby declare that this information I have made in truth and can be justified as it should</label>
                         </div>
 
-                        <div style={{ width: 820, position: "relative", right: 320 }}>
+                        <div className= "regist-button">
                             <button type="submit" className="btn">Finish</button>
                             <button type="button" className="btn" onClick={this.back}>Back</button>
                         </div>
