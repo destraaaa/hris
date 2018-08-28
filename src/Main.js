@@ -8,9 +8,9 @@ import Welcome from './RegistPage/Welcome';
 import Form from "./RegistPage/Regist";
 import notUser from './RegistPage/notUser';
 import FormValid from './RegistPage/FormValid';
-import HomePic from './assets/img/Tokopedia-Regist.jpg';
 import Card1 from './assets/img/cardWelcome.png';
 import Card2 from './assets/img/cardRegist.png';
+import {Grid,Col,Row} from 'react-bootstrap';
 
 const NoMatch = ({ location }) => (
     <div>
@@ -26,22 +26,30 @@ class Main extends Component {
 
         document.title = "PT.Tokopedia - Registration Form"
         return (
-            <div style={{
-                backgroundImage: window.parent.location.href === "http://localhost:3000/register/form"?`url(${HomePic})`:""
-            }}>
+            <div>
             
-                <div id="logo1">
-                    <img src={require('./assets/img/logo1.png')} alt="logo" id="logoIn"/>
+                <Grid>
+                <Row className="show-grid">
+                    <Col xs={12} md={6}>
+                <div className = "wrapper-form">
+                    <div id="logo1">
+                        <img src={require('./assets/img/logo1.png')} alt="logo" id="logoIn" draggable="false"/>
+                    </div>
+                    <div className= "containerRegist-wrapper">
+                        <div className="containerRegist" style={{backgroundImage: window.parent.location.href === "http://localhost:3000/register/form"?`url(${Card2})`:`url(${Card1})`}}>
+                            <Switch>
+                                <Route exact path="/register" component={Welcome} />
+                                <Route path="/register/form" component={Form} />
+                                <Route path="/register/welcome" component={FormValid} />                        
+                                <Route path="/register/error" component={notUser} />
+                                <Route path="*" component={NoMatch} />
+                            </Switch>
+                        </div>
+                    </div>
                 </div>
-                <div className="containerRegist" style={{backgroundImage: window.parent.location.href === "http://localhost:3000/register/form"?`url(${Card2})`:`url(${Card1})`}}>
-                    <Switch>
-                        <Route exact path="/register" component={Welcome} />
-                        <Route path="/register/form" component={Form} />
-                        <Route path="/register/welcome" component={FormValid} />                        
-                        <Route path="/register/error" component={notUser} />
-                        <Route path="*" component={NoMatch} />
-                    </Switch>
-                </div>
+                    </Col>
+                </Row>
+                </Grid>
             </div>
 
         )

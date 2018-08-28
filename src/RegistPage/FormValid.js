@@ -157,9 +157,9 @@ class FormValid extends Component {
                     <div id="emailWelcome"  style={{ display: this.state.main ? 'block' : 'none' }}>
                       
                         <p className="pRegist" style={{color: "#ff0019"}} >{this.state.err}</p>
-                        <div className="input-group input-group-icon">
+                        <div className="input-group input-group-icon" id="main-email">
                     <OverlayTrigger  trigger={['hover', 'focus']} placement="top" overlay={popoverE}>
-                        
+                        <div className= "icon-email">
                             <input
                                 placeholder="Email"
                                 type="text"
@@ -168,9 +168,10 @@ class FormValid extends Component {
                                 value={this.state.email}
                                 onChange={e => this.change(e)}
                             />
+                            <div className="input-icon"><i className="fa fa-envelope" /></div>
+                        </div>
                     </OverlayTrigger>                            
                             <pre id="example">example: example@tokopedia.com</pre>
-                            <div className="input-icon"><i className="fa fa-envelope" /></div>
                         </div>
                     </div>
 
@@ -178,27 +179,30 @@ class FormValid extends Component {
                         <p className="pRegist" id="validate" >{this.state.errEmpty}</p>
                         <p style={{ paddingBottom: 15, marginTop: 25, textAlign: "center" }}>What Registration Form do you want to Regist?</p>
                         <div id="interview" style={{ paddingBottom: 30 }}>
-                            <input
-                                name="formType"
-                                value="Non Operational Form"
-                                id="formType-yes"
-                                type="radio"
-                                onChange={e => this.change(e)}
-                            />  
-                        <OverlayTrigger  trigger={['hover', 'focus']} placement="left" overlay={popoverN}>                               
-                            <label id="interviewFirst" htmlFor="formType-yes">Non Operational Form</label>
-                        </OverlayTrigger>  
-                            <input
-                                name="formType"
-                                value="Operational Form"
-                                id="formType-no"
-                                type="radio"
-                                onChange={e => this.change(e)}
-                            />
-                        <OverlayTrigger  trigger={['hover', 'focus']} placement="right" overlay={popoverO}>                                                           
-                            <label id="interviewFirst" htmlFor="formType-no">Operational Form</label>
-                        </OverlayTrigger>                                
-                        
+                            <div>
+                                <input
+                                    name="formType"
+                                    value="Non Operational Form"
+                                    id="formType-yes"
+                                    type="radio"
+                                    onChange={e => this.change(e)}
+                                />  
+                                <OverlayTrigger  trigger={['hover', 'focus']} placement="left" overlay={popoverN}>                               
+                                    <label id="interviewFirst" htmlFor="formType-yes">Non Operational Form</label>
+                                </OverlayTrigger>  
+                            </div>
+                            <div>
+                                <input
+                                    name="formType"
+                                    value="Operational Form"
+                                    id="formType-no"
+                                    type="radio"
+                                    onChange={e => this.change(e)}
+                                />
+                                <OverlayTrigger  trigger={['hover', 'focus']} placement="right" overlay={popoverO}>                                                           
+                                    <label id="interviewFirst" htmlFor="formType-no">Operational Form</label>
+                                </OverlayTrigger>                                
+                            </div>
                         </div>
                     </div>
 
