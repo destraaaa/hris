@@ -50,7 +50,6 @@ input[type="radio"]+label,
 input[type="checkbox"]+label:before,
 select option,
 select {
-  /* width: 100%; */
   padding: 1em;
   line-height: 1.4;
   background-color: #f9f9f9;
@@ -88,7 +87,6 @@ input[type="radio"] {
 input[type="radio"]+label,
 select {
   display: inline-block;
-  /* width: 50%; */
   text-align: center;
   border-radius: 0;
 }
@@ -116,22 +114,6 @@ select:active {
   border-color: #64ac15;
 }
 
-/* input[type="checkbox"]+label {
-  position: relative;
-  display: block;
-  padding-left: 1.6em;
-} */
-
-/* input[type="checkbox"]+label:before {
-  position: absolute;
-  top: 0.2em;
-  left: 0;
-  display: block;
-  width: 1em;
-  height: 1em;
-  padding: 0;
-  content: "";
-} */
 
 input[type="checkbox"]+label:after {
   position: absolute;

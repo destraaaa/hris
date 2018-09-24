@@ -29,7 +29,6 @@ class FormValid extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // interview: "",
             spawn:"",
             formType: "",
             err: "",

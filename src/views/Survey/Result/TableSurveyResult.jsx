@@ -49,7 +49,7 @@ export default class Table extends Component {
                     result: tempResult,
                     tableData: tempTableData
                 })
-                var table = this.$el.DataTable(
+                this.$el.DataTable(
                     {
                         destroy: check,
                         dom: '<"buttons" B>lTfgitp',
