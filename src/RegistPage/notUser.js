@@ -13,7 +13,7 @@ class notUser extends Component {
 
                     <button 
                         type="button" 
-                        className="btn"
+                        className="btn btn-main"
                         onClick={this.direct}
                         >Back</button>
                     </div>

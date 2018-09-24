@@ -91,11 +91,11 @@ class Recruiter extends Component {
                             When you click delete the user  <strong>{rowData.name}</strong>  cannot be enter this dashboard anymore
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.handleHide}>Cancel</Button>
+                            <Button className="btn btn-main" onClick={this.handleHide}>Cancel</Button>
                             <button
                                 id="modalBtn"
                                 type="button"
-                                className="btn"
+                                className="btn btn-main"
                                 onClick={this.Delete}>Delete</button>
                         </Modal.Footer>
                 </Modal>
@@ -124,7 +124,7 @@ class Recruiter extends Component {
                                         <button
                                             id="btnDelete"
                                             type="button"
-                                            className="btn"
+                                            className="btn btn-main"
                                             onClick={e => this.onDelete(e)}>Delete</button>
                                     </div>
                                 }

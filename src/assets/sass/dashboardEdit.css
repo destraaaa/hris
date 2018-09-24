@@ -191,6 +191,11 @@
    width: 100%;
  }
 
+ .span-card{
+  left: 75px;
+  position: absolute;
+ }
+
  #modalBtn {
    background-color: rgba(255, 0, 0, 0.651)
  }

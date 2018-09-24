@@ -17,6 +17,8 @@ import './assets/css/demo.css';
 import './assets/css/pe-icon-7-stroke.css';
 import './assets/css/index.css';
 import './assets/css/datatable.css';
+import './assets/css/survey.css';
+import 'assets/css/flip.css';
 import Cookies from 'js-cookie';
 import Main from './Main';
 import Admin from './RegistPage/Admin';

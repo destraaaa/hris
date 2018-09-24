@@ -45,17 +45,18 @@ class App extends Component {
             default:
                 break;
         }
-        _notificationSystem.addNotification({
-            title: (<span data-notify="icon" className="pe-7s-smile"></span>),
-            message: (
-                <div>
-                    Welcome back <b>{name.username}</b> to HR Registration Form PT.Tokopedia
+        if (window.location.pathname === '/dashboard')
+            _notificationSystem.addNotification({
+                title: (<span data-notify="icon" className="pe-7s-smile"></span>),
+                message: (
+                    <div>
+                        Welcome back <b>{name.username}</b> to HR Registration Form PT.Tokopedia
                 </div>
-            ),
-            level: level,
-            position: "tr",
-            autoDismiss: 3,
-        });
+                ),
+                level: level,
+                position: "tr",
+                autoDismiss: 3,
+            });
     }
     componentDidUpdate(e) {
         if (window.innerWidth < 993 && e.history.location.pathname !== e.location.pathname && document.documentElement.className.indexOf('nav-open') !== -1) {
@@ -72,20 +73,20 @@ class App extends Component {
                     <div id="main-panel" className="main-panel">
                         <Header {...this.props} />
                         <div style={{marginTop:90}}>
-                        <Switch>
-                            {
-                                appRoutes.map((prop, key) => {
-                                    if (prop.redirect)
+                            <Switch>
+                                {
+                                    appRoutes.map((prop, key) => {
+                                        if (prop.redirect)
+                                            return (
+                                                <Redirect from={prop.path} to={prop.to} key={key} />
+                                            );
                                         return (
-                                            <Redirect from={prop.path} to={prop.to} key={key} />
+                                            <Route path={prop.path} component={prop.component} key={key} />
                                         );
-                                    return (
-                                        <Route path={prop.path} component={prop.component} key={key} />
-                                    );
-                                })
-                            }
-                        </Switch>
-                        <Footer />
+                                    })
+                                }
+                            </Switch>
+                            <Footer />
                         </div>
                     </div>
                 </div>

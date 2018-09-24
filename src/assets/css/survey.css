@@ -1,0 +1,154 @@
+#add-survey {
+    position: relative;
+    right: 20px;
+    bottom: 27px;
+    font-size: 95px;
+    color: #75d83a;
+    margin-right: 15px;
+    margin-top: 20px
+}
+
+#popover-positioned-bottom {
+    /* margin-top: 30px; */
+    margin-left: 32px;
+}
+
+.btn.survey-back {
+    display: block;
+    margin: 30px 15px 0 auto;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.btn.back-btn {
+    background-color: transparent !important;
+    border:2px solid #888888 !important;
+    color: #888888 !important;
+    opacity: 0.8;
+}
+
+
+.save-template {
+    background-color: #84c566 !important;
+}
+
+.btn.back-btn,
+.save-template,
+.preview-btn {
+    width: 65px;
+    height: 38px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.form-actions.btn-group{
+    width: 145px;
+}
+
+.visible {
+    visibility: visible;
+    opacity: 100;
+}
+
+.main-survey {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.form-actions.btn-group {
+    padding-right: 14px;
+}
+
+/* .form-group.className-wrap {
+    display: none;
+} */
+.other-val {
+    color: #000;
+    display: inline-block;
+    margin-left: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#form-survey {
+    margin-left: 20%;
+    margin-bottom: 15px;
+    padding-bottom: 65px;
+}
+
+.survey-button {
+    text-align: center;
+    margin-top: 42px;
+}
+
+.survey-finish {
+    padding: 15px;
+    color: #fff !important;
+    font-weight: bold;
+    background-color: #42b549 !important;
+    width: 30%;
+}
+
+/* input {
+    padding-left: 10px !important;
+} */
+
+.form-field:hover {
+    cursor: default !important;
+}
+
+.form-field {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.other-val {
+    color: #000 !important;
+    margin-left: 5px !important;
+}
+
+.className-wrap {
+    display: none !important;
+}
+
+.fb-paragraph {
+    text-align: center !important;
+}
+
+.save-template.survey-save {
+    width: 100%;
+    padding: 6px 20px !important;
+    color: #fff !important;
+    font-weight: bold;
+    background-color: #42b549 !important;
+    font-size: 19px !important;
+    /* bottom: 257px; */
+}
+
+.form-actions.btn-group.btn.survey {
+    background-color: #42b549 !important;
+    width: 92px;
+}
+
+.form-actions.btn-group.btn.survey {
+    position: absolute;
+    width: 85%;
+    right: 100px;
+    bottom: -65px;
+}
+
+.survey-label {
+    padding-left: 15px !important;
+}
+
+div#input-survey {
+    text-align: center;
+}
+
+.header-field,.paragraph-field:hover{
+    border-color: #fff !important; 
+    box-shadow: none !important;
+}

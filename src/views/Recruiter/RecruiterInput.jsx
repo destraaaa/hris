@@ -100,7 +100,7 @@ export default class RecruiterInput extends Component {
                         <button
                             id="btnInput"
                             type="button"
-                            className="btn"
+                            className="btn btn-main"
                             onClick={e => this.onSubmit(e)}
                         >ADD</button>
                         </div>

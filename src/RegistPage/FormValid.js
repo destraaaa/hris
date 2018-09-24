@@ -30,6 +30,7 @@ class FormValid extends Component {
         super(props);
         this.state = {
             // interview: "",
+            spawn:"",
             formType: "",
             err: "",
             email: "",
@@ -66,15 +67,18 @@ class FormValid extends Component {
         let isError = false;
         let check = /^.+@.+\..+$/
         const error = {
-            err:""
+            err:"",
+            spawn:""
         };
         if (!check.test(this.state.email)) {
             isError = true;
             error.err = "Email Format is Wrong";
+            error.spawn = " spawn";
         }
         if (this.state.email === "") {
-            isError = true;
+            isError = true;       
             error.err = "the column is empty, please fill the column first!!!";
+            error.spawn = " spawn";            
         }
 
         
@@ -156,7 +160,7 @@ class FormValid extends Component {
                     <h4>Registration Form  PT.Tokopedia</h4>
                     <div id="emailWelcome"  style={{ display: this.state.main ? 'block' : 'none' }}>
                       
-                        <p className="pRegist" style={{color: "#ff0019"}} >{this.state.err}</p>
+                        <p id= "validate" className={"pRegist" + this.state.spawn}>{this.state.err}</p>
                         <div className="input-group input-group-icon" id="main-email">
                     <OverlayTrigger  trigger={['hover', 'focus']} placement="top" overlay={popoverE}>
                         <div className= "icon-email">
@@ -209,12 +213,12 @@ class FormValid extends Component {
                     <div style={{ display: this.state.buttonFirst ? 'block' : 'none' }}>
                         <button
                             type="button"
-                            className="btn"
+                            className="btn btn-main"
                             onClick={e=>this.next1(e)}
                         >Next</button>
                         <button
                             type="button"
-                            className="btn"
+                            className="btn btn-main"
                             onClick={this.back1.bind(this)}
                         >Back</button>
                     </div>
@@ -223,12 +227,12 @@ class FormValid extends Component {
                     <div style={{ display: this.state.buttonSecond ? 'block' : 'none' }}>
                         <button
                             type="submit"
-                            className="btn"
+                            className=" btn btn-main"
                             onClick={e=>this.next2(e)}
                         >Next</button>
                         <button
                             type="submit"
-                            className="btn"
+                            className="btn btn-main"
                             onClick={this.back2.bind(this)}
                         >back</button>
                     </div>

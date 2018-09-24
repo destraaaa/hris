@@ -32,9 +32,9 @@ h5 {
   color: #ff0019;
 }
 
-pRegist {
-  color: #000;
-  padding-bottom: 8px;
+
+.spawn{
+  opacity: 1;
 }
 
 h4,
@@ -50,7 +50,7 @@ input[type="radio"]+label,
 input[type="checkbox"]+label:before,
 select option,
 select {
-  width: 100%;
+  /* width: 100%; */
   padding: 1em;
   line-height: 1.4;
   background-color: #f9f9f9;
@@ -81,10 +81,14 @@ input[type="radio"] {
   padding: 20px;
 }
 
+.select-input{
+  width: 50%;
+}
+
 input[type="radio"]+label,
 select {
   display: inline-block;
-  width: 50%;
+  /* width: 50%; */
   text-align: center;
   border-radius: 0;
 }
@@ -112,13 +116,13 @@ select:active {
   border-color: #64ac15;
 }
 
-input[type="checkbox"]+label {
+/* input[type="checkbox"]+label {
   position: relative;
   display: block;
   padding-left: 1.6em;
-}
+} */
 
-input[type="checkbox"]+label:before {
+/* input[type="checkbox"]+label:before {
   position: absolute;
   top: 0.2em;
   left: 0;
@@ -127,7 +131,7 @@ input[type="checkbox"]+label:before {
   height: 1em;
   padding: 0;
   content: "";
-}
+} */
 
 input[type="checkbox"]+label:after {
   position: absolute;
@@ -137,7 +141,7 @@ input[type="checkbox"]+label:after {
   color: #fff;
   opacity: 0;
   font-family: FontAwesome;
-  content: "\f00c";
+  content: "";
 }
 
 input:checked+label:after {
@@ -280,7 +284,7 @@ select option {
   padding-right: 0;
 }
 
-.btn {
+.btn-main {
   padding: 15px;
   color: #fff;
   font-weight: bold;

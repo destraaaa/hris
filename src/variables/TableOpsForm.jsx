@@ -96,7 +96,7 @@ export default class Table extends Component {
                 language: {
                     zeroRecords: "No Data found",
                     emptyTable: "there is no record",
-                    processing: "Processing...",
+                    processing: "Processing..."
                 },
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 order: [[0, "desc"]],
