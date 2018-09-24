@@ -79,14 +79,14 @@ class HeaderLinks extends Component {
                 console.log(error);
             });
 
-        if (window.parent.location.href === "http://localhost:3000/dashboard") {
+        if (window.parent.location.pathname === "/dashboard") {
             this.props.history.push("/");
         }
-        if (window.parent.location.href === "http://localhost:3000/NonOps_Form_Response") {
+        if (window.parent.location.pathname === "/NonOps_Form_Response") {
             this.props.history.push('/NonOps_Form_Response')
             Cookies.set('__filt', 'NonOps_Form_Response', { expires: 1, path: '/' })
         }
-        if (window.parent.location.href === "http://localhost:3000/Ops_Form_Response") {
+        if (window.parent.location.pathname === "/Ops_Form_Response") {
             this.props.history.push("/Ops_Form_Response");
             Cookies.set('__filt', 'Ops_Form_Response', { expires: 1, path: '/' })
         }
@@ -277,7 +277,7 @@ class HeaderLinks extends Component {
                         position: "relative",
                         right: this.state.daily !== "quarter" ? 240 : this.state.daily !== "quarter" ? 110 : this.state.quarter === "all" ? 100 : 0
                     }}>
-                        <button type="button" onClick={e => this.submit(e)} className="btn" id="navbutton">Filter</button>
+                        <button type="button" onClick={e => this.submit(e)} className="btn btn-main" id="navbutton">Filter</button>
                     </NavItem>
 
 

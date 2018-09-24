@@ -197,9 +197,13 @@ export default class Regist extends Component {
                         isError = true;
                         errors.acquaintanceNameErr = "the acquaintance Name column is empty.";
                     }
+
                     if (this.state.relationship === "" && this.checkBlur === "relationship") {
-                        isError = true;
-                        errors.relationshipErr = "the relationship column is empty.";
+                        if(!this.state.relationship === "Other")
+                       {
+                            isError = true;
+                            errors.relationshipErr = "the relationship column is empty.";
+                        }
                     }
                 }
                 if (this.state.GPA === "" && this.checkBlur === "GPA") {
@@ -208,10 +212,6 @@ export default class Regist extends Component {
                 else if (!check.test(this.state.GPA) && this.checkBlur === "GPA") {
                     isError = true;
                     errors.GPAErr = "GPA format wrong.";
-                }
-                if (this.state.temp === "" && this.state.relationship === "Other" && this.checkBlur === "relationship") {
-                    isError = true;
-                    errors.relationshipErr = "the relationship column is empty.";
                 }
                 
                 this.checkBlur = "";
@@ -323,21 +323,21 @@ export default class Regist extends Component {
     onSubmit(e) {
         e.preventDefault();
         const err = this.validate();
-        this.setState({
-            show: true
-        })
         window.scrollTo(0, 0);  
         if (!err) {         
-
+            
             if (this.state.temp === "")
-                this.setState({
-                    relationship : this.state.relationship
-                })
+            this.setState({
+                relationship : this.state.relationship
+            })
             else
-                this.setState({
-                    relationship : this.state.temp
-                })
-
+            this.setState({
+                relationship : this.state.temp
+            })
+            
+            this.setState({
+                show: true
+            })
             Cookies.remove('__intvw');
 
             const interviewee = {
@@ -570,16 +570,16 @@ export default class Regist extends Component {
                         </div>
 
                         <p className="pRegist" id="validate">{this.state.meetErr} {this.state.purposeErr}</p>
-                        <div className="input-group input-group-icon" style={{ paddingTop: 20, paddingLeft: 25, width: 520 }}>
-                            <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
-                                <select id="selectCur" name="purpose" value={this.state.purpose} onChange={e => this.change(e)} onBlur =  {e => this.onBlur(e)} style = {{border:this.state.purposeErr!==""?"1.5px solid #ff1100ad": ""}}>
+                        <div>
+                            <div className="input-group input-group-icon" style={{ paddingTop: 20, paddingLeft: 25, width: 520 }}>
+                                {/* <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}> */}
+                                {this.state.formType === "Non Operational Form"?
+                                <select id="selectCur" className="select-input" name="purpose" value={this.state.purpose} onChange={e => this.change(e)} onBlur =  {e => this.onBlur(e)} style = {{border:this.state.purposeErr!==""?"1.5px solid #ff1100ad": ""}}>
                                     <option hidden>Purpose Here*</option>
                                     <option value="Interview with HR" >Interview with HR</option>
                                     <option value="Interview with User" >Interview with User</option>
-                                </select>
-                            </div>
-                            <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none"}}>
-                                <select id="selectCur" name="purpose" value={this.state.purpose} onBlur =  {e => this.onBlur(e)} onChange={e => this.change(e)} style={{border:this.state.purposeErr!==""?"1.5px solid #ff1100ad": ""}}>
+                                </select>:
+                                <select id="selectCur" name="purpose" className="select-input" value={this.state.purpose} onBlur =  {e => this.onBlur(e)} onChange={e => this.change(e)} style={{border:this.state.purposeErr!==""?"1.5px solid #ff1100ad": ""}}>
                                     <option hidden>Purpose Here*</option>
                                     <option value="FGD and Interview (Customer Care)" >FGD and Interview (Customer Care)</option>
                                     <option value="Interview with HR" >Interview with HR</option>
@@ -588,21 +588,21 @@ export default class Regist extends Component {
                                     <option value="Test and FGD" >Test and FGD</option>
                                     <option value="Test and Interview" >Test and Interview</option>
                                     <option value="Written Test" >Written Test</option>
-
-
+                                </select>
+                                }   
+                                <select className="select-input" id="selectCur" name="meet" value={this.state.meet} onChange={e => this.change(e)} onBlur =  {e => this.onBlur(e)} style = {{border:this.state.meetErr!==""?"1.5px solid #ff1100ad": "",width:"45%"}}>
+                                    <option hidden>You would to see*</option>
+                                {
+                                    this.state.interviewers.map(el => <option value={el} key = {el}> {el} </option>)
+                                }
                                 </select>
                             </div>
-                            <select id="selectCur" name="meet" value={this.state.meet} onChange={e => this.change(e)} onBlur =  {e => this.onBlur(e)} style = {{border:this.state.meetErr!==""?"1.5px solid #ff1100ad": ""}}>
-                                <option hidden>You would to see*</option>
-                               {
-                                   this.state.interviewers.map(el => <option value={el} key = {el}> {el} </option>)
-                               }
-                            </select>
                         </div>
-                        <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}>
+                        {this.state.formType === "Non Operational Form"?
+                        <div>
                             <p className="pRegist" id="validate" >{this.state.positionErr}</p>
                             <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
-                                <select id="selectCur" name="position" value={this.state.position} onChange={e => this.change(e)} onBlur =  {e => this.onBlur(e)} style={{border:this.state.positionErr!==""?"1.5px solid #ff1100ad": ""}}>
+                                <select id="selectCur" name="position" className="select-input" value={this.state.position} onChange={e => this.change(e)} onBlur =  {e => this.onBlur(e)} style={{border:this.state.positionErr!==""?"1.5px solid #ff1100ad": ""}}>
                                     <option hidden>Position Apply*</option>
                                     <option value="Accounting" >Accounting</option>
                                     <option value="Android Developer" >Android Developer</option>
@@ -726,11 +726,11 @@ export default class Regist extends Component {
                                 </select>
                             </div>
                         </div>
-
-                        <div style={{ display: this.state.formType === "Operational Form" ? "block" : "none", position: "relative", left: 22 }}>
+                        :
+                        <div style={{position: "relative", left: 22 }}>
                             <p className="pRegist" id="validate" >{this.state.positionErr}{this.state.infoJobErr}</p>
                             <div className="input-group input-group-icon" style={{ paddingTop: 20 }}>
-                                <select id="selectCur" name="position" value={this.state.position} onBlur =  {e => this.onBlur(e)} onChange={e => this.change(e)} style = {{border:this.state.positionErr!==""?"1.5px solid #ff1100ad": ""}}>
+                                <select id="selectCur" name="position" className="select-input" value={this.state.position} onBlur =  {e => this.onBlur(e)} onChange={e => this.change(e)} style = {{border:this.state.positionErr!==""?"1.5px solid #ff1100ad": ""}}>
                                     <option hidden>Position Apply*</option>
                                     <option value="Call Center Officer" >Call Center Officer</option>
                                     <option value="Customer Care Officer" >Customer Care Officer</option>
@@ -751,12 +751,13 @@ export default class Regist extends Component {
                                 </select>
                             </div>
                         </div>
+                        }
                     </div>
 
 
                     <div className="row" >
                         <p className="pRegist" id="validate" >{this.state.acquaintancesErr}</p>
-                        <p className="pRegist" style={{ textAlign: 'center' }}>have any acquaintances in PT. Tokopedia?*</p>
+                        <p  style={{ textAlign: 'center' }}>have any acquaintances in PT. Tokopedia?*</p>
                         <div className="input-group" style={{ paddingLeft: 265}}>
                             <input
                                 name="acquaintances"
@@ -789,12 +790,12 @@ export default class Regist extends Component {
                                     onChange={e => this.change(e)}
                                     onBlur =  {e => this.onBlur(e)}
                                 />
-                                <p>Your Acquaintance name</p>
+                                <p className="pRegist">Your Acquaintance name</p>
                                 <div className="input-icon"><i className="fa fa-user" /></div>
                             </div>
 
                             <p id="validate">{this.state.relationshipErr}</p>
-                            <div className="input-group input-group-icon" style={{ paddingTop: 20, left: 150, width: 640 }}>
+                            <div className="input-group input-group-icon" style={{ paddingTop: 20, left: 215, width: 640 }}>
 
                                 <select name="relationship" value={this.state.relationship} onChange={e => this.change(e)} onBlur =  {e => this.onBlur(e)} style = {{border:this.state.relationshipErr!==""?"1.5px solid #ff1100ad": ""}} >
                                     <option hidden >Relationship with Nakama *</option>
@@ -818,15 +819,16 @@ export default class Regist extends Component {
                                     onChange={e => this.change(e)}
                                     onBlur =  {e => this.onBlur(e)}
                                 />
-                                <p>What is your relation?</p>
+                                <p  className="pRegist" style={{position: "relative", right: 50}}>What is your relation?</p>
                                 <div className="input-icon"><i className="fa fa-user-o" /></div>
                             </div>
                         </div>
 
                         <div className="row" style={{ paddingBottom: 70 }}>
                             <p className="pRegist" id="validate" >{this.state.timeErr}</p>
-                            <p className="pRegist" style={{ textAlign: 'center' }}>Scheduled time*</p>
-                            <div className="input-group" style={{ display: "flex", justifyContent: "center", marginLeft: 75 }}>
+                            <p style={{ textAlign: 'center' }}>Scheduled time*</p>
+                            <div style={{paddingLeft:15}}>
+                            <div className="input-group" style={{ display: "flex", justifyContent: "center", marginLeft: 85 }}>
                                 <div className="col-third" style={{ width: 78 }}>
                                     <input
                                         name="timeHH"
@@ -862,7 +864,7 @@ export default class Regist extends Component {
                                 </div>
                             </div>
                             <pre id="example" style={{ width: 320, position: "relative", left: 165 }}>example: 07:00 AM || 12:30 PM</pre>
-
+                            </div>
                         </div>
                     </div>
 
@@ -883,8 +885,8 @@ export default class Regist extends Component {
                         </div>
 
                         <div className= "regist-button">
-                            <button type="submit" className="btn">Finish</button>
-                            <button type="button" className="btn" onClick={this.back}>Back</button>
+                            <button type="submit" className="btn btn-main">Finish</button>
+                            <button type="button" className="btn btn-main" onClick={this.back}>Back</button>
                         </div>
                     </div>
                 </form>

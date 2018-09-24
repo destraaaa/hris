@@ -10,6 +10,7 @@ import notUser from './RegistPage/notUser';
 import FormValid from './RegistPage/FormValid';
 import Card1 from './assets/img/cardWelcome.png';
 import Card2 from './assets/img/cardRegist.png';
+import SurveyData from './views/Survey/View/SurveyData';
 import {Grid,Col,Row} from 'react-bootstrap';
 
 const NoMatch = ({ location }) => (
@@ -36,11 +37,12 @@ class Main extends Component {
                         <img src={require('./assets/img/logo1.png')} alt="logo" id="logoIn" draggable="false"/>
                     </div>
                     <div className= "containerRegist-wrapper">
-                        <div className="containerRegist" style={{backgroundImage: window.parent.location.href === "http://localhost:3000/register/form"?`url(${Card2})`:`url(${Card1})`}}>
+                        <div className="containerRegist" style={{backgroundImage: window.parent.location.pathname === "/register/form"|| window.parent.location.pathname === "register/survey"?`url(${Card2})`:`url(${Card1})`}}>
                             <Switch>
                                 <Route exact path="/register" component={Welcome} />
                                 <Route path="/register/form" component={Form} />
-                                <Route path="/register/welcome" component={FormValid} />                        
+                                <Route path="/register/welcome" component={FormValid} />
+                                <Route path="/register/survey" component={SurveyData} />                                                       
                                 <Route path="/register/error" component={notUser} />
                                 <Route path="*" component={NoMatch} />
                             </Switch>

@@ -467,7 +467,7 @@ class Dashboard extends Component {
                                 content={
 
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        <span>&nbsp; School Show</span>
+                                        <span className= "span-card">&nbsp; School Show</span>
                                         <select name="schoolF" id="schoolDash" value={this.state.schoolF} onChange={e => this.change(e)}>
                                             <option value="all" disabled>-</option>
                                             <option value="5">Top 5</option>
@@ -517,7 +517,7 @@ class Dashboard extends Component {
                                 stats="Position Selection Data"
                                 content={
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        <span>&nbsp; Position Show</span>
+                                        <span className="span-card">&nbsp; Position Show</span>
                                         <select name="positionF" id="schoolDash" value={this.state.positionF} onChange={e => this.change(e)}>
                                             <option value="all" disabled>-</option>  
                                             <option value="1">TOP 25</option>                                                                    

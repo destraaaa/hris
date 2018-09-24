@@ -14,7 +14,7 @@ class Main extends Component {
                             <Link to="/register/welcome">
                             <button
                                 type="button"
-                                className="btn"
+                                className="btn btn-main"
                                 id= "btnWelcome"
                             >continue</button></Link>
                     </div>
