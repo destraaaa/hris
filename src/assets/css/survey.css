@@ -48,6 +48,11 @@
     width: 145px;
 }
 
+.input-search{
+    display: table;
+    margin: 15px auto;
+}
+
 .visible {
     visibility: visible;
     opacity: 100;

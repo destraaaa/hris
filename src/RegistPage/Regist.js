@@ -572,7 +572,6 @@ export default class Regist extends Component {
                         <p className="pRegist" id="validate">{this.state.meetErr} {this.state.purposeErr}</p>
                         <div>
                             <div className="input-group input-group-icon" style={{ paddingTop: 20, paddingLeft: 25, width: 520 }}>
-                                {/* <div style={{ display: this.state.formType === "Non Operational Form" ? "block" : "none" }}> */}
                                 {this.state.formType === "Non Operational Form"?
                                 <select id="selectCur" className="select-input" name="purpose" value={this.state.purpose} onChange={e => this.change(e)} onBlur =  {e => this.onBlur(e)} style = {{border:this.state.purposeErr!==""?"1.5px solid #ff1100ad": ""}}>
                                     <option hidden>Purpose Here*</option>

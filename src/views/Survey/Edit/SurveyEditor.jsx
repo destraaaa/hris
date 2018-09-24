@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { preview } from '../Preview/SurveyAction';
+// import { preview } from '../Preview/SurveyAction';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Modal, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 window.jQuery = $;
 window.$ = $;
@@ -20,7 +20,7 @@ export default class SurveyEditor extends Component {
         this.state = {
             show: false,
             name: "",
-            prevPath:""
+            prevPath: ""
         }
     }
 
@@ -44,7 +44,7 @@ export default class SurveyEditor extends Component {
         $(".main-card").addClass("hidden");
         axios.get(`http://0.0.0.0:8080/survey/form/view/${id}`).then(res => {
             $(document).ready(function () {
-                $(".radio-inline > label").addClass('survey-label');        
+                $(".radio-inline > label").addClass('survey-label');
             });
 
             this.setState({
@@ -66,18 +66,19 @@ export default class SurveyEditor extends Component {
                 },
                 editOnAdd: true,
                 actionButtons: [
-                {
-                    id: 'back',
-                    className: 'btn back-btn',
-                    label: 'Back',
-                    type: 'button',
-                    events: {
-                        click: ({ history }) => {
-                            $(".main-card").removeClass("hidden");
-                            this.props.history.goBack();
+                    {
+                        id: 'back',
+                        className: 'btn back-btn',
+                        label: 'Back',
+                        type: 'button',
+                        events: {
+                            click: ({ history }) => {
+                                $(".main-card").removeClass("hidden");
+                                window.location.href = "/survey";
+                                // this.props.history.goBack();
+                            }
                         }
-                    }
-                },
+                    },
                 ],
                 disableFields: ['hidden', 'file', 'button'],
                 disabledAttrs: [
@@ -109,7 +110,6 @@ export default class SurveyEditor extends Component {
 
                     data.forEach(element => {
                         if (element.type === "header" || element.type === "paragraph") {
-                            console.log("not question")
                         }
                         else {
                             question.push(element.label)
@@ -120,14 +120,10 @@ export default class SurveyEditor extends Component {
                     let name;
                     if (this.props.surveyName !== "") {
                         name = this.props.surveyName
-                        console.log("props")
                     }
                     else {
                         name = this.state.name
-                        console.log("state")
-
                     }
-                    console.log("name", name)
                     var form = {
                         schemaId: id,
                         schemaName: name,
@@ -136,7 +132,6 @@ export default class SurveyEditor extends Component {
                         questions: question
                     }
 
-                    console.log("id", form)
                     var config = {
                         method: 'POST',
                         url: 'http://0.0.0.0:8080/survey/form/save',

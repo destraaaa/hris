@@ -28,13 +28,13 @@ export default class SurveyInput extends Component {
             lastId: 0,
             show: false,
             name: "",
-            err: "",
-            spawn: "",
             finish:false
         }
+        var filterSurvey = [];
         this.onAdd = this.onAdd.bind(this);
         this.handleHide = this.handleHide.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
         this.cardToggle = this.cardToggle.bind(this);
     }
 
@@ -49,14 +49,16 @@ export default class SurveyInput extends Component {
             let tempSchema
             if (!$.isEmptyObject(res.data.ids)) {
                 res.data.ids.forEach(element => {
-                    if (element.userId === currentId) {
+                    // if (element.userId === currentId) {
                         tempSchema = {
                             id: element.schemaId,
                             name: element.schemaName,
                         }
                         schema.push(tempSchema)
-                    }
+                    // }
                 });
+
+                this.filterSurvey = schema
                 this.setState({
                     surveySchema: schema,
                     lastId: res.data.lastId + 1
@@ -75,7 +77,6 @@ export default class SurveyInput extends Component {
                     lastId: lastId
                 })
             }
-            console.log(this.state.surveySchema)
         })
     }
 
@@ -101,13 +102,25 @@ export default class SurveyInput extends Component {
 
     handleHide() {
         this.state.surveySchema.pop();
-        this.setState({ show: false, err:"" });
     }
 
 
     cardToggle() {
             this.setState({ show: false, finish:true });
     }
+
+    handleSearch(e){
+        var searchQuery = e.target.value.toLowerCase();
+        var displayedSurvey = this.filterSurvey.filter(function(el) {
+            var searchValue = el.name.toLowerCase();
+            
+            return searchValue.indexOf(searchQuery) > -1;
+        });
+                   
+        this.setState({
+            surveySchema: displayedSurvey
+        });
+      }
 
     render() {
         return (
@@ -143,7 +156,9 @@ export default class SurveyInput extends Component {
                             </Link>
                         </Modal.Footer>
                     </Modal>
+
                     <div className="main-card">
+                    <input className= "input-search" type="text" onChange={e=>this.handleSearch(e)} placeholder="Search..."/>
                         <div className="Cards">
                             {
                                 this.state.surveySchema.map((el) =>
