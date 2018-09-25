@@ -102,6 +102,7 @@ export default class SurveyInput extends Component {
 
     handleHide() {
         this.state.surveySchema.pop();
+        this.setState({ show: false});
     }
 
 
@@ -138,7 +139,6 @@ export default class SurveyInput extends Component {
                         </Modal.Header>
                         <Modal.Body>
                             <div id="input-survey">
-                                <p id="validate" className={this.state.spawn}>{this.state.err}</p>
                                 <input
                                     type="text"
                                     value={this.state.name}

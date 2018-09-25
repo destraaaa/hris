@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
-import imagine from 'assets/img/Tokopedia-Regist.jpg';
+import image from 'assets/img/Tokopedia-Regist.jpg';
 import logo from 'assets/img/logo1.png';
 
 import appRoutes from 'routes/app.jsx';
@@ -27,10 +27,10 @@ class Sidebar extends Component{
     }
     render(){
         const sidebarBackground = {
-            backgroundImage: 'url(' + imagine + ')'
+            backgroundImage: 'url(' + image + ')'
         };
         return (
-            <div id="sidebar" className="sidebar" data-color="black" data-image={imagine}>
+            <div id="sidebar" className="sidebar" data-color="black" data-image={image}>
                 <div className="sidebar-background" style={sidebarBackground}></div>
                     <div className="logo" style={{paddingBottom:75,backgroundColor:"rgba(100, 100, 100,0.5)"}}>
                         <a href="https://www.tokopedia.com" target="_blank" rel="noopener noreferrer" className="simple-text logo-mini" >

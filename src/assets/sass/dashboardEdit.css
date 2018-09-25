@@ -8,11 +8,28 @@
    font-weight: 200;
    background-size: cover;
    background-position: center center;
+   background-attachment: fixed;
  }
 
  .sidebar .nav {
    margin-top: 20px;
  }
+
+ ul.nav.navbar-nav{
+   float: right;
+ }
+ 
+ #profil-picture{
+  position: relative;
+  bottom: 3px;
+  right: 8px;
+  border-radius: 50%;
+  -webkit-user-drag: none;
+}
+#basic-nav-dropdown{
+  position: relative;
+  bottom: 8px;
+}
 
  .sidebar .nav li>a {
    color: #FFFFFF;
@@ -78,7 +95,9 @@
  }
 
  .main-panel {
-   background-image: url("../img/sidebar-3.jpg");
+   background-image: url("../img/Tokopedia-Regist.jpg");
+   background-attachment: fixed;
+   background-repeat: no-repeat;
    background-size: cover;
    background-position: center;
    float: right;
@@ -220,9 +239,9 @@
    }
  }
 
- .navRight {
-   width: 495px;
- }
+ /* .navRight {
+   width: 40%;
+ } */
 
  @media only screen and (max-width:1600px) {
    .card .ct-chart {
@@ -232,11 +251,11 @@
  }
 
  @media only screen and (max-width:1350px) {
-   .navRight {
+   /* .navRight {
      position: relative;
      bottom: 80px;
      width: 510px;
-   }
+   } */
    li.nameRight>a {
      visibility: hidden;
    }
@@ -250,11 +269,11 @@
      margin: 30px 0 30px;
      height: 365px;
    }
-   .navRight {
+   /* .navRight {
      position: relative;
      bottom: 80px;
      width: 450px;
-   }
+   } */
  }
 
  #emailRecruiter {
@@ -272,11 +291,11 @@
      margin: 30px 0 30px;
      height: 225px;
    }
-   .navRight {
+   /* .navRight {
      position: relative;
      bottom: 80px;
      width: 430px;
-   }
+   } */
  }
 
  @media only screen and (max-width:990px) {

@@ -72,7 +72,7 @@ class App extends Component {
                     <Sidebar {...this.props} />
                     <div id="main-panel" className="main-panel">
                         <Header {...this.props} />
-                        <div style={{marginTop:90}}>
+                        <div style={{ marginTop: 90 }}>
                             <Switch>
                                 {
                                     appRoutes.map((prop, key) => {
@@ -86,10 +86,10 @@ class App extends Component {
                                     })
                                 }
                             </Switch>
-                            <Footer />
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }

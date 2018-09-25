@@ -29,6 +29,7 @@ const responseGoogle = (response) => {
                     let inputId = user.id[i]
                     Cookies.set('__hrid', token, {expires: 1, path:'/'})
                     Cookies.set('__hrnu', response.profileObj.name, {expires: 1, path: '/'})   
+                    Cookies.set('__hrui', response.profileObj.imageUrl, {expires: 1, path: '/'})   
                     Cookies.set('__hrni', inputId, {expires: 1, path: '/'})  
                     window.location.href = '/dashboard';                       
                 }

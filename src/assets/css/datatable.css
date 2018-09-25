@@ -15,7 +15,7 @@ table.dataTable {
   font-size: 13.5px;
   font-family: "Comic Sans MS", cursive, sans-serif;
   border-radius: 6px;
-  padding: 10px 20px 10px 50px;  
+  padding: 10px 20px 10px 50px;
 }
 
 .notifError {
@@ -24,7 +24,7 @@ table.dataTable {
   font-weight: bold;
   font-family: "Comic Sans MS", cursive, sans-serif;
   border-radius: 6px;
-  padding: 10px 20px 10px 50px;  
+  padding: 10px 20px 10px 50px;
 }
 
 table.dataTable thead th,
@@ -561,7 +561,7 @@ table.dataTable td {
   text-align: center;
 }
 
-#opsTableProgressBtn {
+.opsTableProgressBtn {
   width: 130px;
 }
 
@@ -589,7 +589,11 @@ button.dt-button.active {
   background: linear-gradient(50deg, rgba(199, 20, 20, 0), rgba(0, 238, 255, 0.397))
 }
 
-#nonTableProgressBtn {
+.nonTableProgressBtn {
+  width: 195px;
+}
+
+.progress-col {
   width: 195px;
 }
 
@@ -611,22 +615,26 @@ button.dt-button.active {
 }
 
 @media screen and (max-width: 767px) {
+
   .dataTables_wrapper .dataTables_info,
   .dataTables_wrapper .dataTables_paginate {
     float: none;
     text-align: center;
   }
+
   .dataTables_wrapper .dataTables_paginate {
     margin-top: 0.5em;
   }
 }
 
 @media screen and (max-width: 640px) {
+
   .dataTables_wrapper .dataTables_length,
   .dataTables_wrapper .dataTables_filter {
     float: none;
     text-align: center;
   }
+
   .dataTables_wrapper .dataTables_filter {
     margin-top: 0.5em;
   }
