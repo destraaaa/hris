@@ -14,6 +14,7 @@ var dataRow = {
     updatedDate: null,
     pic: "",
 }
+var check = false
 
 export default class Table extends Component {
     data(check) {
@@ -32,7 +33,7 @@ export default class Table extends Component {
                         targets: 4,
                         data: 'statProgress',
                         render(data, type, row, meta) {
-                            return '<select name= "progress" id="opsTableProgressBtn">' +
+                            return '<select name= "progress" class="opsTableProgressBtn">' +
                                 '<option style = "color:#8e8e8e" selected disabled>' + row.statProgress + '</option>' +
                                 '<option value=2>REJECT</option>' +
                                 '<option value=3>APPROVED</option>' +
@@ -47,9 +48,13 @@ export default class Table extends Component {
                     }
                 ],
                 rowCallback(row, data, index) {
-                    $('#opsTableProgressBtn', row).click(function () {
+                    $('.opsTableProgressBtn', row).click(function () {
                         dataRow.progress = parseInt(($('select', row).val()), 10);
+                        check = true;
                     });
+                    $(row).click(function () {
+                        dataRow.id = parseInt(($(".sorting_1", row).text()), 10);
+                    })
                 },
                 createdRow(row, data, dataIndex) {
                     if (data.statProgress === "REJECT") {
@@ -140,65 +145,62 @@ export default class Table extends Component {
         )
 
         this.$el.on('click', 'tr', function () {
-            let pos = table.row(this).index();
-            let row = table.row(pos).data();
             if ($(this).hasClass('selected')) {
                 $(this).toggleClass('selected');
-                if (dataRow.progress !== null) {
-                    dataRow.id = row.id;
-                    dataRow.updatedDate = moment();
-                    dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
-
-                    var authOptions = {
-                        method: 'POST',
-                        url: 'http://0.0.0.0:8080/form/update',
-                        data: JSON.stringify(dataRow),
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        json: true
-                    };
-                    axios(authOptions)
-                        .then(function (response) {
-                            toast.success("Ops Form name " + row.fullName + " has been changed!!!", {
-                                position: "top-right",
-                                autoClose: 4000,
-                                hideProgressBar: true,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                className: "notifSuccess"
-                            });
-                            dataRow.progress = null;
-                            table.ajax.reload();
-                        })
-                        .catch(function (error) {
-                            toast.error("We're sorry something wrong data hasn't been changed!!!", {
-                                position: "top-right",
-                                autoClose: 6000,
-                                hideProgressBar: true,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                className: "notifError"
-                            });
-                        });
-                }
             }
             else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                if (dataRow.progress !== null) {
-                    toast.error("Ops Form name " + row.fullName + " has not been changed!!!", {
-                        position: "top-right",
-                        autoClose: 6000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        className: "notifError"
-                    });
-                }
-                dataRow.progress = null;
             }
-        });
+
+            if (check && !(isNaN(dataRow.progress))) {
+                let pos = table.row(this).index();
+                let row = table.row(pos).data();
+
+                dataRow.updatedDate = moment();
+                dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
+                check = false
+                console.log("masuk", dataRow)
+
+                var authOptions = {
+                    method: 'POST',
+                    url: 'http://0.0.0.0:8080/form/update',
+                    data: JSON.stringify(dataRow),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    json: true
+                };
+                axios(authOptions)
+                    .then(function (response) {
+                        toast.success("NonOps Form name " + row.fullName + " has been changed!!!", {
+                            position: "top-right",
+                            autoClose: 4000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            className: "notifSuccess"
+                        });
+                        dataRow.progress = null;
+                        table.ajax.reload();
+                    })
+                    .catch(function (error) {
+                        toast.error("We're sorry something wrong data hasn't been changed!!!", {
+                            position: "top-right",
+                            autoClose: 6000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            className: "notifError"
+                        });
+                    });
+            }
+        })
+
+        setInterval(() => {
+            table.ajax.reload();
+        }, 120000)
+
     }
 
     componentDidUpdate() {
@@ -233,8 +235,8 @@ export default class Table extends Component {
                             <th className="big-col">Fullname</th>
                             <th id="email-col">Email</th>
                             <th className="big-col">Timestamp</th>
-                            <th id="nonTableProgressBtn">Progress</th>
-                            <th id="nonTableProgressBtn">Progress</th>
+                            <th className="progress-col">Progress</th>
+                            <th className="progress-col">Progress</th>
                             <th className="big-col">LastUpdated</th>
                             <th className="big-col">Nickname</th>
                             <th className="big-col">PhoneNumber</th>
