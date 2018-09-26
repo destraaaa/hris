@@ -13,7 +13,7 @@ var dataRow = {
     updatedDate: null,
     pic: "",
 }
-var check = false
+var selectCheck = false
 
 export default class Table extends Component {
     data(check) {
@@ -60,7 +60,7 @@ export default class Table extends Component {
                 rowCallback(row, data, index) {
                     $('.nonTableProgressBtn', row).click(function () {
                         dataRow.progress = parseInt(($('select', row).val()), 10);
-                        check = true;
+                        selectCheck = true;
                     });
                     $(row).click(function () {
                         dataRow.id = parseInt(($(".sorting_1", row).text()), 10);
@@ -186,13 +186,13 @@ export default class Table extends Component {
                 $(this).addClass('selected');
             }
 
-            if (check && !(isNaN(dataRow.progress))) {
+            if (selectCheck && !(isNaN(dataRow.progress))) {
                 let pos = table.row(this).index();
                 let row = table.row(pos).data();
 
                 dataRow.updatedDate = moment();
                 dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
-                check = false
+                selectCheck = false
                 console.log("masuk", dataRow)
 
                 var authOptions = {

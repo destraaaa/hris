@@ -8,7 +8,6 @@ import {
     Switch
 
 } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import SurveyEditor from './Edit/SurveyEditor';
 import SurveyResult from './Result/TableSurveyResult';
 import CardFlip from 'components/CardFlip/CardFlip';
@@ -30,7 +29,7 @@ export default class SurveyInput extends Component {
             name: "",
             finish:false
         }
-        var filterSurvey = [];
+        // var filterSurvey = [];
         this.onAdd = this.onAdd.bind(this);
         this.handleHide = this.handleHide.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -44,7 +43,7 @@ export default class SurveyInput extends Component {
 
     viewData() {
         axios.get("http://0.0.0.0:8080/survey/form/view").then(res => {
-            let currentId = Cookies.get('__hrni')
+            // let currentId = Cookies.get('__hrni')
             let schema = []
             let tempSchema
             if (!$.isEmptyObject(res.data.ids)) {

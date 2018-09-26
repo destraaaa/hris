@@ -437,7 +437,7 @@ label {
   position: relative;
   bottom: 13px;
   font-size: 13.5px;
-  width: 95px;
+  width: 100px;
 }
 
 .containerRegist-wrapper {
@@ -456,7 +456,12 @@ label {
   position: relative;
   bottom: 13px;
   font-size: 13.5px;
-  width: 73px;
+  width: 120px;
+}
+
+#navbarM {
+  position: relative;
+  right: 150px;
 }
 
 #navbutton {
@@ -532,6 +537,9 @@ label {
   }
 }
 @media only screen and (max-Width:990px) {
+  .filter{
+    visibility: hidden;
+  }
   #navbutton {
     position: relative;
     bottom: 0px;
