@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import HeaderLinks from './HeaderLinks.jsx';
 import appRoutes from 'routes/app.jsx';
+import Filter from './Filter';
 
 const $ = require('jquery');
 
@@ -15,23 +16,23 @@ class Header extends Component {
     }
 
     componentDidMount() {
-        $(".navbar-container").css("width",this.sizeHandle());        
+        $(".navbar-container").css("width", this.sizeHandle());
         $(window).resize(function () {
             let widthNavbar = ($(window).width()) - 258
             if ($(window).width() >= 990) {
                 $(".navbar-container").width(widthNavbar);
             }
-            else{
-                $(".navbar-container").css("width","100%");
+            else {
+                $(".navbar-container").css("width", "100%");
             }
         });
     }
 
-    sizeHandle(){
+    sizeHandle() {
         if ($(window).width() >= 990) {
             return window.innerWidth - 260
         }
-        else{
+        else {
             return "100%"
         }
     }
@@ -80,7 +81,7 @@ class Header extends Component {
     }
     render() {
         return (
-            
+
             <Navbar fluid style={{ zIndex: 999, position: "fixed" }} className="navbar-container">
                 <Navbar.Header style={{ marginLeft: 20 }}>
                     <Navbar.Brand pullLeft>
@@ -90,6 +91,7 @@ class Header extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <HeaderLinks />
+                        {['/Recruiter', '/Survey'].indexOf(window.location.pathname) === -1 ? <Filter /> : ""}
                 </Navbar.Collapse>
             </Navbar>
         );

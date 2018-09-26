@@ -15,21 +15,22 @@
    margin-top: 20px;
  }
 
- ul.nav.navbar-nav{
+ ul.nav.navbar-nav {
    float: right;
  }
- 
- #profil-picture{
-  position: relative;
-  bottom: 3px;
-  right: 8px;
-  border-radius: 50%;
-  -webkit-user-drag: none;
-}
-#basic-nav-dropdown{
-  position: relative;
-  bottom: 8px;
-}
+
+ #profil-picture {
+   position: relative;
+   bottom: 3px;
+   right: 8px;
+   border-radius: 50%;
+   -webkit-user-drag: none;
+ }
+
+ #basic-nav-dropdown {
+   position: relative;
+   bottom: 8px;
+ }
 
  .sidebar .nav li>a {
    color: #FFFFFF;
@@ -103,6 +104,52 @@
    float: right;
  }
 
+ .filter-col {
+   float: left !important;
+ }
+
+ .filter-container {
+   display: none;
+   background-color: rgba(255, 255, 255, 0.96);
+   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+   z-index: 999;
+   position: fixed;
+   top: 50px;
+   left: 260px;
+   width: 100%;
+   height: 65px;
+ }
+
+ .filter-icon {
+   color: #42b549;
+   font-size: 22px;
+ }
+
+ .filter-icon:hover{
+  color: #47851f;
+ }
+
+ .filter-spawn {
+   position: relative;
+   right: 30px;
+   bottom: 5px;
+   font-family: Alef;
+   font-size: 18px;
+   color: #7d7d7d;
+   opacity: 0;
+   cursor: default;
+ }
+
+ .fill-spawn {
+   opacity: 1;
+ }
+
+ .btn-filter {
+   position: relative;
+   bottom: 6px;
+   border: none;
+ }
+
  .card .ct-chart {
    margin: 30px 0 30px;
    height: 325px;
@@ -122,7 +169,7 @@
  }
 
  .abcRioButtonContentWrapper {
-   background-color: rgb( 60, 186, 84);
+   background-color: rgb(60, 186, 84);
    color: white
  }
 
@@ -180,7 +227,7 @@
  }
 
  .navbar-default {
-   background-color: rgba(255, 255, 255, 0.96);
+   background-color: #f4f4f4;
    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
  }
 
@@ -210,9 +257,9 @@
    width: 100%;
  }
 
- .span-card{
-  left: 75px;
-  position: absolute;
+ .span-card {
+   left: 75px;
+   position: absolute;
  }
 
  #modalBtn {
@@ -251,6 +298,7 @@
  }
 
  @media only screen and (max-width:1350px) {
+
    /* .navRight {
      position: relative;
      bottom: 80px;
@@ -259,6 +307,7 @@
    li.nameRight>a {
      visibility: hidden;
    }
+
    #recruiter {
      overflow-x: auto;
    }
@@ -269,6 +318,7 @@
      margin: 30px 0 30px;
      height: 365px;
    }
+
    /* .navRight {
      position: relative;
      bottom: 80px;
@@ -291,6 +341,7 @@
      margin: 30px 0 30px;
      height: 225px;
    }
+
    /* .navRight {
      position: relative;
      bottom: 80px;
@@ -298,34 +349,39 @@
    } */
  }
 
- @media only screen and (max-width:990px) {
+ @media only screen and (max-width:990px) {  
    .card .ct-chart {
      margin: 30px 0 30px;
      height: 625px;
    }
+
    .navbar-header {
      width: 900px;
    }
+
    #btnInput {
      right: 70%;
      bottom: 55px;
    }
+
    #btnDelete {
      right: 80px;
      bottom: 55px;
    }
+
    #nameRecruiter {
      width: 310px;
      padding-right: 130px;
      margin-left: 20px;
    }
+
    #iconRecruiter {
      left: 330px;
    }
  }
 
- .RcsvButton:hover{
-  color: rgba(2, 128, 2, 0.952);   
+ .RcsvButton:hover {
+   color: rgba(2, 128, 2, 0.952);
  }
 
  @media only screen and (max-width:900px) {
@@ -345,19 +401,23 @@
      margin: 30px 0 30px;
      height: 425px;
    }
+
    .navbar-header {
      width: 650px;
    }
+
    #btnInput {
      position: absolute;
      bottom: -10px;
      left: 110px;
    }
+
    #btnDelete {
      position: absolute;
      bottom: 15px;
      left: 75%;
    }
+
    #nameRecruiter {
      width: 310px;
      padding-right: 130px;
@@ -365,6 +425,7 @@
      position: absolute;
      left: 310px;
    }
+
    #iconRecruiter {
      left: 330px;
    }
@@ -374,11 +435,13 @@
    .navbar-header {
      width: 550px;
    }
+
    .csvButton {
      position: relative;
      top: 0;
      left: 30%;
    }
+
    .RcsvButton {
      position: relative;
      top: 0;
@@ -391,6 +454,7 @@
      margin: 30px 0 30px;
      height: 285px;
    }
+
    .navbar-header {
      width: 450px;
    }
@@ -406,6 +470,7 @@
    .navbar-header {
      width: 350px;
    }
+
    #btnDelete {
      position: absolute;
      bottom: -8px;

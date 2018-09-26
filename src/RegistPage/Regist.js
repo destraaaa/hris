@@ -818,7 +818,7 @@ export default class Regist extends Component {
                                     onChange={e => this.change(e)}
                                     onBlur =  {e => this.onBlur(e)}
                                 />
-                                <p  className="pRegist" style={{position: "relative", right: 50}}>What is your relation?</p>
+                                <p  className="pRegist">What is your relation?</p>
                                 <div className="input-icon"><i className="fa fa-user-o" /></div>
                             </div>
                         </div>

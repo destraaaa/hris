@@ -14,7 +14,7 @@ var dataRow = {
     updatedDate: null,
     pic: "",
 }
-var check = false
+var selectCheck = false
 
 export default class Table extends Component {
     data(check) {
@@ -50,7 +50,7 @@ export default class Table extends Component {
                 rowCallback(row, data, index) {
                     $('.opsTableProgressBtn', row).click(function () {
                         dataRow.progress = parseInt(($('select', row).val()), 10);
-                        check = true;
+                        selectCheck = true;
                     });
                     $(row).click(function () {
                         dataRow.id = parseInt(($(".sorting_1", row).text()), 10);
@@ -153,13 +153,13 @@ export default class Table extends Component {
                 $(this).addClass('selected');
             }
 
-            if (check && !(isNaN(dataRow.progress))) {
+            if (selectCheck && !(isNaN(dataRow.progress))) {
                 let pos = table.row(this).index();
                 let row = table.row(pos).data();
 
                 dataRow.updatedDate = moment();
                 dataRow.pic = parseInt((Cookies.get('__hrni')), 10);
-                check = false
+                selectCheck = false
                 console.log("masuk", dataRow)
 
                 var authOptions = {
@@ -220,38 +220,41 @@ export default class Table extends Component {
 
     render() {
         return (
-            <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
-                <ToastContainer
-                    position="top-right"
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                />
-                <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
-                    <thead>
-                        <tr>
-                            <th id="id-col">Id</th>
-                            <th className="big-col">Fullname</th>
-                            <th id="email-col">Email</th>
-                            <th className="big-col">Timestamp</th>
-                            <th className="progress-col">Progress</th>
-                            <th className="progress-col">Progress</th>
-                            <th className="big-col">LastUpdated</th>
-                            <th className="big-col">Nickname</th>
-                            <th className="big-col">PhoneNumber</th>
-                            <th className="big-col">School</th>
-                            <th className="big-col">PurposeCandidate</th>
-                            <th className="big-col">ContactPerson</th>
-                            <th className="big-col">Position</th>
-                            <th className="big-col">TimeSchedule</th>
-                            <th className="big-col">JobInfo</th>
-                            <th className="big-col">Acquaintance</th>
-                            <th className="big-col">Relationship</th>
-                            <th className="big-col">ReferralName</th>
-                        </tr>
-                    </thead>
-                </table>
+            <div>
+                <div style={{ minWidth: 700, paddingLeft: 40, marginRight: 40 }}>
+                    <ToastContainer
+                        position="top-right"
+                        hideProgressBar
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                    />
+                    <table className="display" id="big-table" width="100%" ref={el => this.el = el}>
+                        <thead>
+                            <tr>
+                                <th id="id-col">Id</th>
+                                <th className="big-col">Fullname</th>
+                                <th id="email-col">Email</th>
+                                <th className="big-col">Timestamp</th>
+                                <th className="progress-col">Progress</th>
+                                <th className="progress-col">Progress</th>
+                                <th className="big-col">LastUpdated</th>
+                                <th className="big-col">Nickname</th>
+                                <th className="big-col">PhoneNumber</th>
+                                <th className="big-col">School</th>
+                                <th className="big-col">PurposeCandidate</th>
+                                <th className="big-col">ContactPerson</th>
+                                <th className="big-col">Position</th>
+                                <th className="big-col">TimeSchedule</th>
+                                <th className="big-col">JobInfo</th>
+                                <th className="big-col">Acquaintance</th>
+                                <th className="big-col">Relationship</th>
+                                <th className="big-col">ReferralName</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                {/* <textarea name="comment" id="commentOps" cols="133.5" rows="15"></textarea> */}
             </div>
         )
     }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { NavItem, Nav, Popover, OverlayTrigger, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import Filter from './Filter';
 
 var user = {
     name: Cookies.get("__hrnu"),
@@ -45,17 +44,15 @@ class HeaderLinks extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{ textAlign: "center" }}>
                 <Nav>
                     <NavDropdown eventKey={1} title={
-                        <span><img id="profil-picture" src={user.image} alt="profil picture" width="40" />{user.name}</span>
+                        <span><img aria-hidden id="profil-picture" src={user.image} alt="profil picture" width="40" />{user.name}</span>
                     } id="basic-nav-dropdown">
                         {/* <MenuItem divider /> */}
                         <MenuItem eventKey={1.1} onClick={this.logOut}>Log out</MenuItem>
                     </NavDropdown>
-                </Nav>
-                <Filter />
-
+                </Nav>   
             </div >
         );
     }
