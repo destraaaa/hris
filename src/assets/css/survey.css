@@ -3,9 +3,10 @@
     right: 20px;
     bottom: 27px;
     font-size: 95px;
-    color: #75d83a;
+    color: #ff0026c7;
     margin-right: 15px;
-    margin-top: 20px
+    margin-top: 20px;
+    text-shadow: 0px 2px 8px #283891;
 }
 
 #popover-positioned-bottom {

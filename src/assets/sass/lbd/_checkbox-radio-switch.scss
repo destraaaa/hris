@@ -16,7 +16,6 @@
 .checkbox label::before,
 .checkbox label::after{
   font-family: 'FontAwesome';
-  content: "\f096";
   display: inline-block;
   position: absolute;
   width: 20px;
@@ -43,13 +42,13 @@
 
 .checkbox input[type="checkbox"],
 .radio input[type="radio"] {
-  opacity: 0;
+  opacity: 1;
   margin-left: 0;
 }
 
 .checkbox input[type="checkbox"]:checked + label::after{
     font-family: 'FontAwesome';
-    content: "\f046";
+    content: "";
 }
 
 .checkbox input[type="checkbox"]:checked + label::after{
@@ -131,7 +130,6 @@
 .radio label::before,
 .radio label::after {
   font-family: 'FontAwesome';
-  content: "\f10c";
   font-size: 20px;
   height: 20px;
   width: 20px;
@@ -149,7 +147,6 @@
 
 .radio input[type="radio"]:checked + label::after {
     font-family: 'FontAwesome';
-    content: "\f192";
     color: $medium-gray;
 }
 

@@ -27,7 +27,7 @@ class Main extends Component {
 
         document.title = "PT.Tokopedia - Registration Form"
         return (
-            <div>
+            <div className="register-background">
             
                 <Grid>
                 <Row className="show-grid">
